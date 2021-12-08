@@ -17,15 +17,17 @@
 #include <util/delay.h>
 #include <avr/wdt.h> //подключаем библиотеку для работы со сторожевым 
 
-#include "my_lib/adc.h"
-#include "my_lib/relay.h"
-#include "my_lib/pt6964.h"
+//#include "my_lib/adc.h"
+//#include "my_lib/relay.h"
+//#include "my_lib/pt6964.h"
 #include "my_lib/timers.h"
 #include "my_lib/usart.h"
-#include "my_lib/eep.h"
-#include "my_lib/hef4052.h"
-#include "my_lib/line_chacker.h"
-#include "my_lib/charge.h"
+//#include "my_lib/eep.h"
+//#include "my_lib/hef4052.h"
+//#include "my_lib/line_chacker.h"
+//#include "my_lib/charge.h"
+
+#include "my_lib/i2c.h"
 //-----------------------------------------------------------------------------
 #define PRIORITY_5	5
 #define PRIORITY_4	4

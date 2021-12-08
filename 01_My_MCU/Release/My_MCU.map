@@ -7,7 +7,7 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
                               my_lib/relay.o (__tablejump2__)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
-                              main.o (__do_copy_data)
+                              my_lib/i2c.o (__do_copy_data)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
                               my_lib/adc.o (__do_clear_bss)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
@@ -74,6 +74,8 @@ Discarded input sections
  .bss           0x00000000        0x0 my_lib/i2c.o
  .text.I2C_Init_Slave
                 0x00000000       0x12 my_lib/i2c.o
+ .text.I2C_GetState
+                0x00000000        0x6 my_lib/i2c.o
  .text          0x00000000        0x0 my_lib/line_chacker.o
  .data          0x00000000        0x0 my_lib/line_chacker.o
  .bss           0x00000000        0x0 my_lib/line_chacker.o
@@ -204,6 +206,8 @@ Discarded input sections
                 0x00000000       0x6c my_lib/usart.o
  .text.send_request_from_RA2
                 0x00000000       0xe4 my_lib/usart.o
+ .text.USART_StartTX
+                0x00000000       0x16 my_lib/usart.o
  .bss.TxBuffer  0x00000000        0xa my_lib/usart.o
  .bss.ConsolAudoiChannel
                 0x00000000        0x1 my_lib/usart.o
@@ -459,7 +463,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0xf00
+.text           0x00000000      0xf0c
  *(.vectors)
  .vectors       0x00000000       0x54 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
                 0x00000000                __vector_default
@@ -539,93 +543,96 @@ END GROUP
                 0x000000a4                . = ALIGN (0x2)
  *(.text.*)
  .text.startup.main
-                0x000000a4       0x48 main.o
+                0x000000a4       0x2a main.o
                 0x000000a4                main
  .text.__vector_16
-                0x000000ec       0x6a my_lib/adc.o
-                0x000000ec                __vector_16
+                0x000000ce       0x6a my_lib/adc.o
+                0x000000ce                __vector_16
  .text.get_charge_indication
-                0x00000156       0x1c my_lib/charge.o
-                0x00000156                get_charge_indication
+                0x00000138       0x1c my_lib/charge.o
+                0x00000138                get_charge_indication
  .text.DoNothing
-                0x00000172        0x2 my_lib/i2c.o
-                0x00000172                DoNothing
+                0x00000154        0x2 my_lib/i2c.o
+                0x00000154                DoNothing
  .text.I2C_Init
-                0x00000174       0x16 my_lib/i2c.o
-                0x00000174                I2C_Init
+                0x00000156       0x14 my_lib/i2c.o
+                0x00000156                I2C_Init
+ .text.I2C_SetState
+                0x0000016a        0x6 my_lib/i2c.o
+                0x0000016a                I2C_SetState
  .text.__vector_19
-                0x0000018a      0x31e my_lib/i2c.o
-                0x0000018a                __vector_19
+                0x00000170      0x31c my_lib/i2c.o
+                0x00000170                __vector_19
+ .text.I2C_EppWriteByte
+                0x0000048c       0x3e my_lib/i2c.o
+                0x0000048c                I2C_EppWriteByte
  .text.get_blocked_speaker_line
-                0x000004a8        0x8 my_lib/line_chacker.o
-                0x000004a8                get_blocked_speaker_line
+                0x000004ca        0x8 my_lib/line_chacker.o
+                0x000004ca                get_blocked_speaker_line
  .text.resistence_all_line_indicate
-                0x000004b0       0xa6 my_lib/line_chacker.o
-                0x000004b0                resistence_all_line_indicate
+                0x000004d2       0xa6 my_lib/line_chacker.o
+                0x000004d2                resistence_all_line_indicate
  .text.get_relay_state
-                0x00000556       0x18 my_lib/relay.o
-                0x00000556                get_relay_state
+                0x00000578       0x18 my_lib/relay.o
+                0x00000578                get_relay_state
  .text.write_byte_to_pt6964
-                0x0000056e       0x2e my_lib/pt6964.o
+                0x00000590       0x2e my_lib/pt6964.o
  .text.write_command_to_pt6964
-                0x0000059c        0xc my_lib/pt6964.o
+                0x000005be        0xc my_lib/pt6964.o
  .text.sorting_button_bit.constprop.1
-                0x000005a8       0x62 my_lib/pt6964.o
+                0x000005ca       0x62 my_lib/pt6964.o
  .text.write_data_to_face_penel
-                0x0000060a       0x52 my_lib/pt6964.o
-                0x0000060a                write_data_to_face_penel
+                0x0000062c       0x52 my_lib/pt6964.o
+                0x0000062c                write_data_to_face_penel
  .text.display_set
-                0x0000065c       0x64 my_lib/pt6964.o
-                0x0000065c                display_set
+                0x0000067e       0x64 my_lib/pt6964.o
+                0x0000067e                display_set
  .text.display_off
-                0x000006c0       0x12 my_lib/pt6964.o
-                0x000006c0                display_off
+                0x000006e2       0x12 my_lib/pt6964.o
+                0x000006e2                display_off
  .text.set_line_checker_led_green
-                0x000006d2       0x96 my_lib/pt6964.o
-                0x000006d2                set_line_checker_led_green
+                0x000006f4       0x96 my_lib/pt6964.o
+                0x000006f4                set_line_checker_led_green
  .text.set_line_checker_led_red
-                0x00000768       0x96 my_lib/pt6964.o
-                0x00000768                set_line_checker_led_red
+                0x0000078a       0x96 my_lib/pt6964.o
+                0x0000078a                set_line_checker_led_red
  .text.read_button_from_face_penel
-                0x000007fe      0x10c my_lib/pt6964.o
-                0x000007fe                read_button_from_face_penel
+                0x00000820      0x10c my_lib/pt6964.o
+                0x00000820                read_button_from_face_penel
  .text.get_button
-                0x0000090a       0x22 my_lib/pt6964.o
-                0x0000090a                get_button
+                0x0000092c       0x22 my_lib/pt6964.o
+                0x0000092c                get_button
  .text.toggle_button
-                0x0000092c       0x6c my_lib/pt6964.o
-                0x0000092c                toggle_button
+                0x0000094e       0x6c my_lib/pt6964.o
+                0x0000094e                toggle_button
  .text.Timers_Init
-                0x00000998       0x26 my_lib/timers.o
-                0x00000998                Timers_Init
+                0x000009ba       0x26 my_lib/timers.o
+                0x000009ba                Timers_Init
  .text.ms_delay
-                0x000009be       0x3e my_lib/timers.o
-                0x000009be                ms_delay
+                0x000009e0       0x3e my_lib/timers.o
+                0x000009e0                ms_delay
  .text.__vector_9
-                0x000009fc      0x2de my_lib/timers.o
-                0x000009fc                __vector_9
+                0x00000a1e      0x2de my_lib/timers.o
+                0x00000a1e                __vector_9
  .text.__vector_11
-                0x00000cda       0x66 my_lib/timers.o
-                0x00000cda                __vector_11
+                0x00000cfc       0x66 my_lib/timers.o
+                0x00000cfc                __vector_11
  .text.crc8_calculation
-                0x00000d40       0x28 my_lib/usart.o
+                0x00000d62       0x28 my_lib/usart.o
  .text.USART_Init
-                0x00000d68       0x1e my_lib/usart.o
-                0x00000d68                USART_Init
- .text.USART_StartTX
-                0x00000d86       0x16 my_lib/usart.o
-                0x00000d86                USART_StartTX
+                0x00000d8a       0x1e my_lib/usart.o
+                0x00000d8a                USART_Init
  .text.__vector_13
-                0x00000d9c      0x112 my_lib/usart.o
-                0x00000d9c                __vector_13
+                0x00000da8      0x112 my_lib/usart.o
+                0x00000da8                __vector_13
  .text.__vector_15
-                0x00000eae       0x4e my_lib/usart.o
-                0x00000eae                __vector_15
-                0x00000efc                . = ALIGN (0x2)
+                0x00000eba       0x4e my_lib/usart.o
+                0x00000eba                __vector_15
+                0x00000f08                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000efc        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x00000efc                _exit
-                0x00000efc                exit
+ .fini9         0x00000f08        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00000f08                _exit
+                0x00000f08                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -644,11 +651,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000efc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00000f08        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000f00                _etext = .
+                0x00000f0c                _etext = .
 
-.data           0x00800060       0x14 load address 0x00000f00
+.data           0x00800060        0xa load address 0x00000f0c
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -673,91 +680,90 @@ END GROUP
  *(.gnu.linkonce.d*)
  *(.rodata)
  *(.rodata*)
- .rodata.str1.1
-                0x00800069        0xb main.o
  *(.gnu.linkonce.r*)
-                0x00800074                . = ALIGN (0x2)
-                0x00800074                _edata = .
-                0x00800074                PROVIDE (__data_end, .)
+                0x0080006a                . = ALIGN (0x2)
+ *fill*         0x00800069        0x1 
+                0x0080006a                _edata = .
+                0x0080006a                PROVIDE (__data_end, .)
 
-.bss            0x00800074       0xdf
-                0x00800074                PROVIDE (__bss_start, .)
+.bss            0x0080006a       0xdf
+                0x0080006a                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.AdcResult
-                0x00800074        0x2 my_lib/adc.o
+                0x0080006a        0x2 my_lib/adc.o
  .bss.AdcMeasureCounters
-                0x00800076        0x1 my_lib/adc.o
+                0x0080006c        0x1 my_lib/adc.o
  .bss.ChargeIndicate
-                0x00800077        0x1 my_lib/charge.o
+                0x0080006d        0x1 my_lib/charge.o
  .bss.LineChackerFlagReg
-                0x00800078        0x1 my_lib/line_chacker.o
+                0x0080006e        0x1 my_lib/line_chacker.o
  .bss.LineCheckerRelaySost
-                0x00800079        0x1 my_lib/relay.o
+                0x0080006f        0x1 my_lib/relay.o
  .bss.SpeakerRelaySost
-                0x0080007a        0x1 my_lib/relay.o
+                0x00800070        0x1 my_lib/relay.o
  .bss.SostBut.2263
-                0x0080007b        0xf my_lib/pt6964.o
+                0x00800071        0xf my_lib/pt6964.o
  .bss.cycle.2262
-                0x0080008a        0x1 my_lib/pt6964.o
+                0x00800080        0x1 my_lib/pt6964.o
  .bss.Timer1FastBlinkReg
-                0x0080008b        0x1 my_lib/timers.o
-                0x0080008b                Timer1FastBlinkReg
+                0x00800081        0x1 my_lib/timers.o
+                0x00800081                Timer1FastBlinkReg
  .bss.Timer1BlinkReg
-                0x0080008c        0x1 my_lib/timers.o
-                0x0080008c                Timer1BlinkReg
+                0x00800082        0x1 my_lib/timers.o
+                0x00800082                Timer1BlinkReg
  .bss.Timer0FlagReg2
-                0x0080008d        0x1 my_lib/timers.o
-                0x0080008d                Timer0FlagReg2
+                0x00800083        0x1 my_lib/timers.o
+                0x00800083                Timer0FlagReg2
  .bss.Timer0FlagReg
-                0x0080008e        0x1 my_lib/timers.o
-                0x0080008e                Timer0FlagReg
+                0x00800084        0x1 my_lib/timers.o
+                0x00800084                Timer0FlagReg
  .bss.RxBuffer1
-                0x0080008f       0x50 my_lib/usart.o
+                0x00800085       0x50 my_lib/usart.o
  .bss.AdressPointer
-                0x008000df        0x1 my_lib/usart.o
+                0x008000d5        0x1 my_lib/usart.o
  .bss.ConsolAddress
-                0x008000e0        0x1 my_lib/usart.o
+                0x008000d6        0x1 my_lib/usart.o
  .bss.RequestCount
-                0x008000e1        0x1 my_lib/usart.o
+                0x008000d7        0x1 my_lib/usart.o
  .bss.CycleCount
-                0x008000e2        0x2 my_lib/usart.o
+                0x008000d8        0x2 my_lib/usart.o
  *(COMMON)
- COMMON         0x008000e4        0xe my_lib/i2c.o
-                0x008000e4                i2c_index
-                0x008000e5                i2c_Buffer
-                0x008000e8                i2c_SlaveAddress
-                0x008000e9                i2c_OutBuff
-                0x008000ea                i2c_PageAddrCount
-                0x008000eb                i2c_PageAddress
-                0x008000ed                i2c_PageAddrIndex
-                0x008000ee                i2c_ByteCount
-                0x008000ef                i2c_SlaveIndex
-                0x008000f0                i2c_InBuff
-                0x008000f1                i2c_Do
- COMMON         0x008000f2       0x28 my_lib/line_chacker.o
-                0x008000f2                StateLineStr
-                0x008000fa                ReferenceMeasureResisStr
-                0x0080010a                CoefficientStr
- COMMON         0x0080011a       0x16 my_lib/pt6964.o
-                0x0080011a                ButtonFacePanelStr
-                0x0080011f                ButtonSostStr
-                0x00800125                IndicatorsFacePanelStr
- COMMON         0x00800130       0x10 my_lib/timers.o
-                0x00800130                Timer0CountersStr
- COMMON         0x00800140       0x13 my_lib/usart.o
-                0x00800140                RA_ConfigStr
-                0x00800148                UsartWorkReg
-                0x0080014c                WorkRegStr
-                0x00800153                PROVIDE (__bss_end, .)
-                0x00000f00                __data_load_start = LOADADDR (.data)
-                0x00000f14                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000da        0xe my_lib/i2c.o
+                0x008000da                i2c_index
+                0x008000db                i2c_Buffer
+                0x008000de                i2c_SlaveAddress
+                0x008000df                i2c_OutBuff
+                0x008000e0                i2c_PageAddrCount
+                0x008000e1                i2c_PageAddress
+                0x008000e3                i2c_PageAddrIndex
+                0x008000e4                i2c_ByteCount
+                0x008000e5                i2c_SlaveIndex
+                0x008000e6                i2c_InBuff
+                0x008000e7                i2c_Do
+ COMMON         0x008000e8       0x28 my_lib/line_chacker.o
+                0x008000e8                StateLineStr
+                0x008000f0                ReferenceMeasureResisStr
+                0x00800100                CoefficientStr
+ COMMON         0x00800110       0x16 my_lib/pt6964.o
+                0x00800110                ButtonFacePanelStr
+                0x00800115                ButtonSostStr
+                0x0080011b                IndicatorsFacePanelStr
+ COMMON         0x00800126       0x10 my_lib/timers.o
+                0x00800126                Timer0CountersStr
+ COMMON         0x00800136       0x13 my_lib/usart.o
+                0x00800136                RA_ConfigStr
+                0x0080013e                UsartWorkReg
+                0x00800142                WorkRegStr
+                0x00800149                PROVIDE (__bss_end, .)
+                0x00000f0c                __data_load_start = LOADADDR (.data)
+                0x00000f16                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x00800153        0x0
+.noinit         0x00800149        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x00800153                _end = .
+                0x00800149                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
