@@ -52,15 +52,13 @@
 //Флаги состояний
 #define I2C_INTERRUPTED		0b10000000	// Transmiting Interrupted		Битмаска установки флага занятости
 #define I2C_NO_INTERRUPTED	0b01111111  // Transmiting No Interrupted	Битмаска снятия флага занятости
-
-#define I2C_BUSY		0b01000000  	// Trans is Busy				Битмаска флага "Передатчик занят, руками не трогать". 
-#define I2C_FREE		0b10111111  	// Trans is Free				Битмаска снятия флага занятости.
+#define I2C_BUSY		    0b01000000	// Trans is Busy				Битмаска флага "Передатчик занят, руками не трогать". 
+#define I2C_FREE			0b10111111	// Trans is Free				Битмаска снятия флага занятости.
 //**********************************************************
-
-#define MACRO_i2c_WhatDo_MasterOut 	(MasterOutFunc)();		// Макросы для режимо выхода. Пока тут функция, но может быть что угодно
+// Макросы для режимо выхода. Пока тут функция, но может быть что угодно
+#define MACRO_i2c_WhatDo_MasterOut 	(MasterOutFunc)();		
 #define MACRO_i2c_WhatDo_SlaveOut   (SlaveOutFunc)();
 #define MACRO_i2c_WhatDo_ErrorOut   (ErrorOutFunc)();
-
 //*******************************************************************************************
 //*******************************************************************************************
 
@@ -71,21 +69,21 @@ extern IIC_F SlaveOutFunc;
 extern IIC_F ErrorOutFunc;
 
 
-extern uint8_t i2c_Do;											
-extern uint8_t i2c_InBuff[I2C_MASTER_BYTE_RX];
-extern uint8_t i2c_OutBuff[I2C_MASTER_BYTE_TX];
-
-extern uint8_t i2c_SlaveIndex;
-
-extern uint8_t i2c_Buffer[I2C_MAX_BUF_SIZE];
-extern uint8_t i2c_index;
-extern uint8_t i2c_ByteCount;
-
-extern uint8_t i2c_SlaveAddress;
-extern uint8_t i2c_PageAddress[I2C_MAX_PAGE_ADDR_LENGTH];
-
-extern uint8_t i2c_PageAddrIndex;
-extern uint8_t i2c_PageAddrCount;
+//extern uint8_t i2c_Do;											
+//extern uint8_t i2c_InBuff[I2C_MASTER_BYTE_RX];
+//extern uint8_t i2c_OutBuff[I2C_MASTER_BYTE_TX];
+//
+//extern uint8_t i2c_SlaveIndex;
+//
+////extern uint8_t i2c_Buffer[I2C_MAX_BUF_SIZE];
+//extern uint8_t i2c_Index;
+//extern uint8_t i2c_ByteCount;
+//
+//extern uint8_t i2c_SlaveAddress;
+//extern uint8_t i2c_PageAddress[I2C_MAX_PAGE_ADDR_LENGTH];
+//
+//extern uint8_t i2c_PageAddrIndex;
+//extern uint8_t i2c_PageAddrCount;
 
 //*******************************************************************************************
 //*******************************************************************************************
@@ -95,7 +93,7 @@ void I2C_Init_Slave(IIC_F Addr);
 void    I2C_SetState(uint8_t state);
 uint8_t I2C_GetState(void);
 
-uint8_t I2C_EppWriteByte(uint8_t SAddr,uint16_t Addr, uint8_t Byte);
+uint8_t I2C_StartWrite(uint8_t slaveAddr,uint8_t regAddr, uint8_t *buf, uint8_t bufSize);
 
 //*******************************************************************************************
 //*******************************************************************************************

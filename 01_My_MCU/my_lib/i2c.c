@@ -14,8 +14,10 @@ uint8_t i2c_InBuff[I2C_MASTER_BYTE_RX];		// Буфер прием при работе как Slave
 uint8_t i2c_OutBuff[I2C_MASTER_BYTE_TX];	// Буфер передачи при работе как Slave
 uint8_t i2c_SlaveIndex;						// Индекс буфера Slave
 
-uint8_t i2c_Buffer[I2C_MAX_BUF_SIZE];		// Буфер для данных работы в режиме Master
-uint8_t i2c_index;							// Индекс этого буфера
+//uint8_t i2c_Buffer[I2C_MAX_BUF_SIZE];		// Буфер для данных работы в режиме Master
+uint8_t *i2c_BufPtr;
+uint8_t i2c_SlaveRegAddr;					// Адрес регистра в Slave начиная с которого будем читать/писать.
+uint8_t i2c_Index;							// Индекс этого буфера
 uint8_t i2c_ByteCount;						// Число передаваемых мастером байт.
 uint8_t i2c_SlaveAddress;					// Адрес подчиненного. То куда мы будем обращаться в режиме мастера.
 
@@ -53,12 +55,13 @@ void I2C_Init_Slave(IIC_F Addr){
 							//1 в нулевом бите означает, что мы отзываемся на широковещательные пакеты
 	SlaveOutFunc = Addr;	//Присвоим указателю выхода по слейву функцию выхода
 
-	TWCR = 0 << TWSTA |
-		   0 << TWSTO |
-		   0 << TWINT |
-		   1 << TWEA  |
-		   1 << TWEN  | 
-		   1 << TWIE;  // Включаем агрегат и начинаем слушать шину.
+	// Включаем агрегат и начинаем слушать шину.
+	TWCR = 0 << TWSTA | //TWI START Condition Bit
+		   0 << TWSTO | //TWI STOP Condition Bit
+		   0 << TWINT | //TWI Interrupt Flag - Этот бит устанавливается аппаратно, когда TWI модуль завершает текущую операцию.
+		   1 << TWEA  | //TWI Enable Acknowledge Bit.
+		   1 << TWIE  | //TWI Interrupt Enable
+		   1 << TWEN;   //TWI Enable Bit
 }
 //**********************************************************
 void I2C_SetState(uint8_t state){
@@ -108,17 +111,17 @@ if (WorkIndex <99)							// Если лог не переполнен
 		//--------------------
 		//Старт был, а затем мы в зависимости от режима
 		case (0x08):	
-			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SARP) i2c_SlaveAddress |= 0x01;//Шлем Addr+R	
-			else										  i2c_SlaveAddress &= 0xFE;//Шлем Addr+W
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R	
+			else										  i2c_SlaveAddress &= ~0x01;//Шлем Addr+W
 			
-			TWDR = i2c_SlaveAddress;													// Адрес слейва
-			TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;  	// Go!
+			TWDR = i2c_SlaveAddress;											   // Адрес слейва
+			TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;// Go!
 		break;
 		//--------------------	
 		//Был обнаружен повторный старт. Можно переключиться с записи на чтение или наоборот. От логики зависит.
 		case (0x10):
-			if( (i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP) i2c_SlaveAddress |= 0x01;//Шлем Addr+R
-			else											  i2c_SlaveAddress &= 0xFE;//Шлем Addr+W
+			if( (i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R
+			else											  i2c_SlaveAddress &= ~0x01;//Шлем Addr+W
 		
 			// To Do: Добавить сюда обработку ошибок 
 
@@ -130,8 +133,9 @@ if (WorkIndex <99)							// Если лог не переполнен
 		case (0x18):	
 			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWP)						
 			{
-				TWDR = i2c_Buffer[i2c_index];//Шлем байт данных
-				i2c_index++;				 //Увеличиваем указатель буфера
+				//TWDR = i2c_Buffer[i2c_Index];//Шлем байт данных
+				TWDR = *(i2c_BufPtr + i2c_Index);//Шлем байт данных
+				i2c_Index++;				 //Увеличиваем указатель буфера
 				TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;  // Go! 
 			}
 
@@ -155,15 +159,16 @@ if (WorkIndex <99)							// Если лог не переполнен
 		case (0x28): 	
 			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWP)							// В зависимости от режима
 			{
-				if (i2c_index == i2c_ByteCount)												// Если был байт данных последний
+				if(i2c_Index == i2c_ByteCount)												// Если был байт данных последний
 				{																		
 					TWCR = 0<<TWSTA|1<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;	// Шлем Stop
 					MACRO_i2c_WhatDo_MasterOut												// И выходим в обработку стопа
 				}
 				else
 				{
-					TWDR = i2c_Buffer[i2c_index];												// Либо шлем еще один байт
-					i2c_index++;
+					//TWDR = i2c_Buffer[i2c_Index];												// Либо шлем еще один байт
+					TWDR = *(i2c_BufPtr + i2c_Index);//Шлем байт данных
+					i2c_Index++;
 					TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;  	// Go!
 				}
 			}
@@ -197,7 +202,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 			i2c_Do |= I2C_ERR_LP;			// Ставим ошибку потери приоритета
 
 			// Настраиваем индексы заново. 
-			i2c_index = 0;
+			i2c_Index = 0;
 			i2c_PageAddrIndex = 0;
 
 			TWCR = 1<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;// Как только шина будет свободна 
@@ -205,7 +210,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 		//--------------------
 		//Послали SLA+R получили АСК. А теперь будем получать байты
 		case (0x40): 
-			if(i2c_index+1 == i2c_ByteCount)								// Если буфер кончится на этом байте, то 
+			if(i2c_Index == i2c_ByteCount)								// Если буфер кончится на этом байте, то 
 			{
 				TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;	// Требуем байт, а в ответ потом пошлем NACK(Disconnect)
 			}															// Что даст понять слейву, что мол хватит гнать. И он отпустит шину
@@ -225,19 +230,21 @@ if (WorkIndex <99)							// Если лог не переполнен
 		//--------------------
 		//Приняли байт.
 		case (0x50):
-			i2c_Buffer[i2c_index] = TWDR;// Забрали его из буфера
-			i2c_index++;
+			//i2c_Buffer[i2c_Index] = TWDR;// Забрали его из буфера
+			*(i2c_BufPtr + i2c_Index) = TWDR; 
+			i2c_Index++;
 
 			// To Do: Добавить проверку переполнения буфера. А то мало ли что юзер затребует
 
 			//Если остался еще один байт из тех, что мы хотели считать
-			if(i2c_index+1 == i2c_ByteCount) TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;//Затребываем его и потом пошлем NACK (Disconnect)
+			if(i2c_Index+1 == i2c_ByteCount) TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;//Затребываем его и потом пошлем NACK (Disconnect)
 			else						     TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|1<<TWEA|1<<TWEN|1<<TWIE;//Если нет, то затребываем следующий байт, а в ответ скажем АСК
 		break;
 		//--------------------
 		//Вот мы взяли последний байт, сказали NACK слейв обиделся и отпал. 
 		case (0x58):	
-			i2c_Buffer[i2c_index] = TWDR;										   //Взяли байт в буфер
+			//i2c_Buffer[i2c_Index] = TWDR;										   //Взяли байт в буфер
+			*(i2c_BufPtr + i2c_Index) = TWDR; 
 			TWCR = 0<<TWSTA|1<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;//Передали Stop
 			
 			MACRO_i2c_WhatDo_MasterOut												// Отработали точку выход
@@ -249,7 +256,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 		case (0x78):	// RCV SLA+W Low Priority (Broadcast)				// Или это был широковещательный пакет. Не важно
 			i2c_Do |= I2C_ERR_LP | I2C_INTERRUPTED;//Ставим флаг ошибки Low Priority, а также флаг того, что мастера прервали
 			// Restore Trans after.
-			i2c_index = 0;						   //Подготовили прерваную передачу заново
+			i2c_Index = 0;						   //Подготовили прерваную передачу заново
 			i2c_PageAddrIndex = 0;                 //И пошли дальше. Внимание!!! break тут нет, а значит идем в "case 60"
 		//--------------------
 		case (0x60): // RCV SLA+W  Incoming?								// Или просто получили свой адрес
@@ -300,7 +307,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 			i2c_Do |= I2C_ERR_LP | I2C_INTERRUPTED;//Ну чо, коды ошибки и флаг прерваной передачи.
 			
 			// Восстанавливаем индексы
-			i2c_index = 0;
+			i2c_Index = 0;
 			i2c_PageAddrIndex = 0;// Break нет! Идем дальше						
 		//--------------------
 		//Либо просто словили свой адрес на чтение
@@ -347,27 +354,35 @@ if (WorkIndex <99)							// Если лог не переполнен
 #define HI(X) (X>>8)
 #define LO(X) (X & 0xFF)
 
-uint8_t I2C_EppWriteByte(uint8_t SAddr,uint16_t Addr, uint8_t Byte){
+uint8_t I2C_StartWrite(uint8_t slaveAddr,uint8_t regAddr, uint8_t *buf, uint8_t bufSize){
+
 	if(i2c_Do & I2C_BUSY) return 0;
+	//--------------------
+	i2c_Index        = 0;
+	i2c_BufPtr       = buf;
+	i2c_SlaveAddress = slaveAddr;
+	i2c_SlaveRegAddr = regAddr;
+	i2c_ByteCount    = bufSize;
 
-	i2c_index = 0;
-	i2c_ByteCount = 3;
-
-	i2c_SlaveAddress = SAddr;
-
-	i2c_Buffer[0] = HI(Addr);
-	i2c_Buffer[1] = LO(Addr);
-	i2c_Buffer[2] = Byte;
+	//i2c_Buffer[0] = HI(regAddr);
+	//i2c_Buffer[1] = LO(regAddr);
+	//i2c_Buffer[2] = Byte;
 
 	i2c_Do = I2C_MODE_SAWP;
 
 //	MasterOutFunc = WhatDo;
 //	ErrorOutFunc = WhatDo;
-
-	TWCR = 1<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;
+	//--------------------
+	//Включение TWI и запуск передачи.
+	TWCR =	1 << TWSTA | //TWI START Condition Bit
+			0 << TWSTO | //TWI STOP Condition Bit
+			1 << TWINT | //TWI Interrupt Flag - Этот бит устанавливается аппаратно, когда TWI модуль завершает текущую операцию.
+			0 << TWEA  | //TWI Enable Acknowledge Bit.
+			1 << TWIE  | //TWI Interrupt Enable
+			1 << TWEN;   //TWI Enable Bit
 
 	i2c_Do |= I2C_BUSY;
-
+	//--------------------
 	return 1;
 }
 //*******************************************************************************************
