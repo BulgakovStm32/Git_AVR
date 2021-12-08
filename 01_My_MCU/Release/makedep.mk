@@ -10,6 +10,8 @@ my_lib\charge.c
 
 my_lib\i2c.c
 
+my_lib\Lcd_i2c_1602.c
+
 my_lib\line_chacker.c
 
 my_lib\eep.c

@@ -120,8 +120,8 @@ if (WorkIndex <99)							// Если лог не переполнен
 		//--------------------	
 		//Был обнаружен повторный старт. Можно переключиться с записи на чтение или наоборот. От логики зависит.
 		case (0x10):
-			if( (i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R
-			else											  i2c_SlaveAddress &= ~0x01;//Шлем Addr+W
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R
+			else											 i2c_SlaveAddress &= ~0x01;//Шлем Addr+W
 		
 			// To Do: Добавить сюда обработку ошибок 
 
@@ -135,7 +135,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 			{
 				//TWDR = i2c_Buffer[i2c_Index];//Шлем байт данных
 				TWDR = *(i2c_BufPtr + i2c_Index);//Шлем байт данных
-				i2c_Index++;				 //Увеличиваем указатель буфера
+				i2c_Index++;				     //Увеличиваем указатель буфера
 				TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;  // Go! 
 			}
 
@@ -190,7 +190,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 		//--------------------
 		//Байт ушел, но получили NACK причин две. 1я передача оборвана слейвом и так надо. 2я слейв сглючил.
 		case (0x30):	
-			i2c_Do |= I2C_ERR_NACK;				// Запишем статус ошибки. Хотя это не факт, что ошибка. 
+			i2c_Do |= I2C_ERR_NACK;// Запишем статус ошибки. Хотя это не факт, что ошибка. 
 
 			TWCR = 0<<TWSTA|1<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;		// Шлем Stop
 
@@ -199,7 +199,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 		//--------------------
 		//Коллизия на шине. Нашелся кто то поглавней
 		case (0x38):	
-			i2c_Do |= I2C_ERR_LP;			// Ставим ошибку потери приоритета
+			i2c_Do |= I2C_ERR_LP;//Ставим ошибку потери приоритета
 
 			// Настраиваем индексы заново. 
 			i2c_Index = 0;
@@ -347,7 +347,7 @@ if (WorkIndex <99)							// Если лог не переполнен
 		//--------------------	
 		default:	break;
 		//--------------------	
-		}
+	}
 }
 //*******************************************************************************************
 //*******************************************************************************************
@@ -368,10 +368,43 @@ uint8_t I2C_StartWrite(uint8_t slaveAddr,uint8_t regAddr, uint8_t *buf, uint8_t 
 	//i2c_Buffer[1] = LO(regAddr);
 	//i2c_Buffer[2] = Byte;
 
-	i2c_Do = I2C_MODE_SAWP;
+	//Это режим простой записи. В том числе и запись с адресом страницы. 
+	i2c_Do = I2C_MODE_SAWP;//Start-Addr_W-Write-Stop
+
+	//i2c_Do = I2C_MODE_SAWSARP;
+	//i2c_Do = I2C_MODE_SARP;
 
 //	MasterOutFunc = WhatDo;
 //	ErrorOutFunc = WhatDo;
+	//--------------------
+	//Включение TWI и запуск передачи.
+	TWCR =	1 << TWSTA | //TWI START Condition Bit
+			0 << TWSTO | //TWI STOP Condition Bit
+			1 << TWINT | //TWI Interrupt Flag - Этот бит устанавливается аппаратно, когда TWI модуль завершает текущую операцию.
+			0 << TWEA  | //TWI Enable Acknowledge Bit.
+			1 << TWIE  | //TWI Interrupt Enable
+			1 << TWEN;   //TWI Enable Bit
+
+	i2c_Do |= I2C_BUSY;
+	//--------------------
+	return 1;
+}
+//**********************************************************
+uint8_t I2C_StartRead(uint8_t slaveAddr,uint8_t regAddr, uint8_t *buf, uint8_t bufSize){
+
+	if(i2c_Do & I2C_BUSY) return 0;
+	//--------------------
+	i2c_Index        = 0;
+	i2c_BufPtr       = buf;
+	i2c_SlaveAddress = slaveAddr;
+	i2c_SlaveRegAddr = regAddr;
+	i2c_ByteCount    = bufSize;
+
+	//Это режим простого чтения. Например из слейва или из епрома с текущего адреса
+	i2c_Do = I2C_MODE_SARP;//Start-Addr_R-Read-Stop
+
+	//	MasterOutFunc = WhatDo;
+	//	ErrorOutFunc = WhatDo;
 	//--------------------
 	//Включение TWI и запуск передачи.
 	TWCR =	1 << TWSTA | //TWI START Condition Bit

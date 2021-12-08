@@ -89,18 +89,15 @@ void clear_charge_hour_counter(void){
 	sei(); //Разрешение прерываний.
 }
 //-----------------------------------------------------------------------------
-void ms_delay(volatile uint16_t delay){
+void msDelay(volatile uint16_t delay){
 	
-	if (delay == 0)
-		{
-			return;
-		}
-		
+	if(delay == 0) return;
+	
 	cli(); //Запрет прерываний.		
 	Timer0CountersStr.Timer0Delay = 0;
 	sei(); //Разрешение прерываний.
 	
-	while (Timer0CountersStr.Timer0Delay != delay){} //Ожиданиае паузы.
+	while(Timer0CountersStr.Timer0Delay != delay){} //Ожиданиае паузы.
 }
 //-----------------------------------------------------------------------------
 //Прерывание каждяе 10 мСек.

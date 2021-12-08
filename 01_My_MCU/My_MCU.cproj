@@ -185,6 +185,12 @@
     <Compile Include="my_lib\i2c.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="my_lib\Lcd_i2c_1602.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="my_lib\Lcd_i2c_1602.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="my_lib\line_chacker.c">
       <SubType>compile</SubType>
     </Compile>

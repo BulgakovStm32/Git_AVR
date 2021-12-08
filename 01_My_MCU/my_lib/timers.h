@@ -64,7 +64,7 @@ void Timers_Init(void);
 uint8_t get_hour_counter(void);
 void clear_hour_counter(void);
 void clear_charge_hour_counter(void);
-void ms_delay(volatile uint16_t delay);
+void msDelay(volatile uint16_t delay);
 //-----------------------------------------------------------------------------
 #endif // Закрывающий #endif к блокировке повторного включения
 //--------------------------------------------------------------------------------------------------------

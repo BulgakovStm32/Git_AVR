@@ -144,7 +144,7 @@ static uint16_t measure_resistence_one_line(uint8_t line, uint16_t delay){
 	//calibration_adc_for_line_checker();			//Автокалибровка здесь не нужна.
 	set_relay((1 << line), LINE_CHECKER_RELAY);	//Подключение измеряемой линии к АЦП
 	set_line_checker_led_green(1 << line);		//Индикация подключенной линии.
-	ms_delay(delay);							//Пауза для завершение переходных процессов в линии.
+	msDelay(delay);							//Пауза для завершение переходных процессов в линии.
 	//-------------------------
 	//get_adc_measure() возвращает 12 бит кода АЦП через 6.7 мСек. AVCC with external capacitor at AREF pin.
 	//Введена передескритезация АЦП для повышения разрешающей способности АЦП.
