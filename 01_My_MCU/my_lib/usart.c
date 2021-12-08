@@ -6,12 +6,9 @@
  * Created: 
  *  Author: 
  */ 
-//--------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------
-
 #include "my_lib\usart.h"
-
-//-----------------------------------------------------------------------------
+//*******************************************************************************************
+//*******************************************************************************************
 typedef volatile struct{
 			//----------------------------------------
 			uint8_t ConsolAddress;
@@ -34,20 +31,8 @@ typedef volatile struct{
 	//uint8_t *TransmitBufPointer;	//Указатель при передаче данных.
 	//----------------------------------------		
 } __UsartWorkReg_TypeDef;
-//-----------------------------------------------------------------------------
-//Массив со значениями длин команд. Данные должны распологаться именно в такой последовательности.
-//const uint8_t CommandLengthArray[] PROGMEM = {	GetStat_Length,				
-												//GetStatD_Length,				
-												//DriveRA_Length,			
-												//StartA_Length,		
-												//RetStat_RAx_Length,		
-												//RetStat_RMx_Length,		
-												//RetStat_PS_Length,		
-												//RetStat_RMx_D_Length,	
-												//RetStat_PS_D_Length,	
-												//RetActivControlBlok_Length
-//};
-//------------------------------------------------------------------------------
+//*******************************************************************************************
+//*******************************************************************************************
 static volatile uint16_t CycleCount			= 0;
 static volatile uint8_t  RequestCount		= 0;
 static volatile uint8_t  Priority			= 0;
@@ -70,99 +55,36 @@ __UsartWorkReg_TypeDef	WorkRegStr;	//Рабочие регистры.
 __Configuration_TypeDef RA_ConfigStr;	
 
 extern __IndicatorFacePanel_TypeDef	IndicatorsFacePanelStr;
-//-------------------------
-//Переменный для работы когда адрес от 2 до 64.
-//static volatile uint8_t	crc8_for_Request = 0;
-//--------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------
+
+
+
+UsartWorkReg_t UsartWorkReg;
+//*******************************************************************************************
+//*******************************************************************************************
 //Расчет CRC8.
 static uint8_t crc8_calculation(volatile uint8_t *block, uint8_t len){
 	
-	uint8_t i;
 	uint8_t crc = 0xff;
 	//-------------------------
 	while (len--)
+	{
+		crc ^= *block;
+		block++;
+		for(uint8_t i = 0; i < 8; i++)
 		{
-			crc ^= *block;
-			block++;
-			for (i = 0; i < 8; i++)
-				{
-					crc = crc & 0x80 ? (crc << 1) ^ 0x31 : crc << 1;
-				}
+			crc = crc & 0x80 ? (crc << 1) ^ 0x31 : crc << 1;
 		}
+	}
 	//-------------------------
 	return (crc & 0x7F);
 }
-//-----------------------------------------------------------------------------
-//Расчет смещения для упраления 8-й зоной блока.
-static void offset_control_zone8(void){
-
-	if (RA_ConfigStr.STR.Address <= 7)
-		{
-			WorkRegStr.Offset = 0;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 1));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 8) && (RA_ConfigStr.STR.Address <= 14) )
-		{
-			WorkRegStr.Offset = 1;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 8));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 15) && (RA_ConfigStr.STR.Address <= 21) )
-		{
-			WorkRegStr.Offset = 2;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 15));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 22) && (RA_ConfigStr.STR.Address <= 28) )
-		{
-			WorkRegStr.Offset = 3;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 22));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 29) && (RA_ConfigStr.STR.Address <= 35) )
-		{
-			WorkRegStr.Offset = 4;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 29));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 36) && (RA_ConfigStr.STR.Address <= 42) )
-		{
-			WorkRegStr.Offset = 5;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 36));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 43) && (RA_ConfigStr.STR.Address <= 49) )
-		{
-			WorkRegStr.Offset = 6;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 43));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 50) && (RA_ConfigStr.STR.Address <= 56) )
-		{
-			WorkRegStr.Offset = 7;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 50));
-			return;
-		}
-	else if ( (RA_ConfigStr.STR.Address >= 57) && (RA_ConfigStr.STR.Address <= 63) )
-		{
-			WorkRegStr.Offset = 8;
-			WorkRegStr.Bit = (1 << (RA_ConfigStr.STR.Address - 57));
-			return;
-		}
-	else if (RA_ConfigStr.STR.Address == 64)
-		{
-			WorkRegStr.Offset = 9;
-			WorkRegStr.Bit = (1 << 0);
-		}
-}
-//-----------------------------------------------------------------------------
-void usart_init(void){
+//*******************************************************************************************
+//*******************************************************************************************
+void USART_Init(void){
 	
 	//uint8_t i = 0;
 	//-------------------------
-	DE_RE_DDR   |= (DE_RE | RX_LED | TX_LED);	//Настройка пинов ~ПРИЕМ/ПЕРЕДАЧА RS-485, светодиода приема и светодиода передачи.
+	DE_RE_DDR  |=  (DE_RE | RX_LED | TX_LED);	//Настройка пинов ~ПРИЕМ/ПЕРЕДАЧА RS-485, светодиода приема и светодиода передачи.
 	DE_RE_PORT &= ~(DE_RE | RX_LED | TX_LED);	//Выводы к ЗЕМЛЕ.
 	//-------------------------
 	UBRRL = UBRR_CONST;							//Установка скорости.
@@ -194,7 +116,7 @@ void usart_config_for_protocol(__Configuration_TypeDef *config){
 	AdressPointer = 0;
 	//-------------------------
 	//Расчет смещения для упраления 8-й зоной блока.
-	offset_control_zone8();
+	//offset_control_zone8();
 	//-------------------------
 	//Запуск протокола для адреса 1.
 	if (config->STR.Address == 1)
@@ -210,7 +132,8 @@ void usart_config_for_protocol(__Configuration_TypeDef *config){
 			UCSRB &= ~(1<<TXCIE);							 //Запрет прерывание по завершению передачи байта.
 			WorkRegStr.TransmitCounterByte = 0;				 //Cброс счетчика байт.
 			DE_RE_PORT &= ~DE_RE;							 //перевод микросхемы RS485 на приём.
-			volatile uint8_t temp = UDR;					 //Очистка приемного регистра.
+			//volatile uint8_t temp = UDR;					 //Очистка приемного регистра.
+			(void)UDR;										 //Очистка приемного регистра
 			WorkRegStr.ReciveCounterByte = 0;				 //Подготовка регистров для работы протокола
 			RxBuffer1[0] = 0;								 //
 			RxBuffer1[1] = 0;								 //
@@ -230,440 +153,6 @@ void usart_config_for_protocol(__Configuration_TypeDef *config){
 		}
 	//-------------------------
 	sei(); //Разрешение прерываний.
-	//-------------------------
-}
-//-----------------------------------------------------------------------------
-//Статус приоритета управления для работы блока протокола.
-void priority_for_protocol(uint8_t priority){
-	
-	//cli(); //Запрет прерываний.
-	//-------------------------
-	switch (priority)
-		{	
-			//-------------------------
-			case (1):
-				Priority = 5;
-			break;
-			//-------------------------
-			case (2):
-				Priority = 4;
-			break;
-			//-------------------------
-			case (3):
-				Priority = 3;		
-			break;
-			//-------------------------
-			case (4):
-				Priority = 2;		
-			break;
-			//-------------------------
-			case (5):
-				Priority = 1;		
-			break;
-			//-------------------------			
-		}
-	//-------------------------
-	//sei(); //Разрешение прерываний.
-}
-//-----------------------------------------------------------------------------
-//Плучение номера управляющей консоли.
-uint8_t get_consol_number(void){
-	
-	return(ConsolAddress);
-	//-------------------------
-	//cli(); //Запрет прерываний.
-	//uint8_t temp = ConsolAddress;
-	//sei(); //Разрешение прерываний.
-	//-------------------------
-	//return(temp);
-}
-//-----------------------------------------------------------------------------
-//Получение номера аудио канала управляющей консоли.
-uint8_t get_consol_audio_chanel(void){
-	
-	return(ConsolAudoiChannel);
-	//-------------------------
-	//cli(); //Запрет прерываний.
-	//uint8_t temp = ConsolAudoiChannel;
-	//sei(); //Разрешение прерываний.
-	//-------------------------
-	//return(temp);
-}
-//-----------------------------------------------------------------------------
-//Упарвление каналами SP1 - SP8 селектора зон.
-uint8_t get_consol_control(void){
-	
-	return(ConsolControlSP);
-	//-------------------------
-	//cli(); //Запрет прерываний.
-	//uint8_t temp = ConsolControlSP;
-	//sei(); //Разрешение прерываний.
-	//-------------------------
-	//return(temp);
-}
-//-----------------------------------------------------------------------------
-//Анализ команд управления от консолей RM. 	
-static void parsing_control_command_from_consol(void){
-
-	//---------------------------------------------------------	
-	//Управление группами.
-	if (RxBuffer1[2] == 0)
-		{
-	 		//-------------------------
-	 		//Если группа соответствует установленной на приборе.
-            //Если группа соответствует установленной на приборе.
-	 		if ( (((RxBuffer1[4] & 0x7F) & (1 << (RA_ConfigStr.STR.Group - 1))) != 0) || //проверка групп с 1 по 7.
-				 ( (RA_ConfigStr.STR.Group == 8) && (RxBuffer1[5] != 0)) )				 //проверка группы 8.
-	 			{
-	 				//-------------------------
-	 				if (RxBuffer1[1] & BroadCast)
-	 					{
-	 						if ((RxBuffer1[1] & 0x0F) >= AdressPointer)
-	 							{
-									//-------------------------
- 	 								AdressPointer = (RxBuffer1[1] & 0x0F);			  //Сохранение адреса управляющего устройства с наивысшим приоритетом.
-	 								//-------------------------
-	 								RequestCount = 0;
-									//-------------------------
-									ConsolAddress = AdressPointer;					  //Отображение номера управляющей консоли на дисплее.
-	 								ConsolAudoiChannel = (0x03 & (RxBuffer1[3] >> 4));//Выбор аудио канала.
-	 								ConsolControlSP = 0xFF;							  //Включение всех зон.
-									//-------------------------
-	 							}
-	 					}
-					else
-						{
- 							if ((RxBuffer1[1] & 0x0F) == ConsolAddress)
- 								{
- 									AdressPointer = 0;
-// 									ConsolAddress = 0;//Это нужно для быстрой передачи управления 5-му приоритета если на консоли отключили группу.
- 									//ConsolAudoiChannel = 0;
- 								}
-						}
-	 				//-------------------------
-	 			}
-	 		//-------------------------
-	 		//Если группа не соответствует.
-	 		else
-	 			{
-	 				if ((RxBuffer1[1] & 0x0F) == ConsolAddress)
-	 					{
-							AdressPointer = 0;
-//							ConsolAddress = 0;//Это нужно для быстрой передачи управления 5-му приоритета если на консоли отключили группу.
-							//ConsolAudoiChannel = 0;
-	 					}
-	 			}
-	 		//-------------------------
-		}
-	//---------------------------------------------------------
-	//Управление зонами.
-	else
-		{
-			//-------------------------
-			//Если есть что включать.
-			//Расчет WorkRegStr.Offset и WorkRegStr.Bit производится в ф-и static void offset_control_zone8(void).
-			if ( ((RxBuffer1[(3 + RA_ConfigStr.STR.Address)] & 0x7F) != 0) ||
-			     ((RxBuffer1[(68 + WorkRegStr.Offset)] & WorkRegStr.Bit) != 0) )
-				{
-					//-------------------------
-					if (RxBuffer1[1] & BroadCast)
-						{
-							if ( (RxBuffer1[1] & 0x0F) >= AdressPointer )
-								{
-									//-------------------------
- 									AdressPointer = (RxBuffer1[1] & 0x0F);
-									//-------------------------
-									RequestCount = 0;
-									//-------------------------
-									ConsolAddress = AdressPointer;					  //Отображение номера управляющей консоли на дисплее.
-									ConsolAudoiChannel = (0x03 & (RxBuffer1[3] >> 4));//Выбор аудио канала.
-									//-------------------------
-									//Управление каналами SP1 - SP7.
-									ConsolControlSP = ( RxBuffer1[(3 + RA_ConfigStr.STR.Address)] & 0x7F);
-									//Управление каналом SP8.
-									if ((RxBuffer1[(68 + WorkRegStr.Offset)] & WorkRegStr.Bit) != 0)
-										{
-											ConsolControlSP |= (1<<7);
-										}
-									//-------------------------
-								}
-						}
-					else
-						{
-							if ((RxBuffer1[1] & 0x0F) == ConsolAddress)
-								{
-									AdressPointer = 0;
-//									ConsolAddress = 0;//Это нужно для быстрой передачи управления 5-му приоритета если на консоли отключили все каналы.
-									//ConsolAudoiChannel = 0;
-								}
-						} 
-					//-------------------------	
-				}
-			//-------------------------
-			//Нечего включать.
-			else
-				{
-			 		if ((RxBuffer1[1] & 0x0F) == ConsolAddress)
-			 			{
-							AdressPointer = 0;
-//							ConsolAddress = 0;//Это нужно для быстрой передачи управления 5-му приоритета если на консоли отключили все каналы.
-							//ConsolAudoiChannel = 0;
-			 			}
-				}
-			//-------------------------
-		}
-	//---------------------------------------------------------
-}
-//-----------------------------------------------------------------------------
-void usart_cycle_count_modify(void){
-	
-	//Если не было ответа в течении CycleQuantityForRA2, то значит нет консолей и управление передается 5 приоритету.
-	if (++CycleCount >= CycleQuantityForRA2)
-		{
-			//-------------------------
-			//Сбрасывать эти регистры тут нужно.
-			CycleCount = 0;
-			ConsolAddress = 0;
-			AdressPointer = 0;
-			ConsolControlSP = 0;
-			//-------------------------
-			WorkRegStr.ReciveCounterByte = 0;
-			RxBuffer1[0] = 0;
-			RxBuffer1[1] = 0;
-			UCSRB |= (1<<RXEN | 1<<RXCIE);
-			//-------------------------
-			//Индикация отсутствия синхронизации если она включена в конфигурации блока.
-			if (RA_ConfigStr.STR.RS485Check)
-				{
-					IndicatorsFacePanelStr.bit.RS485_LED = 1;
-				}
-			else
-				{
-					IndicatorsFacePanelStr.bit.RS485_LED = 0;
-				}
-			//-------------------------
-		}
-    //-------------------------
-}
-//-----------------------------------------------------------------------------
-//Автомат состояний, определяющий порядок выдачи кодограмм в цикле когда блок имеет адрес 01.
-void rs485_protocol(void){
-	
-	static volatile uint8_t step = 0;
-	static volatile uint8_t address = 0;
-	volatile uint8_t	temp = 0;
-	//------------------------------------------------------------------
-	//Автомат состояний, определяющий порядок выдачи кодограмм в цикле когда адрес 1.	
-	switch(step)
-		{
-			//---------------------------------------------------
-			//Выдача статуса от блока RA1.
-			case (0):
-				//-------------------------
-				TxBuffer[0] = RetStat_RA;//Код команды.
-				TxBuffer[1] = 0x01;		 //адрес блока.
-				//-------------------------
-				//Сборка 2-го байта.
-				temp  = (0x0F & RA_ConfigStr.STR.Group);//номер группы блока.
-				temp |= (0x20 & ((get_lines_to_control() & (get_alarms_lines() | ~get_blocked_speaker_line())) >> 2));//статус неисправности налана LC.
-				temp |=	(0x10 & (get_relay_state(SPEAKER_RELAY) >> 3));//статус канала SP8.
-				TxBuffer[2] = temp;
-				//-------------------------
-				//Сборка 3-го байта.
-				temp = (0x0f & (ConsolAddress - 64));//статус 2-го подприоритета управлениея - это адрес консоли, под управлением которой находится система.
-				if (get_charge_indication())
-					{
-						temp |= (1<<4);//ErroACC. Неисправность питания.
-					}
-				TxBuffer[3] = temp;
-				//-------------------------
-				TxBuffer[4] = (0x0F & Priority);					  //Статус приоритета управления.
-				TxBuffer[5] = (0x7F & get_relay_state(SPEAKER_RELAY));//Статус каналов SP1 - 7.
-				TxBuffer[6] = (0x7F & (get_lines_to_control() & (get_alarms_lines() | ~get_blocked_speaker_line()) ));//статус неисправности каналов LC1 - 7.
-				TxBuffer[7] = 0;
-				TxBuffer[8] = 0;
-				TxBuffer[9] = crc8_calculation(&TxBuffer[0], 9);//CRC			
-				//-------------------------
-				//Количество байт на передачу.
-				WorkRegStr.TransmitBufSize = RetStat_RA_Length;
-				//-------------------------
-				//Индикация передачи при каждом цикле.
-				TX_LED_PORT |= TX_LED;
-				//-------------------------
-				//Начало опроса с адреса 2.
-				address = 2;
-				//-------------------------
-				//Переход на следующий шаг.
-				step = 1;
-				//-------------------------
-			break;
-			//---------------------------------------------------
-			//Передача запросов GetStat. Всего 73 запроса.
-			case (1):
-				//-------------------------
-				TxBuffer[0] = GetStat;		   //Код команда.
-				TxBuffer[1] = (0x7F & address);//адрес блока.
-				TxBuffer[2] = crc8_calculation(&TxBuffer[0], 2);//CRC
-				//-------------------------
-				//Количество байт на передачу.
-				WorkRegStr.TransmitBufSize = GetStat_Length;
-				//-------------------------
-				//Следующий адрес запроса.
-				address++;
-				//-------------------------
-				step = 1;
-				
-				//Если опросил все блоки то переходим на след шаг.
-				if (address == 74)
-					{
-						//-------------------------
-						//Переход на следующий шаг.
-						step = 2;
-						//-------------------------
-					}
-				//-------------------------
-			break;
-			//---------------------------------------------------
-			//Запуск анализа. Команда StartA.		
-			case (2):
-				TxBuffer[0] = StartA;//Код команда.
-				TxBuffer[1] = 0x12;	 //CRC
-				//-------------------------
-				//Количество байт на передачу.
-				WorkRegStr.TransmitBufSize = StartA_Length;
-				//-------------------------
-				//Адрес консоли к которой будет первый запрос. 
-				address = Consol_9;	//Начнем с консоли №9.
-				AdressPointer = 0;	//
-				//-------------------------
-				//Переход на следующий шаг.
-				step = 3;
-				//-------------------------
-			break;
-			//---------------------------------------------------
-			//Запрос команды управления от консоли.
-			case (3):
-				TxBuffer[0] = GetStatD;			//Код команда.
-				TxBuffer[1] = (0x7F & address);	//адрес консоли.
-				TxBuffer[2] = crc8_calculation(&TxBuffer[0], 2);//CRC
-				//-------------------------
-				//Количество байт на передачу.
-				WorkRegStr.TransmitBufSize = GetStatD_Length;
-				//-------------------------
-				//Запуск прием ответа от консоли.
-				WorkRegStr.UsartFlagReg |= UsartStartReciveFlag;
-				//-------------------------
-				//Декремент адреса консолей.
-				address--;
-				//-------------------------				
-				//Если опросили все 9 консолей то идем дальше.
-				if (address == (Consol_1 - 1))
-					{
-						//-------------------------
-						//Переход на следующий шаг.
-						step = 4;
-						//-------------------------
-					}
-				//-------------------------
-			break;
-			//---------------------------------------------------
-			//Применить управление для RA2 - RA64 от блока RA1.
-			case (4):
-				//-------------------------
-				//Отключение приема ответа от консоли.
-				UCSRB &= ~(1<<RXEN | 1<<RXCIE);//Отключение приемника.
-				//-------------------------
-				//Передача команды DriveRA.
-				TxBuffer[0] = DriveRA;	    //Код команда.
-				TxBuffer[1] = (0x85 & 0x7F);//CRC
-				//-------------------------
-				//Количество байт на передачу.
-				WorkRegStr.TransmitBufSize = DriveRA_Length;
-				//-------------------------
-				//Если не было ответа в течении 6 циклов то значит нет консолей(например, пропало питаниа или пропала связь) и управление передается 5 приоритету.
-				//Не менее 6 циклов нужно что бы не было ложных срабатываний если вдруг будут пропадать пакети в линии.
-				if ( ++CycleCount >= 4 )
-					{
-						CycleCount = 0;
-						ConsolAddress = 0;
-						AdressPointer = 0;
-						//-------------------------
-						//Индикация отсутствия синхронизации.
-						if (RA_ConfigStr.STR.RS485Check)
-							{
-								IndicatorsFacePanelStr.bit.RS485_LED = 1;
-							}
-						else
-							{
-								IndicatorsFacePanelStr.bit.RS485_LED = 0;
-							}
-						//-------------------------
-					}
-				//------------------------- 
-				//Если перестали приходить команда BroadCast (например, отключили все зоны на консоли, пропало питаниа на консоли или пропала связь)
-				//то через 8 запросов управление передастся другому приоритету.
-				if ( ++RequestCount >= 4 )
-					{
-						RequestCount = 0;
-						ConsolAddress = 0;
-						AdressPointer = 0;
-					}
-				//-------------------------
-				//Автомат состояний в начальное состояние.
-				//address = 2;
-				step = 0;				
-				//-------------------------
-			break;
-			//---------------------------------------------------				
-		}
-	//------------------------------------------------------------------
-	DE_RE_PORT |= DE_RE;	//перевод микросхемы RS485 на передачу.
-	UDR = TxBuffer[0];		//Отправляем первый байт.
-	UCSRB |= (1<<TXCIE);
-	//------------------------------------------------------------------
-}
-//-----------------------------------------------------------------------------
-static void usart_recive_RetStat_RM_D(volatile uint8_t byte){
-
-	//-------------------------
-	//Сохранение принятого байта.
-	RxBuffer1[WorkRegStr.ReciveCounterByte - 1] = byte;
-	//-------------------------
-	//Приняли нужное количество байт.
-	if(WorkRegStr.ReciveCounterByte >= RetStat_RM_D_Length)
-		{
-	 		//-------------------------
-	 		//Отключение приема ответа от консоли.
-	 		//UCSRB &= ~(1<<RXEN | 1<<RXCIE);//Не нужно отключать прием. ПРОВЕРЕНО.
-	 		//-------------------------
-	 		//CRС совпало?
-	 		if ( (crc8_calculation(&RxBuffer1[0], (RetStat_RM_D_Length - 1))) == RxBuffer1[RetStat_RM_D_Length - 1] )
-	 			{
-	 				//-------------------------
-	 				//Индикация принятого пакета.
-	 				RX_LED_PORT |= RX_LED;
-	 				//-------------------------
-					if (RA_ConfigStr.STR.Address == 1)
-						{
-							//-------------------------
-							//UCSRB &= ~(1<<RXEN | 1<<RXCIE);//Не нужно отключать прием. ПРОВЕРЕНО.
-							CycleCount = 0;
-							IndicatorsFacePanelStr.bit.RS485_LED = 0;
-							//-------------------------
-						}
-	 				//-------------------------
-	 				//Анализ управления.
-	 				parsing_control_command_from_consol();
-	 				//-------------------------
-	 			}
-			//-------------------------
-			//Подготовка к приему запросов.
-			WorkRegStr.ReciveCounterByte = 0;
-			RxBuffer1[0] = 0;
-			RxBuffer1[1] = 0;
-			//UCSRB |= (1<<RXEN | 1<<RXCIE);//Не нужно отключать прием. ПРОВЕРЕНО.
-			//-------------------------
-		}
 	//-------------------------
 }
 //-----------------------------------------------------------------------------
@@ -697,7 +186,7 @@ void send_request_from_RA2(void){
 	TxBuffer[9] = crc8_calculation(&TxBuffer[0], 9);//CRC
 	//-------------------------
 	//Запуск приема по оканчанию передачи статуса.
-	WorkRegStr.UsartFlagReg |= UsartStartReciveFlag;
+	WorkRegStr.UsartFlagReg |= USART_RECIVE_START_FLAG;
 	//-------------------------
 	//Индикация передачи
 	TX_LED_PORT |= TX_LED;
@@ -791,7 +280,7 @@ static void usart_recive_for_RA2(volatile uint8_t byte){
 					//Прием управляющей команды от консоли.
 					if (RxBuffer1[0] == RetStat_RM_D)
 						{
-							usart_recive_RetStat_RM_D(byte);
+							//usart_recive_RetStat_RM_D(byte);
 						}
 					//-------------------------
 					else
@@ -823,32 +312,53 @@ static void usart_recive_for_RA2(volatile uint8_t byte){
 		}
 	//-------------------------
 }
-//-----------------------------------------------------------------------------
+//*******************************************************************************************
+//*******************************************************************************************
+//Запуск передачи буфера по прерыванию.
+//void Uart1StarTx(uint8_t *TxBuf, uint8_t size){
+//
+	//U1WorkReg.CounterByte = 0;	  //Cброс счетчика байт.
+	//U1WorkReg.BufSize	  = size; //Количество байт на передачу.
+	//U1WorkReg.BufPtr	  = TxBuf;//Указатель на передающий буфер.
+	////----------------
+	//USART1->CR1 &= ~USART_CR1_RE; //Отлючение RX USART1.
+	//USART1->DR   = *TxBuf;        //Передача первого байта.
+	//USART1->CR1 |= USART_CR1_TE  |//Включение TX USART1.
+	//USART_CR1_TCIE;//Включение прерывания от TX USART1.
+//}
+
+//Запуск передачи буфера по прерыванию.
+void USART_StartTX(uint8_t *txBuf, uint8_t size){
+
+	UsartWorkReg.TxCounterByte = 0;
+	UsartWorkReg.TxBufSize     = size;
+	UsartWorkReg.TxBufPtr	   = txBuf;
+	//----------------
+	//Запус передачи ответа на запрос.
+	//DE_RE_PORT |= DE_RE;		//перевод микросхемы RS485 на передачу.
+	UDR    = *(txBuf+0); //Отправляем первый байт.
+	UCSRB |= (1<<TXCIE); //Включение прерывания по передаче байта.
+	//-------------------------
+}
+//*******************************************************************************************
+//*******************************************************************************************
 //Прерывание по приему байта.
 ISR (USART_RXC_vect){
 	
-	uint8_t data = 0;
-	uint8_t UCSRA_temp = 0;
-	//-------------------------
-	UCSRA_temp = UCSRA;
-	data = UDR;
+	//Именно в такой последовательности вычитывать байт из UDR
+	uint8_t UCSRA_temp = UCSRA;
+	uint8_t data       = UDR;
 	//-------------------------
 	//Если байт не битый то обрабатыаем его. Если битый то пропуcкаем.
-	if ((UCSRA_temp & ((1 << FE) | (1 << DOR) | (1 << UPE))) == 0)
+	if((UCSRA_temp & ((1 << FE) | (1 << DOR) | (1 << UPE))) == 0)
 	{
 		WorkRegStr.ReciveCounterByte++;
 		//-------------------------
 		//Работа с байтами при адресе 1.
-		if (RA_ConfigStr.STR.Address == 1)
-			{
-				usart_recive_RetStat_RM_D(data);
-			}
-		//-------------------------
+		//if (RA_ConfigStr.STR.Address == 1) usart_recive_RetStat_RM_D(data);
 		//Работа с байтами при адресах 2 - 64.
-		else
-			{
-				usart_recive_for_RA2(data);
-			}
+		//else usart_recive_for_RA2(data);
+		usart_recive_for_RA2(data);
 		//-------------------------
 	}
 	//-------------------------
@@ -861,59 +371,56 @@ ISR (USART_RXC_vect){
 	// 		}
 	//-------------------------	
 }
-//-----------------------------------------------------------------------------
-// void usart_start_recive(void){
-// 	//Запуск приема если ожидается ответ.
-// 	if (WorkRegStr.UsartFlagReg & UsartStartReciveFlag)
-// 		{
-// 	 		WorkRegStr.UsartFlagReg &= ~UsartStartReciveFlag;
-// 	 		//-------------------------
-// 	 		//Запуск приема ответа от консоли.
-// 	 		WorkRegStr.ReciveCounterByte = 0;
-// 	 		RxBuffer1[0] = 0;
-// 	 		RxBuffer1[1] = 0;
-// 	 		UCSRB |= (1<<RXEN | 1<<RXCIE);
-// 	 		//-------------------------
-// 		}
-// }
-//-----------------------------------------------------------------------------
+//*******************************************************************************************
+//*******************************************************************************************
 //Прерывание по завершению передачи буфера.
 ISR (USART_TXC_vect){
 	
+	//uint8_t  txCounter = UsartWorkReg.TxCounterByte;//Счетчик переданных байт.
+	//uint8_t  txSize    = UsartWorkReg.TxBufSize;    //Количество передаваемых байт.
+	//uint8_t *TxBufPtr;     //Указатель на передающий буфер.	
 	//-------------------------
 	//Передан весь буффер?
-	if(++WorkRegStr.TransmitCounterByte >= WorkRegStr.TransmitBufSize) 
-		{
-	 		UCSRB &= ~(1<<TXCIE);			   //Запрет прерывание по завершению передачи байта.
-	 		WorkRegStr.TransmitCounterByte = 0;//Cброс счетчика байт.
-			WorkRegStr.TransmitBufSize = 0; 
-	 		//-------------------------
-			//Включение микросхемы RS485 на приём.
-			DE_RE_PORT &= ~DE_RE;
-			//-------------------------
-			//Запуск приема если ожидается ответ.
-			if (WorkRegStr.UsartFlagReg & UsartStartReciveFlag)
-				{
-					WorkRegStr.UsartFlagReg &= ~UsartStartReciveFlag;
-					//-------------------------
-					//Запуск приема ответа от консоли.
-					WorkRegStr.ReciveCounterByte = 0;
-					RxBuffer1[0] = 0;
-					RxBuffer1[1] = 0;
-					UCSRB |= (1<<RXEN | 1<<RXCIE); 
-					//-------------------------
-				}
-			//-------------------------
-		}
+	if(++UsartWorkReg.TxCounterByte >= UsartWorkReg.TxBufSize)
+	{
+		UCSRB &= ~(1<<TXCIE); //Запрет прерывание по завершению передачи байта.
+	}
 	//-------------------------
-	else
-		{
-			//Передача байта из буфера.
-	 		UDR = TxBuffer[WorkRegStr.TransmitCounterByte];
-		}
+	//Передача байта из буфера.
+	else UDR = *(UsartWorkReg.TxBufPtr + UsartWorkReg.TxCounterByte);
+
+
+	//if(++WorkRegStr.TransmitCounterByte >= WorkRegStr.TransmitBufSize) 
+	//{
+	 	//UCSRB &= ~(1<<TXCIE);			   //Запрет прерывание по завершению передачи байта.
+	 	//WorkRegStr.TransmitCounterByte = 0;//Cброс счетчика байт.
+		//WorkRegStr.TransmitBufSize     = 0; 
+	 	////-------------------------
+		////Включение микросхемы RS485 на приём.
+		//DE_RE_PORT &= ~DE_RE;
+		////-------------------------
+		////Запуск приема если ожидается ответ.
+		//if (WorkRegStr.UsartFlagReg & USART_RECIVE_START_FLAG)
+		//{
+			//WorkRegStr.UsartFlagReg &= ~USART_RECIVE_START_FLAG;
+			////-------------------------
+			////Запуск приема ответа от консоли.
+			//WorkRegStr.ReciveCounterByte = 0;
+			//RxBuffer1[0] = 0;
+			//RxBuffer1[1] = 0;
+			//UCSRB |= (1<<RXEN | 1<<RXCIE); 
+			////-------------------------
+		//}
+		////-------------------------
+	//}
+	//-------------------------
+	//Передача байта из буфера.
+	//else UDR = TxBuffer[WorkRegStr.TransmitCounterByte];
 	//-------------------------
 }
-//--------------------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------------------
+//*******************************************************************************************
+//*******************************************************************************************
+
+
 
 

@@ -25,7 +25,7 @@
 #include "my_lib/timers.h"
 //-----------------------------------------------------------------------------
 #define FOSC		16000000UL
-#define BAUDRATE	200000UL				//Скрость работы USART
+#define BAUDRATE	256000UL//115200UL				//Скрость работы USART
 //#define UBRR_CONST	FOSC/(BAUDRATE*16) - 1	//Расчет значения предделителя.
 #define UBRR_CONST	(((FOSC + BAUDRATE*8)/(BAUDRATE*16)) - 1) //Расчет значения предделителя.
 //-----------------------------------------------------------------------------
@@ -37,12 +37,12 @@
 #define RX_LED_PORT	PORTD	// Светодиод приема RS-485 на разъеме.
 #define RX_LED_DDR	DDRD	//
 #define RX_LED_PIN	PIND	//
-#define RX_LED		(1<<3)	//
+#define RX_LED		(1<<PIND6)	//
 
 #define TX_LED_PORT	PORTD	// Светодиод передачи RS-485 на разъеме.
 #define TX_LED_DDR	DDRD	//
 #define TX_LED_PIN	PIND	//
-#define TX_LED		(1<<4)	//
+#define TX_LED		(1<<PIND5)	//
 
 #define TRANSMIT_ON			1	
 #define TRANSMIT_OFF		0
@@ -85,17 +85,26 @@
 #define BroadCast			(1<<4)
 //----------------------------------------------------------------
 //Флаги.
-#define UsartStartTransmitFlag  (1<<0)	//1-идет передача, 0 - передача закончена.
-#define UsartStartReciveFlag	(1<<1)	//1-идет приём, 0 - приём закончен.
+#define USART_TRANSMIT_START_FLAG (1<<0)	//1-идет передача, 0 - передача закончена.
+#define USART_RECIVE_START_FLAG   (1<<1)	//1-идет приём, 0 - приём закончен.
 #define UsartConsolFlag			(1<<2)  //1-был принят ответ от консоли.
 #define UsartStartRequestFlag	(1<<3)	//1 - нужно передать ответ на запрос.
 //----------------------------------------------------------------
+//Рабочие регистры.
+typedef struct{
+	//--------------------
+	volatile uint8_t  TxCounterByte;//Счетчик переданных байт.
+	volatile uint8_t  TxBufSize;    //Количество передаваемых байт.
+	volatile uint8_t *TxBufPtr;     //Указатель на передающий буфер.
+	//--------------------
+}UsartWorkReg_t;
 
-//extern __DataBuffer_TypeDef	_DataBuffer; 
 
 //-----------------------------------------------------------------------------
 //Прототипы функций.
-void usart_init(void);
+void USART_Init(void);
+void USART_StartTX(uint8_t *txBuf, uint8_t size);
+
 void usart_config_for_protocol(__Configuration_TypeDef *config);
 void priority_for_protocol (uint8_t priority);
 

@@ -8,6 +8,8 @@ my_lib\adc.c
 
 my_lib\charge.c
 
+my_lib\i2c.c
+
 my_lib\line_chacker.c
 
 my_lib\eep.c

@@ -33,7 +33,7 @@
 #define TIMER1_CHARGE_CHEK_CONST		10		//Проверка ЗУ и АКБ через 5 минут.
 
 
-#define TIMER0_TX_RX_LED_CONST			15U		//
+#define TIMER0_TX_RX_LED_CONST			250U		//
 //-------------------------------------
 //Флаги Timer0FlagReg
 #define Timer1_15secFlag					(1<<0) //1 - прошло 15 секунд.
@@ -59,7 +59,8 @@ extern volatile uint8_t Timer1FastBlinkReg;
 extern volatile uint8_t Timer1EMSelectZone;	//Выбраные зоны при нажатии на кнопку МИК.
 //-----------------------------------------------------------------------------
 //Прототипы функций.
-void timers_init(void);
+void Timers_Init(void);
+
 uint8_t get_hour_counter(void);
 void clear_hour_counter(void);
 void clear_charge_hour_counter(void);

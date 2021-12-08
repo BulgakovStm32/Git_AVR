@@ -48,7 +48,7 @@ volatile uint8_t Timer1EMSelectZone = 0xFF;	//Выбраные зоны при нажатии на кнопк
 //----------------------------------------
 __Timer0_Counters_TypeDef	Timer0CountersStr;
 //-----------------------------------------------------------------------------
-void timers_init(void){
+void Timers_Init(void){
 	
 	//TCCR0 =0x00;
 	//TCNT0 =0x00;
@@ -112,7 +112,7 @@ ISR(TIMER1_OVF_vect){
 	TCNT1L = 0x3B;
 	//----------------------------------------------------
 	//сброс сторожевого таймера
-	wdt_reset(); 
+	//wdt_reset(); 
 	//----------------------------------------------------
 	//Быстрое мигание при измерении LC.
 	if (++Timer0CountersStr.Timer0FastBlink_ms_Counter >= 12)
@@ -301,13 +301,13 @@ ISR(TIMER1_OVF_vect){
 	//Обмен по протоколу когда адресс 2.
 	if (Timer0FlagReg2 & Timer0_StartPtotocolForRA2Flag)
 		{
-			usart_cycle_count_modify();
+			//usart_cycle_count_modify();
 		}	
 	//----------------------------------------------------
 	//Обмен по протоколу когда адресс 1.
 	if (Timer0FlagReg2 & Timer0_StartPtotocolForRA1Flag)
 		{
-			rs485_protocol();
+			//rs485_protocol();
 		}
 	//----------------------------------------------------
 }
@@ -325,11 +325,11 @@ ISR(TIMER0_OVF_vect){
 	//Запуск преобразования АЦП.
 	//ADCSRA |= (1<<ADSC);
 	//----------------------------------------------------
-  	if (Timer0FlagReg2 & Timer0_StartRequestFlag)
-  		{
-	  		Timer0FlagReg2 &= ~Timer0_StartRequestFlag;
-	  		send_request_from_RA2();
-  		}
+//  	if (Timer0FlagReg2 & Timer0_StartRequestFlag)
+//  		{
+//	  		Timer0FlagReg2 &= ~Timer0_StartRequestFlag;
+//	  		send_request_from_RA2();
+//  		}
 	//----------------------------------------------------
 // 	if (Timer0FlagReg2 & Timer0_StartPtotocolForRA2Flag)
 // 		{
@@ -339,23 +339,17 @@ ISR(TIMER0_OVF_vect){
 // 				}
 // 		}
 	//----------------------------------------------------
- 	if (RX_LED_PIN & RX_LED)
- 		{
-	 		if (++Timer0CountersStr.Timer0_RX_LED_Counter == TIMER0_TX_RX_LED_CONST)
-	 			{
-		 			RX_LED_PORT &= ~RX_LED;
-		 			Timer0CountersStr.Timer0_RX_LED_Counter = 0;
-	 			}
- 		}
+	if(++Timer0CountersStr.Timer0_RX_LED_Counter == TIMER0_TX_RX_LED_CONST)
+	{
+		RX_LED_PORT ^= RX_LED;
+		Timer0CountersStr.Timer0_RX_LED_Counter = 0;
+	}
 	//----------------------------------------------------
-	if (TX_LED_PIN & TX_LED)
-		{
-			if (++Timer0CountersStr.Timer0_TX_LED_Counter == TIMER0_TX_RX_LED_CONST)
-				{
-					TX_LED_PORT &= ~TX_LED;
-					Timer0CountersStr.Timer0_TX_LED_Counter = 0;
-				}
-		}
+	if(++Timer0CountersStr.Timer0_TX_LED_Counter == TIMER0_TX_RX_LED_CONST)
+	{
+		TX_LED_PORT ^= TX_LED;
+		Timer0CountersStr.Timer0_TX_LED_Counter = 0;
+	}
 	//----------------------------------------------------
 }
 //--------------------------------------------------------------------------------------------------------

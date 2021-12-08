@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../main.c \
 ../my_lib/adc.c \
 ../my_lib/charge.c \
+../my_lib/i2c.c \
 ../my_lib/line_chacker.c \
 ../my_lib/eep.c \
 ../my_lib/relay.c \
@@ -61,6 +62,7 @@ OBJS +=  \
 main.o \
 my_lib/adc.o \
 my_lib/charge.o \
+my_lib/i2c.o \
 my_lib/line_chacker.o \
 my_lib/eep.o \
 my_lib/relay.o \
@@ -74,6 +76,7 @@ OBJS_AS_ARGS +=  \
 main.o \
 my_lib/adc.o \
 my_lib/charge.o \
+my_lib/i2c.o \
 my_lib/line_chacker.o \
 my_lib/eep.o \
 my_lib/relay.o \
@@ -87,6 +90,7 @@ C_DEPS +=  \
 main.d \
 my_lib/adc.d \
 my_lib/charge.d \
+my_lib/i2c.d \
 my_lib/line_chacker.d \
 my_lib/eep.d \
 my_lib/relay.d \
@@ -100,6 +104,7 @@ C_DEPS_AS_ARGS +=  \
 main.d \
 my_lib/adc.d \
 my_lib/charge.d \
+my_lib/i2c.d \
 my_lib/line_chacker.d \
 my_lib/eep.d \
 my_lib/relay.d \
@@ -138,6 +143,13 @@ my_lib/adc.o: ../my_lib/adc.c
 	
 
 my_lib/charge.o: ../my_lib/charge.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DNDEBUG  -I".." -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+my_lib/i2c.o: ../my_lib/i2c.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DNDEBUG  -I".." -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\include"  -Os -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -Wall -mmcu=atmega32a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega32a" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

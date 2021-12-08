@@ -188,9 +188,9 @@ static uint16_t measure_resistence_one_line(uint8_t line, uint16_t delay){
 		}
 	//-------------------------
 	//Расчет сопротивления линии.
-	meas_temp = (2048U - meas);										
+	meas_temp  = (2048U - meas);										
 	meas_temp1 = ( ((uint32_t)meas * CalibrCoeff_temp + 5) / 10 );
-	meas_temp = ( (meas_temp1 + (meas_temp / 2)) / meas_temp );
+	meas_temp  = ( (meas_temp1 + (meas_temp / 2)) / meas_temp );
 	//-------------------------
 	return (uint16_t)meas_temp;
 	//-------------------------
