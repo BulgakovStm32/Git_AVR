@@ -9,7 +9,8 @@
 //*******************************************************************************************
 void DoNothing(void);
 
-uint8_t i2c_Do;								// Переменная состояния передатчика IIC
+volatile uint8_t i2c_Do;					// Переменная состояния передатчика IIC
+
 uint8_t i2c_InBuff[I2C_MASTER_BYTE_RX];		// Буфер прием при работе как Slave
 uint8_t i2c_OutBuff[I2C_MASTER_BYTE_TX];	// Буфер передачи при работе как Slave
 uint8_t i2c_SlaveIndex;						// Индекс буфера Slave
@@ -380,7 +381,13 @@ uint8_t I2C_StartWrite(uint8_t slaveAddr,uint8_t regAddr, uint8_t *buf, uint8_t 
 	//Включение TWI и запуск передачи.
 	TWCR =	1 << TWSTA | //TWI START Condition Bit
 			0 << TWSTO | //TWI STOP Condition Bit
+			
+			//Бит TWINT очищается программно, записью единицы. 
+			//При выполнении обработчика прерывания этот бит не сбрасывается аппаратно, как в других модулях. 
+			//Сброс флага TWINT запускает работу TWI модуля, поэтому все операции с регистром данных, статуса или адреса, должны быть выполнены до его сброса.
+			//Пока бит TWINT установлен, на линии SCL удерживается низкий уровень.			
 			1 << TWINT | //TWI Interrupt Flag - Этот бит устанавливается аппаратно, когда TWI модуль завершает текущую операцию.
+			
 			0 << TWEA  | //TWI Enable Acknowledge Bit.
 			1 << TWIE  | //TWI Interrupt Enable
 			1 << TWEN;   //TWI Enable Bit

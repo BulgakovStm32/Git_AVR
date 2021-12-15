@@ -32,13 +32,13 @@ static void lcd_send_tetrad(uint8_t byte, uint8_t type){
 	txBuf[0] = temp;
 
 	//Шлем строб E в дисплей.
-	//temp |= LCD_E;
-	//txBuf[1] = temp;
-//
-	//temp &= ~(LCD_E);
-	//txBuf[2] = temp;
+	temp |= LCD_E;
+	txBuf[1] = temp;
 
-	I2C_StartWrite(LCD_I2C_ADDRESS, 0, txBuf, 1);
+	temp &= ~(LCD_E);
+	txBuf[2] = temp;
+
+	I2C_StartWrite(LCD_I2C_ADDRESS, 0, txBuf, 3);
 }
 //***************************************************************
 static void lcd_send(uint8_t byte, uint8_t type){
@@ -126,12 +126,12 @@ void lcd_BinToDec(uint16_t var, uint8_t num){
 //***************************************************************
 void lcd_BacklightON(void){
 
-	lcd_send(LCD_BACKLIGHT, LCD_DATA);
+	lcd_send_tetrad(LCD_BACKLIGHT, LCD_DATA);
 }
 //***************************************************************
 void lcd_BacklightOFF(void){
 
-	lcd_send(LCD_NOBACKLIGHT, LCD_DATA);
+	lcd_send_tetrad(LCD_NOBACKLIGHT, LCD_DATA);
 }
 //***************************************************************
 ////ПП создания символа в LCD.

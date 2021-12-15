@@ -124,16 +124,16 @@ int main(void){
 		//I2C_SetState(I2C_FREE);	// Освобождаем шину	
 		//I2C_StartWrite(0x4F, 0x0000, i2c_TxBuf, sizeof(i2c_TxBuf)-1);
 		
-		//lcd_set_cursor(LCD_STRING_1, 1); 
-		//lcd_print_string("123456");
+		lcd_set_cursor(LCD_STRING_1, 1);
+		lcd_print_string("123456");
 
-		lcd_BacklightOFF();
-		msDelay(1000);
+		//lcd_BacklightOFF();
+		//msDelay(1000);
 
-		lcd_BacklightON();
+		//lcd_BacklightON();
 		msDelay(1000);
 		
-		I2C_SetState(I2C_FREE);	// Освобождаем шину	
+		I2C_SetState(0);	// Освобождаем шину	
 	}
 	//---------------------------------------------------------------------------------------------------------------------
 	//---------------------------------------------------------------------------------------------------------------------	
