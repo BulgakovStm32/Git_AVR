@@ -13,9 +13,11 @@
 //-----------------------------------------------------------------------------
 #define F_CPU 16000000UL //Частота кварца.
 
-#include <avr/io.h>
+#include <avr/io.h>	   //
+#include <avr/wdt.h>   //подключаем библиотеку для работы со сторожевым 
+#include <avr/sleep.h> //
+
 #include <util/delay.h>
-#include <avr/wdt.h> //подключаем библиотеку для работы со сторожевым 
 
 //#include "my_lib/adc.h"
 //#include "my_lib/relay.h"
