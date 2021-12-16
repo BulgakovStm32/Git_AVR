@@ -338,13 +338,13 @@ ISR(TIMER0_OVF_vect){
 	//----------------------------------------------------
 	if(++Timer0CountersStr.Timer0_RX_LED_Counter == TIMER0_TX_RX_LED_CONST)
 	{
-		RX_LED_PORT ^= RX_LED;
+		//RX_LED_PORT ^= RX_LED;
 		Timer0CountersStr.Timer0_RX_LED_Counter = 0;
 	}
 	//----------------------------------------------------
 	if(++Timer0CountersStr.Timer0_TX_LED_Counter == TIMER0_TX_RX_LED_CONST)
 	{
-		TX_LED_PORT ^= TX_LED;
+		//TX_LED_PORT ^= TX_LED;
 		Timer0CountersStr.Timer0_TX_LED_Counter = 0;
 	}
 	//----------------------------------------------------

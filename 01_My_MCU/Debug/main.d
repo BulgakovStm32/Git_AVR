@@ -25,8 +25,7 @@ main.d main.o: .././main.c .././main.h \
  ../my_lib/adc.h ../my_lib/pt6964.h ../my_lib/hef4052.h ../my_lib/relay.h \
  ../my_lib/line_chacker.h ../my_lib/charge.h ../my_lib\pt6964.h \
  ../my_lib\line_chacker.h ../my_lib\charge.h .././my_lib/usart.h \
- .././my_lib/i2c.h .././my_lib/Lcd_i2c_1602.h ../main.h \
- c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\compat\deprecated.h
+ .././my_lib/i2c.h .././my_lib/Lcd_i2c_1602.h ../main.h
 
 .././main.h:
 
@@ -111,5 +110,3 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 .././my_lib/Lcd_i2c_1602.h:
 
 ../main.h:
-
-c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\compat\deprecated.h:

@@ -1,0 +1,3001 @@
+
+My_MCU.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00001022  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         0000000a  00800060  00001022  000010b6  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          000000e7  0080006a  0080006a  000010c0  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000010c0  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000010f0  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000390  00000000  00000000  0000112c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   0000477b  00000000  00000000  000014bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 000017bc  00000000  00000000  00005c37  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000024a4  00000000  00000000  000073f3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  000008ac  00000000  00000000  00009898  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    000017b1  00000000  00000000  0000a144  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    00002127  00000000  00000000  0000b8f5  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000338  00000000  00000000  0000da1c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+       0:	0c 94 33 00 	jmp	0x66	; 0x66 <__ctors_end>
+       4:	0c 94 81 00 	jmp	0x102	; 0x102 <__vector_1>
+       8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+       c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      14:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      18:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      1c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      20:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      24:	0c 94 9a 05 	jmp	0xb34	; 0xb34 <__vector_9>
+      28:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      2c:	0c 94 09 07 	jmp	0xe12	; 0xe12 <__vector_11>
+      30:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      34:	0c 94 5f 07 	jmp	0xebe	; 0xebe <__vector_13>
+      38:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      3c:	0c 94 e8 07 	jmp	0xfd0	; 0xfd0 <__vector_15>
+      40:	0c 94 8f 00 	jmp	0x11e	; 0x11e <__vector_16>
+      44:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      48:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+      4c:	0c 94 dd 00 	jmp	0x1ba	; 0x1ba <__vector_19>
+      50:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+
+00000054 <__trampolines_end>:
+      54:	3f 06       	cpc	r3, r31
+      56:	5b 4f       	sbci	r21, 0xFB	; 251
+      58:	66 6d       	ori	r22, 0xD6	; 214
+      5a:	7d 07       	cpc	r23, r29
+      5c:	7f 6f       	ori	r23, 0xFF	; 255
+      5e:	76 39       	cpi	r23, 0x96	; 150
+      60:	31 6e       	ori	r19, 0xE1	; 225
+      62:	37 77       	andi	r19, 0x77	; 119
+      64:	73 79       	andi	r23, 0x93	; 147
+
+00000066 <__ctors_end>:
+      66:	11 24       	eor	r1, r1
+      68:	1f be       	out	0x3f, r1	; 63
+      6a:	cf e5       	ldi	r28, 0x5F	; 95
+      6c:	d8 e0       	ldi	r29, 0x08	; 8
+      6e:	de bf       	out	0x3e, r29	; 62
+      70:	cd bf       	out	0x3d, r28	; 61
+
+00000072 <__do_copy_data>:
+      72:	10 e0       	ldi	r17, 0x00	; 0
+      74:	a0 e6       	ldi	r26, 0x60	; 96
+      76:	b0 e0       	ldi	r27, 0x00	; 0
+      78:	e2 e2       	ldi	r30, 0x22	; 34
+      7a:	f0 e1       	ldi	r31, 0x10	; 16
+      7c:	02 c0       	rjmp	.+4      	; 0x82 <__do_copy_data+0x10>
+      7e:	05 90       	lpm	r0, Z+
+      80:	0d 92       	st	X+, r0
+      82:	aa 36       	cpi	r26, 0x6A	; 106
+      84:	b1 07       	cpc	r27, r17
+      86:	d9 f7       	brne	.-10     	; 0x7e <__do_copy_data+0xc>
+
+00000088 <__do_clear_bss>:
+      88:	21 e0       	ldi	r18, 0x01	; 1
+      8a:	aa e6       	ldi	r26, 0x6A	; 106
+      8c:	b0 e0       	ldi	r27, 0x00	; 0
+      8e:	01 c0       	rjmp	.+2      	; 0x92 <.do_clear_bss_start>
+
+00000090 <.do_clear_bss_loop>:
+      90:	1d 92       	st	X+, r1
+
+00000092 <.do_clear_bss_start>:
+      92:	a1 35       	cpi	r26, 0x51	; 81
+      94:	b2 07       	cpc	r27, r18
+      96:	e1 f7       	brne	.-8      	; 0x90 <.do_clear_bss_loop>
+      98:	0e 94 5d 00 	call	0xba	; 0xba <main>
+      9c:	0c 94 0f 08 	jmp	0x101e	; 0x101e <_exit>
+
+000000a0 <__bad_interrupt>:
+      a0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a4 <asm_TogglePin>:
+//*******************************************************************************************
+void asm_TogglePin(void){
+	
+	register unsigned char counter asm("r3");
+	
+	__asm__ __volatile__(
+      a4:	33 24       	eor	r3, r3
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+      a6:	2f ef       	ldi	r18, 0xFF	; 255
+      a8:	83 ed       	ldi	r24, 0xD3	; 211
+      aa:	90 e3       	ldi	r25, 0x30	; 48
+      ac:	21 50       	subi	r18, 0x01	; 1
+      ae:	80 40       	sbci	r24, 0x00	; 0
+      b0:	90 40       	sbci	r25, 0x00	; 0
+      b2:	e1 f7       	brne	.-8      	; 0xac <asm_TogglePin+0x8>
+      b4:	00 c0       	rjmp	.+0      	; 0xb6 <asm_TogglePin+0x12>
+      b6:	00 00       	nop
+      b8:	08 95       	ret
+
+000000ba <main>:
+int main(void){
+	
+	//uint8_t temp  = 0;
+	//------------------------------
+	//Инициализация ножки PD2(INT0) для генерации прерывания.
+	DDRD  &= ~(1<<PIND2);//настраиваем вывод на вход
+      ba:	8a 98       	cbi	0x11, 2	; 17
+	PORTD |=  (1<<PIND2);//включаем подтягивающий резистор
+      bc:	92 9a       	sbi	0x12, 2	; 18
+	 
+	MCUCR |= (0<<ISC01)|(0<<ISC00);//The low level of INT0 generates an interrupt request.
+      be:	85 b7       	in	r24, 0x35	; 53
+      c0:	85 bf       	out	0x35, r24	; 53
+	GICR  |= (1<<INT0);			   //разрешаем внешнее прерывание на int0
+      c2:	8b b7       	in	r24, 0x3b	; 59
+      c4:	80 64       	ori	r24, 0x40	; 64
+      c6:	8b bf       	out	0x3b, r24	; 59
+	 
+	sleepReg = 1;
+      c8:	81 e0       	ldi	r24, 0x01	; 1
+      ca:	80 93 6a 00 	sts	0x006A, r24	; 0x80006a <__data_end>
+	 
+	//set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+	MCUCR |= SLEEP_MODE_PWR_DOWN;//
+      ce:	85 b7       	in	r24, 0x35	; 53
+      d0:	80 62       	ori	r24, 0x20	; 32
+      d2:	85 bf       	out	0x35, r24	; 53
+	 
+	//sleep_enable();
+	MCUCR |= 1<<SE;
+      d4:	85 b7       	in	r24, 0x35	; 53
+      d6:	80 68       	ori	r24, 0x80	; 128
+      d8:	85 bf       	out	0x35, r24	; 53
+	 
+	sei();
+      da:	78 94       	sei
+	sleep_cpu();
+      dc:	88 95       	sleep
+	
+	//sleep_disable() 
+	MCUCR &= ~(1<<SE);//
+      de:	85 b7       	in	r24, 0x35	; 53
+      e0:	8f 77       	andi	r24, 0x7F	; 127
+      e2:	85 bf       	out	0x35, r24	; 53
+	 
+	GICR &= ~(1<<INT0); //Отключение внешнего прерывания на int0
+      e4:	8b b7       	in	r24, 0x3b	; 59
+      e6:	8f 7b       	andi	r24, 0xBF	; 191
+      e8:	8b bf       	out	0x3b, r24	; 59
+	//cli();
+	//------------------------------
+	//_delay_ms(1000);//Пауза для стабилизации переходных процессов.
+	//------------------------------
+//	relay_em_init();//Отключение УМ.
+	Timers_Init();	
+      ea:	0e 94 68 05 	call	0xad0	; 0xad0 <Timers_Init>
+	USART_Init();
+      ee:	0e 94 50 07 	call	0xea0	; 0xea0 <USART_Init>
+	I2C_Init();
+      f2:	0e 94 d3 00 	call	0x1a6	; 0x1a6 <I2C_Init>
+
+	lcd_init();
+      f6:	0e 94 c6 02 	call	0x58c	; 0x58c <lcd_init>
+	//----------------------------------------------------------------------
+	//Включение сторожевого таймера со сбросом через 2 секунды. Сброс сторожевого таймера в прерывании таймера1 каждые 10 мСек.
+//	wdt_enable(WDTO_2S);
+	//----------------------------------------------------------------------	
+	//Глобальное разрешение прерываний.
+	sei();
+      fa:	78 94       	sei
+		//msDelay(1000);
+		//
+		//I2C_SetState(0);	// Освобождаем шину	
+		
+		//************************************************************
+		asm_TogglePin();
+      fc:	0e 94 52 00 	call	0xa4	; 0xa4 <asm_TogglePin>
+     100:	fd cf       	rjmp	.-6      	; 0xfc <main+0x42>
+
+00000102 <__vector_1>:
+	//---------------------------------------------------------------------------------------------------------------------	
+}
+//*******************************************************************************************
+//*******************************************************************************************
+//Обработчик внешнего прерывания INT0(PD2).
+ISR(INT0_vect){
+     102:	1f 92       	push	r1
+     104:	0f 92       	push	r0
+     106:	0f b6       	in	r0, 0x3f	; 63
+     108:	0f 92       	push	r0
+     10a:	11 24       	eor	r1, r1
+	//{
+		//if ((PIND & (1<<PIND2)) == 0) count++;
+	//}
+	//if (count > 10) sleepReg = 0;
+	
+	if ((PIND & (1<<PIND2)) == 0) sleepReg = 0;
+     10c:	82 9b       	sbis	0x10, 2	; 16
+     10e:	10 92 6a 00 	sts	0x006A, r1	; 0x80006a <__data_end>
+	//sleep_disable();
+	
+	RX_LED_PORT |= RX_LED;
+     112:	96 9a       	sbi	0x12, 6	; 18
+}
+     114:	0f 90       	pop	r0
+     116:	0f be       	out	0x3f, r0	; 63
+     118:	0f 90       	pop	r0
+     11a:	1f 90       	pop	r1
+     11c:	18 95       	reti
+
+0000011e <__vector_16>:
+	while(AdcMeasureCounters){};		//Ожидание окончания измерения и усреднения.
+	return AdcResult;	
+	//-----------------------------------
+}
+//-----------------------------------------------------------------------------
+ISR(ADC_vect){
+     11e:	1f 92       	push	r1
+     120:	0f 92       	push	r0
+     122:	0f b6       	in	r0, 0x3f	; 63
+     124:	0f 92       	push	r0
+     126:	11 24       	eor	r1, r1
+     128:	2f 93       	push	r18
+     12a:	3f 93       	push	r19
+     12c:	8f 93       	push	r24
+     12e:	9f 93       	push	r25
+	
+	//-----------------------------------
+	AdcResult += ADCW;
+     130:	24 b1       	in	r18, 0x04	; 4
+     132:	35 b1       	in	r19, 0x05	; 5
+     134:	80 91 6b 00 	lds	r24, 0x006B	; 0x80006b <AdcResult>
+     138:	90 91 6c 00 	lds	r25, 0x006C	; 0x80006c <AdcResult+0x1>
+     13c:	82 0f       	add	r24, r18
+     13e:	93 1f       	adc	r25, r19
+     140:	90 93 6c 00 	sts	0x006C, r25	; 0x80006c <AdcResult+0x1>
+     144:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <AdcResult>
+	if (!(--AdcMeasureCounters))
+     148:	80 91 6d 00 	lds	r24, 0x006D	; 0x80006d <AdcMeasureCounters>
+     14c:	81 50       	subi	r24, 0x01	; 1
+     14e:	80 93 6d 00 	sts	0x006D, r24	; 0x80006d <AdcMeasureCounters>
+     152:	81 11       	cpse	r24, r1
+     154:	0f c0       	rjmp	.+30     	; 0x174 <__vector_16+0x56>
+		{
+			ADCSRA &= ~(1<<ADIE);			//Запрет прерывания от АЦП
+     156:	33 98       	cbi	0x06, 3	; 6
+			AdcResult = (AdcResult >> 4);	//Усреднение по 16-ми измерениям, т.к. применяется передискретизация
+     158:	80 91 6b 00 	lds	r24, 0x006B	; 0x80006b <AdcResult>
+     15c:	90 91 6c 00 	lds	r25, 0x006C	; 0x80006c <AdcResult+0x1>
+     160:	24 e0       	ldi	r18, 0x04	; 4
+     162:	96 95       	lsr	r25
+     164:	87 95       	ror	r24
+     166:	2a 95       	dec	r18
+     168:	e1 f7       	brne	.-8      	; 0x162 <__vector_16+0x44>
+     16a:	90 93 6c 00 	sts	0x006C, r25	; 0x80006c <AdcResult+0x1>
+     16e:	80 93 6b 00 	sts	0x006B, r24	; 0x80006b <AdcResult>
+     172:	01 c0       	rjmp	.+2      	; 0x176 <__vector_16+0x58>
+											//для увеличения разрешающей способность до 12 бит.
+		}
+	else
+		{
+			ADCSRA |= (1<<ADSC);			//Запуск преобразования АЦП.
+     174:	36 9a       	sbi	0x06, 6	; 6
+		}
+	//-----------------------------------
+}
+     176:	9f 91       	pop	r25
+     178:	8f 91       	pop	r24
+     17a:	3f 91       	pop	r19
+     17c:	2f 91       	pop	r18
+     17e:	0f 90       	pop	r0
+     180:	0f be       	out	0x3f, r0	; 63
+     182:	0f 90       	pop	r0
+     184:	1f 90       	pop	r1
+     186:	18 95       	reti
+
+00000188 <get_charge_indication>:
+	POWER220_PORT &= ~POWER220_LEG; //Z-состояние.
+}
+//-----------------------------------------------------------------------------
+uint8_t get_charge_indication(void){
+		
+	if (POWER220_PIN & POWER220_LEG)
+     188:	9c 9b       	sbis	0x13, 4	; 19
+     18a:	05 c0       	rjmp	.+10     	; 0x196 <get_charge_indication+0xe>
+		{
+			DisplayBright = 1;
+     18c:	81 e0       	ldi	r24, 0x01	; 1
+     18e:	80 93 67 00 	sts	0x0067, r24	; 0x800067 <DisplayBright>
+			return POWER220_INDICATE_ALARM;
+     192:	8e ea       	ldi	r24, 0xAE	; 174
+     194:	08 95       	ret
+		} 
+	else
+		{
+			DisplayBright = TempDisplayBright;
+     196:	80 91 66 00 	lds	r24, 0x0066	; 0x800066 <TempDisplayBright>
+     19a:	80 93 67 00 	sts	0x0067, r24	; 0x800067 <DisplayBright>
+			return ChargeIndicate;
+     19e:	80 91 6e 00 	lds	r24, 0x006E	; 0x80006e <ChargeIndicate>
+		}
+}  
+     1a2:	08 95       	ret
+
+000001a4 <DoNothing>:
+}
+//**********************************************************
+uint8_t I2C_GetState(void){
+	
+	return i2c_Do;
+}
+     1a4:	08 95       	ret
+
+000001a6 <I2C_Init>:
+     1a6:	85 b3       	in	r24, 0x15	; 21
+     1a8:	83 60       	ori	r24, 0x03	; 3
+     1aa:	85 bb       	out	0x15, r24	; 21
+     1ac:	84 b3       	in	r24, 0x14	; 20
+     1ae:	8c 7f       	andi	r24, 0xFC	; 252
+     1b0:	84 bb       	out	0x14, r24	; 20
+     1b2:	88 e4       	ldi	r24, 0x48	; 72
+     1b4:	80 b9       	out	0x00, r24	; 0
+     1b6:	11 b8       	out	0x01, r1	; 1
+     1b8:	08 95       	ret
+
+000001ba <__vector_19>:
+
+
+//*******************************************************************************************
+//*******************************************************************************************
+// Прерывание TWI. 
+ISR (TWI_vect){
+     1ba:	1f 92       	push	r1
+     1bc:	0f 92       	push	r0
+     1be:	0f b6       	in	r0, 0x3f	; 63
+     1c0:	0f 92       	push	r0
+     1c2:	11 24       	eor	r1, r1
+     1c4:	2f 93       	push	r18
+     1c6:	3f 93       	push	r19
+     1c8:	4f 93       	push	r20
+     1ca:	5f 93       	push	r21
+     1cc:	6f 93       	push	r22
+     1ce:	7f 93       	push	r23
+     1d0:	8f 93       	push	r24
+     1d2:	9f 93       	push	r25
+     1d4:	af 93       	push	r26
+     1d6:	bf 93       	push	r27
+     1d8:	ef 93       	push	r30
+     1da:	ff 93       	push	r31
+		WorkIndex++;
+		}
+}
+*/
+	//Определение причины прерывания.
+	switch(TWSR & 0xF8)	{ // Отсекаем биты прескалера
+     1dc:	81 b1       	in	r24, 0x01	; 1
+     1de:	88 7f       	andi	r24, 0xF8	; 248
+     1e0:	80 36       	cpi	r24, 0x60	; 96
+     1e2:	09 f4       	brne	.+2      	; 0x1e6 <__vector_19+0x2c>
+     1e4:	26 c1       	rjmp	.+588    	; 0x432 <__EEPROM_REGION_LENGTH__+0x32>
+     1e6:	a0 f5       	brcc	.+104    	; 0x250 <__vector_19+0x96>
+     1e8:	88 32       	cpi	r24, 0x28	; 40
+     1ea:	09 f4       	brne	.+2      	; 0x1ee <__vector_19+0x34>
+     1ec:	9b c0       	rjmp	.+310    	; 0x324 <__vector_19+0x16a>
+     1ee:	90 f4       	brcc	.+36     	; 0x214 <__vector_19+0x5a>
+     1f0:	80 31       	cpi	r24, 0x10	; 16
+     1f2:	09 f4       	brne	.+2      	; 0x1f6 <__vector_19+0x3c>
+     1f4:	67 c0       	rjmp	.+206    	; 0x2c4 <__vector_19+0x10a>
+     1f6:	38 f4       	brcc	.+14     	; 0x206 <__vector_19+0x4c>
+     1f8:	88 23       	and	r24, r24
+     1fa:	09 f4       	brne	.+2      	; 0x1fe <__vector_19+0x44>
+     1fc:	57 c0       	rjmp	.+174    	; 0x2ac <__vector_19+0xf2>
+     1fe:	88 30       	cpi	r24, 0x08	; 8
+     200:	09 f4       	brne	.+2      	; 0x204 <__vector_19+0x4a>
+     202:	58 c0       	rjmp	.+176    	; 0x2b4 <__vector_19+0xfa>
+     204:	6c c1       	rjmp	.+728    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+     206:	88 31       	cpi	r24, 0x18	; 24
+     208:	09 f4       	brne	.+2      	; 0x20c <__vector_19+0x52>
+     20a:	6d c0       	rjmp	.+218    	; 0x2e6 <__vector_19+0x12c>
+     20c:	80 32       	cpi	r24, 0x20	; 32
+     20e:	09 f4       	brne	.+2      	; 0x212 <__vector_19+0x58>
+     210:	d1 c0       	rjmp	.+418    	; 0x3b4 <__vector_19+0x1fa>
+     212:	65 c1       	rjmp	.+714    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+     214:	80 34       	cpi	r24, 0x40	; 64
+     216:	09 f4       	brne	.+2      	; 0x21a <__vector_19+0x60>
+     218:	c6 c0       	rjmp	.+396    	; 0x3a6 <__vector_19+0x1ec>
+     21a:	80 f4       	brcc	.+32     	; 0x23c <__vector_19+0x82>
+     21c:	80 33       	cpi	r24, 0x30	; 48
+     21e:	09 f4       	brne	.+2      	; 0x222 <__vector_19+0x68>
+     220:	ba c0       	rjmp	.+372    	; 0x396 <__vector_19+0x1dc>
+     222:	88 33       	cpi	r24, 0x38	; 56
+     224:	09 f0       	breq	.+2      	; 0x228 <__vector_19+0x6e>
+     226:	5b c1       	rjmp	.+694    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+			MACRO_i2c_WhatDo_MasterOut													// Отрабатываем событие выхода
+		break;
+		//--------------------
+		//Коллизия на шине. Нашелся кто то поглавней
+		case (0x38):	
+			i2c_Do |= I2C_ERR_LP;//Ставим ошибку потери приоритета
+     228:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     22c:	80 62       	ori	r24, 0x20	; 32
+     22e:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+
+			// Настраиваем индексы заново. 
+			i2c_Index = 0;
+     232:	10 92 de 00 	sts	0x00DE, r1	; 0x8000de <i2c_Index>
+			i2c_PageAddrIndex = 0;
+     236:	10 92 e6 00 	sts	0x00E6, r1	; 0x8000e6 <i2c_PageAddrIndex>
+     23a:	b3 c0       	rjmp	.+358    	; 0x3a2 <__vector_19+0x1e8>
+		WorkIndex++;
+		}
+}
+*/
+	//Определение причины прерывания.
+	switch(TWSR & 0xF8)	{ // Отсекаем биты прескалера
+     23c:	80 35       	cpi	r24, 0x50	; 80
+     23e:	09 f4       	brne	.+2      	; 0x242 <__vector_19+0x88>
+     240:	c5 c0       	rjmp	.+394    	; 0x3cc <__vector_19+0x212>
+     242:	88 35       	cpi	r24, 0x58	; 88
+     244:	09 f4       	brne	.+2      	; 0x248 <__vector_19+0x8e>
+     246:	db c0       	rjmp	.+438    	; 0x3fe <__vector_19+0x244>
+     248:	88 34       	cpi	r24, 0x48	; 72
+     24a:	09 f0       	breq	.+2      	; 0x24e <__vector_19+0x94>
+     24c:	48 c1       	rjmp	.+656    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+     24e:	b2 c0       	rjmp	.+356    	; 0x3b4 <__vector_19+0x1fa>
+     250:	88 39       	cpi	r24, 0x98	; 152
+     252:	09 f4       	brne	.+2      	; 0x256 <__vector_19+0x9c>
+     254:	04 c1       	rjmp	.+520    	; 0x45e <__EEPROM_REGION_LENGTH__+0x5e>
+     256:	a8 f4       	brcc	.+42     	; 0x282 <__vector_19+0xc8>
+     258:	88 37       	cpi	r24, 0x78	; 120
+     25a:	09 f4       	brne	.+2      	; 0x25e <__vector_19+0xa4>
+     25c:	e1 c0       	rjmp	.+450    	; 0x420 <__EEPROM_REGION_LENGTH__+0x20>
+     25e:	38 f4       	brcc	.+14     	; 0x26e <__vector_19+0xb4>
+     260:	88 36       	cpi	r24, 0x68	; 104
+     262:	09 f4       	brne	.+2      	; 0x266 <__vector_19+0xac>
+     264:	dd c0       	rjmp	.+442    	; 0x420 <__EEPROM_REGION_LENGTH__+0x20>
+     266:	80 37       	cpi	r24, 0x70	; 112
+     268:	09 f4       	brne	.+2      	; 0x26c <__vector_19+0xb2>
+     26a:	e3 c0       	rjmp	.+454    	; 0x432 <__EEPROM_REGION_LENGTH__+0x32>
+     26c:	38 c1       	rjmp	.+624    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+     26e:	88 38       	cpi	r24, 0x88	; 136
+     270:	09 f4       	brne	.+2      	; 0x274 <__vector_19+0xba>
+     272:	f5 c0       	rjmp	.+490    	; 0x45e <__EEPROM_REGION_LENGTH__+0x5e>
+     274:	80 39       	cpi	r24, 0x90	; 144
+     276:	09 f4       	brne	.+2      	; 0x27a <__vector_19+0xc0>
+     278:	e4 c0       	rjmp	.+456    	; 0x442 <__EEPROM_REGION_LENGTH__+0x42>
+     27a:	80 38       	cpi	r24, 0x80	; 128
+     27c:	09 f0       	breq	.+2      	; 0x280 <__vector_19+0xc6>
+     27e:	2f c1       	rjmp	.+606    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+     280:	e0 c0       	rjmp	.+448    	; 0x442 <__EEPROM_REGION_LENGTH__+0x42>
+     282:	80 3b       	cpi	r24, 0xB0	; 176
+     284:	09 f4       	brne	.+2      	; 0x288 <__vector_19+0xce>
+     286:	f7 c0       	rjmp	.+494    	; 0x476 <__EEPROM_REGION_LENGTH__+0x76>
+     288:	38 f4       	brcc	.+14     	; 0x298 <__vector_19+0xde>
+     28a:	80 3a       	cpi	r24, 0xA0	; 160
+     28c:	09 f4       	brne	.+2      	; 0x290 <__vector_19+0xd6>
+     28e:	01 c1       	rjmp	.+514    	; 0x492 <__EEPROM_REGION_LENGTH__+0x92>
+     290:	88 3a       	cpi	r24, 0xA8	; 168
+     292:	09 f4       	brne	.+2      	; 0x296 <__vector_19+0xdc>
+     294:	f9 c0       	rjmp	.+498    	; 0x488 <__EEPROM_REGION_LENGTH__+0x88>
+     296:	23 c1       	rjmp	.+582    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+     298:	80 3c       	cpi	r24, 0xC0	; 192
+     29a:	09 f4       	brne	.+2      	; 0x29e <__vector_19+0xe4>
+     29c:	0e c1       	rjmp	.+540    	; 0x4ba <__EEPROM_REGION_LENGTH__+0xba>
+     29e:	88 3c       	cpi	r24, 0xC8	; 200
+     2a0:	09 f4       	brne	.+2      	; 0x2a4 <__vector_19+0xea>
+     2a2:	0b c1       	rjmp	.+534    	; 0x4ba <__EEPROM_REGION_LENGTH__+0xba>
+     2a4:	88 3b       	cpi	r24, 0xB8	; 184
+     2a6:	09 f4       	brne	.+2      	; 0x2aa <__vector_19+0xf0>
+     2a8:	f6 c0       	rjmp	.+492    	; 0x496 <__EEPROM_REGION_LENGTH__+0x96>
+     2aa:	19 c1       	rjmp	.+562    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+		//--------------------
+		//Bus Fail - аппаратная ошибка шины. Например, внезапный старт посреди передачи бита.
+		case (0x00):	
+			i2c_Do |= I2C_ERR_BF;
+     2ac:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     2b0:	81 60       	ori	r24, 0x01	; 1
+     2b2:	83 c0       	rjmp	.+262    	; 0x3ba <__vector_19+0x200>
+			MACRO_i2c_WhatDo_ErrorOut
+		break;
+		//--------------------
+		//Старт был, а затем мы в зависимости от режима
+		case (0x08):	
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R	
+     2b4:	90 91 ef 00 	lds	r25, 0x00EF	; 0x8000ef <i2c_Do>
+     2b8:	9c 70       	andi	r25, 0x0C	; 12
+     2ba:	80 91 df 00 	lds	r24, 0x00DF	; 0x8000df <i2c_SlaveAddress>
+     2be:	91 11       	cpse	r25, r1
+     2c0:	08 c0       	rjmp	.+16     	; 0x2d2 <__vector_19+0x118>
+     2c2:	0f c0       	rjmp	.+30     	; 0x2e2 <__vector_19+0x128>
+			TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;// Go!
+		break;
+		//--------------------	
+		//Был обнаружен повторный старт. Можно переключиться с записи на чтение или наоборот. От логики зависит.
+		case (0x10):
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R
+     2c4:	90 91 ef 00 	lds	r25, 0x00EF	; 0x8000ef <i2c_Do>
+     2c8:	9c 70       	andi	r25, 0x0C	; 12
+     2ca:	80 91 df 00 	lds	r24, 0x00DF	; 0x8000df <i2c_SlaveAddress>
+     2ce:	98 30       	cpi	r25, 0x08	; 8
+     2d0:	41 f0       	breq	.+16     	; 0x2e2 <__vector_19+0x128>
+		break;
+		//--------------------
+		//Старт был, а затем мы в зависимости от режима
+		case (0x08):	
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R	
+			else										  i2c_SlaveAddress &= ~0x01;//Шлем Addr+W
+     2d2:	8e 7f       	andi	r24, 0xFE	; 254
+     2d4:	80 93 df 00 	sts	0x00DF, r24	; 0x8000df <i2c_SlaveAddress>
+			
+			TWDR = i2c_SlaveAddress;											   // Адрес слейва
+     2d8:	80 91 df 00 	lds	r24, 0x00DF	; 0x8000df <i2c_SlaveAddress>
+     2dc:	83 b9       	out	0x03, r24	; 3
+			TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;// Go!
+     2de:	85 e8       	ldi	r24, 0x85	; 133
+     2e0:	ea c0       	rjmp	.+468    	; 0x4b6 <__EEPROM_REGION_LENGTH__+0xb6>
+		break;
+		//--------------------	
+		//Был обнаружен повторный старт. Можно переключиться с записи на чтение или наоборот. От логики зависит.
+		case (0x10):
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP) i2c_SlaveAddress |=  0x01;//Шлем Addr+R
+     2e2:	81 60       	ori	r24, 0x01	; 1
+     2e4:	f7 cf       	rjmp	.-18     	; 0x2d4 <__vector_19+0x11a>
+			TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;  	// Go!
+		break;
+		//--------------------
+		//Был послан SLA+W получили ACK, а затем в зависимости от режима
+		case (0x18):	
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWP)						
+     2e6:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     2ea:	8c 70       	andi	r24, 0x0C	; 12
+     2ec:	84 30       	cpi	r24, 0x04	; 4
+     2ee:	89 f4       	brne	.+34     	; 0x312 <__vector_19+0x158>
+			{
+				//TWDR = i2c_Buffer[i2c_Index];//Шлем байт данных
+				TWDR = *(i2c_BufPtr + i2c_Index);//Шлем байт данных
+     2f0:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <i2c_Index>
+     2f4:	e0 91 e8 00 	lds	r30, 0x00E8	; 0x8000e8 <i2c_BufPtr>
+     2f8:	f0 91 e9 00 	lds	r31, 0x00E9	; 0x8000e9 <i2c_BufPtr+0x1>
+     2fc:	e8 0f       	add	r30, r24
+     2fe:	f1 1d       	adc	r31, r1
+     300:	80 81       	ld	r24, Z
+     302:	83 b9       	out	0x03, r24	; 3
+				i2c_Index++;				     //Увеличиваем указатель буфера
+     304:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <i2c_Index>
+     308:	8f 5f       	subi	r24, 0xFF	; 255
+     30a:	80 93 de 00 	sts	0x00DE, r24	; 0x8000de <i2c_Index>
+				TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;  // Go! 
+     30e:	85 e8       	ldi	r24, 0x85	; 133
+     310:	86 bf       	out	0x36, r24	; 54
+			}
+
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP)
+     312:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     316:	8c 70       	andi	r24, 0x0C	; 12
+     318:	88 30       	cpi	r24, 0x08	; 8
+     31a:	09 f0       	breq	.+2      	; 0x31e <__vector_19+0x164>
+     31c:	e0 c0       	rjmp	.+448    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+			{
+				TWDR = i2c_PageAddress[i2c_PageAddrIndex];//Или шлем адрес странцы (по сути тоже байт данных)
+     31e:	e0 91 e6 00 	lds	r30, 0x00E6	; 0x8000e6 <i2c_PageAddrIndex>
+     322:	2e c0       	rjmp	.+92     	; 0x380 <__vector_19+0x1c6>
+			MACRO_i2c_WhatDo_ErrorOut 											   // Обрабатываем событие ошибки;
+		break;
+		//--------------------
+		//Байт данных послали, получили ACK!  (если sawp - это был байт данных. если sawsarp - байт адреса страницы)// А дальше: 
+		case (0x28): 	
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWP)							// В зависимости от режима
+     324:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     328:	8c 70       	andi	r24, 0x0C	; 12
+     32a:	84 30       	cpi	r24, 0x04	; 4
+     32c:	e9 f4       	brne	.+58     	; 0x368 <__vector_19+0x1ae>
+			{
+				if(i2c_Index == i2c_ByteCount)												// Если был байт данных последний
+     32e:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <i2c_Index>
+     332:	90 91 ea 00 	lds	r25, 0x00EA	; 0x8000ea <i2c_ByteCount>
+     336:	89 13       	cpse	r24, r25
+     338:	08 c0       	rjmp	.+16     	; 0x34a <__vector_19+0x190>
+				{																		
+					TWCR = 0<<TWSTA|1<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;	// Шлем Stop
+     33a:	85 e9       	ldi	r24, 0x95	; 149
+     33c:	86 bf       	out	0x36, r24	; 54
+					MACRO_i2c_WhatDo_MasterOut												// И выходим в обработку стопа
+     33e:	e0 91 64 00 	lds	r30, 0x0064	; 0x800064 <MasterOutFunc>
+     342:	f0 91 65 00 	lds	r31, 0x0065	; 0x800065 <MasterOutFunc+0x1>
+     346:	09 95       	icall
+     348:	0f c0       	rjmp	.+30     	; 0x368 <__vector_19+0x1ae>
+				}
+				else
+				{
+					//TWDR = i2c_Buffer[i2c_Index];												// Либо шлем еще один байт
+					TWDR = *(i2c_BufPtr + i2c_Index);//Шлем байт данных
+     34a:	e0 91 e8 00 	lds	r30, 0x00E8	; 0x8000e8 <i2c_BufPtr>
+     34e:	f0 91 e9 00 	lds	r31, 0x00E9	; 0x8000e9 <i2c_BufPtr+0x1>
+     352:	e8 0f       	add	r30, r24
+     354:	f1 1d       	adc	r31, r1
+     356:	80 81       	ld	r24, Z
+     358:	83 b9       	out	0x03, r24	; 3
+					i2c_Index++;
+     35a:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <i2c_Index>
+     35e:	8f 5f       	subi	r24, 0xFF	; 255
+     360:	80 93 de 00 	sts	0x00DE, r24	; 0x8000de <i2c_Index>
+					TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;  	// Go!
+     364:	85 e8       	ldi	r24, 0x85	; 133
+     366:	86 bf       	out	0x36, r24	; 54
+				}
+			}
+
+			if((i2c_Do & I2C_MODE_MASK) == I2C_MODE_SAWSARP)						// В другом режиме мы
+     368:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     36c:	8c 70       	andi	r24, 0x0C	; 12
+     36e:	88 30       	cpi	r24, 0x08	; 8
+     370:	09 f0       	breq	.+2      	; 0x374 <__vector_19+0x1ba>
+     372:	b5 c0       	rjmp	.+362    	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+			{
+				if(i2c_PageAddrIndex == i2c_PageAddrCount)					// Если последний байт адреса страницы
+     374:	e0 91 e6 00 	lds	r30, 0x00E6	; 0x8000e6 <i2c_PageAddrIndex>
+     378:	80 91 e3 00 	lds	r24, 0x00E3	; 0x8000e3 <i2c_PageAddrCount>
+     37c:	e8 17       	cp	r30, r24
+     37e:	89 f0       	breq	.+34     	; 0x3a2 <__vector_19+0x1e8>
+				{
+					TWCR = 1<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;		// Запускаем Повторный старт!
+				}
+				else
+				{															// Иначе 
+					TWDR = i2c_PageAddress[i2c_PageAddrIndex];				// шлем еще один адрес страницы
+     380:	f0 e0       	ldi	r31, 0x00	; 0
+     382:	ec 51       	subi	r30, 0x1C	; 28
+     384:	ff 4f       	sbci	r31, 0xFF	; 255
+     386:	80 81       	ld	r24, Z
+     388:	83 b9       	out	0x03, r24	; 3
+					i2c_PageAddrIndex++;									// Увеличиваем индекс счетчика адреса страниц
+     38a:	80 91 e6 00 	lds	r24, 0x00E6	; 0x8000e6 <i2c_PageAddrIndex>
+     38e:	8f 5f       	subi	r24, 0xFF	; 255
+     390:	80 93 e6 00 	sts	0x00E6, r24	; 0x8000e6 <i2c_PageAddrIndex>
+     394:	a4 cf       	rjmp	.-184    	; 0x2de <__vector_19+0x124>
+			}	 
+		break;
+		//--------------------
+		//Байт ушел, но получили NACK причин две. 1я передача оборвана слейвом и так надо. 2я слейв сглючил.
+		case (0x30):	
+			i2c_Do |= I2C_ERR_NACK;// Запишем статус ошибки. Хотя это не факт, что ошибка. 
+     396:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     39a:	82 60       	ori	r24, 0x02	; 2
+     39c:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+     3a0:	38 c0       	rjmp	.+112    	; 0x412 <__EEPROM_REGION_LENGTH__+0x12>
+
+			// Настраиваем индексы заново. 
+			i2c_Index = 0;
+			i2c_PageAddrIndex = 0;
+
+			TWCR = 1<<TWSTA|0<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;// Как только шина будет свободна 
+     3a2:	85 ea       	ldi	r24, 0xA5	; 165
+     3a4:	88 c0       	rjmp	.+272    	; 0x4b6 <__EEPROM_REGION_LENGTH__+0xb6>
+		break;																	   // попробуем передать снова.
+		//--------------------
+		//Послали SLA+R получили АСК. А теперь будем получать байты
+		case (0x40): 
+			if(i2c_Index == i2c_ByteCount)								// Если буфер кончится на этом байте, то 
+     3a6:	90 91 de 00 	lds	r25, 0x00DE	; 0x8000de <i2c_Index>
+     3aa:	80 91 ea 00 	lds	r24, 0x00EA	; 0x8000ea <i2c_ByteCount>
+     3ae:	98 13       	cpse	r25, r24
+     3b0:	70 c0       	rjmp	.+224    	; 0x492 <__EEPROM_REGION_LENGTH__+0x92>
+     3b2:	95 cf       	rjmp	.-214    	; 0x2de <__vector_19+0x124>
+			}
+		break;
+		//--------------------
+		//Послали SLA+R, но получили NACK. Видать slave занят или его нет дома.
+		case (0x48):  
+			i2c_Do |= I2C_ERR_NA;															// Код ошибки No Answer
+     3b4:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     3b8:	80 61       	ori	r24, 0x10	; 16
+     3ba:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+			TWCR = 0<<TWSTA|1<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;			// Шлем Stop
+     3be:	85 e9       	ldi	r24, 0x95	; 149
+     3c0:	86 bf       	out	0x36, r24	; 54
+
+			MACRO_i2c_WhatDo_ErrorOut														// Отрабатываем выходную ситуацию ошибки
+     3c2:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+     3c6:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
+     3ca:	88 c0       	rjmp	.+272    	; 0x4dc <__EEPROM_REGION_LENGTH__+0xdc>
+		break;
+		//--------------------
+		//Приняли байт.
+		case (0x50):
+			//i2c_Buffer[i2c_Index] = TWDR;// Забрали его из буфера
+			*(i2c_BufPtr + i2c_Index) = TWDR; 
+     3cc:	83 b1       	in	r24, 0x03	; 3
+     3ce:	90 91 de 00 	lds	r25, 0x00DE	; 0x8000de <i2c_Index>
+     3d2:	e0 91 e8 00 	lds	r30, 0x00E8	; 0x8000e8 <i2c_BufPtr>
+     3d6:	f0 91 e9 00 	lds	r31, 0x00E9	; 0x8000e9 <i2c_BufPtr+0x1>
+     3da:	e9 0f       	add	r30, r25
+     3dc:	f1 1d       	adc	r31, r1
+     3de:	80 83       	st	Z, r24
+			i2c_Index++;
+     3e0:	80 91 de 00 	lds	r24, 0x00DE	; 0x8000de <i2c_Index>
+     3e4:	8f 5f       	subi	r24, 0xFF	; 255
+     3e6:	80 93 de 00 	sts	0x00DE, r24	; 0x8000de <i2c_Index>
+
+			// To Do: Добавить проверку переполнения буфера. А то мало ли что юзер затребует
+
+			//Если остался еще один байт из тех, что мы хотели считать
+			if(i2c_Index+1 == i2c_ByteCount) TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;//Затребываем его и потом пошлем NACK (Disconnect)
+     3ea:	90 e0       	ldi	r25, 0x00	; 0
+     3ec:	01 96       	adiw	r24, 0x01	; 1
+     3ee:	20 91 ea 00 	lds	r18, 0x00EA	; 0x8000ea <i2c_ByteCount>
+     3f2:	30 e0       	ldi	r19, 0x00	; 0
+     3f4:	82 17       	cp	r24, r18
+     3f6:	93 07       	cpc	r25, r19
+     3f8:	09 f0       	breq	.+2      	; 0x3fc <__vector_19+0x242>
+     3fa:	4b c0       	rjmp	.+150    	; 0x492 <__EEPROM_REGION_LENGTH__+0x92>
+     3fc:	70 cf       	rjmp	.-288    	; 0x2de <__vector_19+0x124>
+		break;
+		//--------------------
+		//Вот мы взяли последний байт, сказали NACK слейв обиделся и отпал. 
+		case (0x58):	
+			//i2c_Buffer[i2c_Index] = TWDR;										   //Взяли байт в буфер
+			*(i2c_BufPtr + i2c_Index) = TWDR; 
+     3fe:	83 b1       	in	r24, 0x03	; 3
+     400:	90 91 de 00 	lds	r25, 0x00DE	; 0x8000de <i2c_Index>
+     404:	e0 91 e8 00 	lds	r30, 0x00E8	; 0x8000e8 <i2c_BufPtr>
+     408:	f0 91 e9 00 	lds	r31, 0x00E9	; 0x8000e9 <i2c_BufPtr+0x1>
+     40c:	e9 0f       	add	r30, r25
+     40e:	f1 1d       	adc	r31, r1
+     410:	80 83       	st	Z, r24
+			TWCR = 0<<TWSTA|1<<TWSTO|1<<TWINT|I2C_I_AM_SLAVE<<TWEA|1<<TWEN|1<<TWIE;//Передали Stop
+     412:	85 e9       	ldi	r24, 0x95	; 149
+     414:	86 bf       	out	0x36, r24	; 54
+			
+			MACRO_i2c_WhatDo_MasterOut												// Отработали точку выход
+     416:	e0 91 64 00 	lds	r30, 0x0064	; 0x800064 <MasterOutFunc>
+     41a:	f0 91 65 00 	lds	r31, 0x0065	; 0x800065 <MasterOutFunc+0x1>
+     41e:	5e c0       	rjmp	.+188    	; 0x4dc <__EEPROM_REGION_LENGTH__+0xdc>
+
+	//IIC_Slave ============================================================================
+		case (0x68):	// RCV SLA+W Low Priority							// Словили свой адрес во время передачи мастером
+		//--------------------
+		case (0x78):	// RCV SLA+W Low Priority (Broadcast)				// Или это был широковещательный пакет. Не важно
+			i2c_Do |= I2C_ERR_LP | I2C_INTERRUPTED;//Ставим флаг ошибки Low Priority, а также флаг того, что мастера прервали
+     420:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     424:	80 6a       	ori	r24, 0xA0	; 160
+     426:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+			// Restore Trans after.
+			i2c_Index = 0;						   //Подготовили прерваную передачу заново
+     42a:	10 92 de 00 	sts	0x00DE, r1	; 0x8000de <i2c_Index>
+			i2c_PageAddrIndex = 0;                 //И пошли дальше. Внимание!!! break тут нет, а значит идем в "case 60"
+     42e:	10 92 e6 00 	sts	0x00E6, r1	; 0x8000e6 <i2c_PageAddrIndex>
+		//--------------------
+		case (0x60): // RCV SLA+W  Incoming?								// Или просто получили свой адрес
+		//--------------------
+		//Или широковещательный пакет
+		case (0x70): // RCV SLA+W  Incoming? (Broascast)					
+			i2c_Do |= I2C_BUSY;										// Занимаем шину. Чтобы другие не совались
+     432:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     436:	80 64       	ori	r24, 0x40	; 64
+     438:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+			i2c_SlaveIndex = 0;										// Указатель на начало буфера слейва, Неважно какой буфер. Не ошибемся
+     43c:	10 92 eb 00 	sts	0x00EB, r1	; 0x8000eb <i2c_SlaveIndex>
+     440:	28 c0       	rjmp	.+80     	; 0x492 <__EEPROM_REGION_LENGTH__+0x92>
+		break;
+		//--------------------
+		case (0x80):	// RCV Data Byte									// И вот мы приняли этот байт. Наш или широковещательный. Не важно
+		//--------------------
+		case (0x90):	// RCV Data Byte (Broadcast
+			i2c_InBuff[i2c_SlaveIndex] = TWDR;						// Сжираем его в буфер.
+     442:	80 91 eb 00 	lds	r24, 0x00EB	; 0x8000eb <i2c_SlaveIndex>
+     446:	93 b1       	in	r25, 0x03	; 3
+     448:	e8 2f       	mov	r30, r24
+     44a:	f0 e0       	ldi	r31, 0x00	; 0
+     44c:	e4 51       	subi	r30, 0x14	; 20
+     44e:	ff 4f       	sbci	r31, 0xFF	; 255
+     450:	90 83       	st	Z, r25
+			i2c_SlaveIndex++;										// Сдвигаем указатель
+     452:	8f 5f       	subi	r24, 0xFF	; 255
+     454:	80 93 eb 00 	sts	0x00EB, r24	; 0x8000eb <i2c_SlaveIndex>
+
+			//Свободно место всего под один байт? 
+			if(i2c_SlaveIndex == I2C_MASTER_BYTE_RX-1) TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;//Приянть его и сказать NACK!
+     458:	82 30       	cpi	r24, 0x02	; 2
+     45a:	d9 f4       	brne	.+54     	; 0x492 <__EEPROM_REGION_LENGTH__+0x92>
+     45c:	40 cf       	rjmp	.-384    	; 0x2de <__vector_19+0x124>
+		break;
+		//--------------------
+		case (0x88): // RCV Last Byte										// Приянли последний байт
+		//--------------------
+		case (0x98): // RCV Last Byte (Broadcast)
+			i2c_InBuff[i2c_SlaveIndex] = TWDR;// Сожрали его в буфер
+     45e:	83 b1       	in	r24, 0x03	; 3
+     460:	e0 91 eb 00 	lds	r30, 0x00EB	; 0x8000eb <i2c_SlaveIndex>
+     464:	f0 e0       	ldi	r31, 0x00	; 0
+     466:	e4 51       	subi	r30, 0x14	; 20
+     468:	ff 4f       	sbci	r31, 0xFF	; 255
+     46a:	80 83       	st	Z, r24
+			
+			//Если у нас был прерываный сеанс от имени мастера
+			if (i2c_Do & I2C_INTERRUPTED) TWCR = 1<<TWSTA|0<<TWSTO|1<<TWINT|1<<TWEA|1<<TWEN|1<<TWIE;//Влепим в шину свой Start поскорей и сделаем еще одну попытку						
+     46c:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     470:	87 ff       	sbrs	r24, 7
+     472:	2e c0       	rjmp	.+92     	; 0x4d0 <__EEPROM_REGION_LENGTH__+0xd0>
+     474:	2b c0       	rjmp	.+86     	; 0x4cc <__EEPROM_REGION_LENGTH__+0xcc>
+			TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|1<<TWEA|1<<TWEN|1<<TWIE;			// просто разадресуемся, проигнорировав этот посыл	
+		break;
+		//--------------------
+		//Поймали свой адрес на чтение во время передачи Мастером			
+		case (0xB0):  
+			i2c_Do |= I2C_ERR_LP | I2C_INTERRUPTED;//Ну чо, коды ошибки и флаг прерваной передачи.
+     476:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     47a:	80 6a       	ori	r24, 0xA0	; 160
+     47c:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+			
+			// Восстанавливаем индексы
+			i2c_Index = 0;
+     480:	10 92 de 00 	sts	0x00DE, r1	; 0x8000de <i2c_Index>
+			i2c_PageAddrIndex = 0;// Break нет! Идем дальше						
+     484:	10 92 e6 00 	sts	0x00E6, r1	; 0x8000e6 <i2c_PageAddrIndex>
+		//--------------------
+		//Либо просто словили свой адрес на чтение
+		case (0xA8):	
+			i2c_SlaveIndex = 0;								// Индексы слейвовых массивов на 0
+     488:	10 92 eb 00 	sts	0x00EB, r1	; 0x8000eb <i2c_SlaveIndex>
+
+			TWDR = i2c_OutBuff[i2c_SlaveIndex];				// Чтож, отдадим байт из тех что есть.
+     48c:	80 91 e0 00 	lds	r24, 0x00E0	; 0x8000e0 <i2c_OutBuff>
+     490:	83 b9       	out	0x03, r24	; 3
+			
+			if(I2C_MASTER_BYTE_TX == 1) TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;//Если он последний, мы еще на NACK в ответ надеемся 
+			else					    TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|1<<TWEA|1<<TWEN|1<<TWIE;//А если нет, то  ACK ждем
+     492:	85 ec       	ldi	r24, 0xC5	; 197
+     494:	10 c0       	rjmp	.+32     	; 0x4b6 <__EEPROM_REGION_LENGTH__+0xb6>
+		break;
+		//--------------------			
+		//Послали байт, получили ACK
+		case (0xB8): 
+			i2c_SlaveIndex++;								// Значит продолжаем дискотеку. Берем следующий байт
+     496:	e0 91 eb 00 	lds	r30, 0x00EB	; 0x8000eb <i2c_SlaveIndex>
+     49a:	ef 5f       	subi	r30, 0xFF	; 255
+     49c:	e0 93 eb 00 	sts	0x00EB, r30	; 0x8000eb <i2c_SlaveIndex>
+			TWDR = i2c_OutBuff[i2c_SlaveIndex];				// Даем его мастеру
+     4a0:	f0 e0       	ldi	r31, 0x00	; 0
+     4a2:	e0 52       	subi	r30, 0x20	; 32
+     4a4:	ff 4f       	sbci	r31, 0xFF	; 255
+     4a6:	80 81       	ld	r24, Z
+     4a8:	83 b9       	out	0x03, r24	; 3
+
+			//Если он последний был, то
+			if(i2c_SlaveIndex == I2C_MASTER_BYTE_TX-1) TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|0<<TWEA|1<<TWEN|1<<TWIE;//Шлем его и ждем NACK	
+     4aa:	80 91 eb 00 	lds	r24, 0x00EB	; 0x8000eb <i2c_SlaveIndex>
+     4ae:	82 30       	cpi	r24, 0x02	; 2
+     4b0:	09 f4       	brne	.+2      	; 0x4b4 <__EEPROM_REGION_LENGTH__+0xb4>
+     4b2:	15 cf       	rjmp	.-470    	; 0x2de <__vector_19+0x124>
+			else									   TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|1<<TWEA|0<<TWEN|1<<TWIE;//Если нет, то шлем и ждем ACK
+     4b4:	81 ec       	ldi	r24, 0xC1	; 193
+     4b6:	86 bf       	out	0x36, r24	; 54
+     4b8:	12 c0       	rjmp	.+36     	; 0x4de <__EEPROM_REGION_LENGTH__+0xde>
+		//--------------------	
+		case (0xC0): // Мы выслали последний байт, больше у нас нет, получили NACK
+		//--------------------	
+		// или ACK. В данном случае нам пох. Т.к. больше байтов у нас нет.	
+		case (0xC8): 
+			if(i2c_Do & I2C_INTERRUPTED)								   //Если там была прерваная передача мастера
+     4ba:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     4be:	87 ff       	sbrs	r24, 7
+     4c0:	07 c0       	rjmp	.+14     	; 0x4d0 <__EEPROM_REGION_LENGTH__+0xd0>
+			{															   //То мы ему ее вернем
+				i2c_Do &= I2C_NO_INTERRUPTED;							   //Снимем флаг прерваности
+     4c2:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     4c6:	8f 77       	andi	r24, 0x7F	; 127
+     4c8:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+				TWCR = 1<<TWSTA|0<<TWSTO|1<<TWINT|1<<TWEA|1<<TWEN|1<<TWIE; //Сгенерим старт сразу же как получим шину.
+     4cc:	85 ee       	ldi	r24, 0xE5	; 229
+     4ce:	01 c0       	rjmp	.+2      	; 0x4d2 <__EEPROM_REGION_LENGTH__+0xd2>
+			}
+			else TWCR = 0<<TWSTA|0<<TWSTO|1<<TWINT|1<<TWEA|1<<TWEN|1<<TWIE;//Если мы там одни, то просто отдадим шину
+     4d0:	85 ec       	ldi	r24, 0xC5	; 197
+     4d2:	86 bf       	out	0x36, r24	; 54
+		
+			MACRO_i2c_WhatDo_SlaveOut									   //И отработаем выход слейва. Впрочем, он тут
+     4d4:	e0 91 62 00 	lds	r30, 0x0062	; 0x800062 <SlaveOutFunc>
+     4d8:	f0 91 63 00 	lds	r31, 0x0063	; 0x800063 <SlaveOutFunc+0x1>
+     4dc:	09 95       	icall
+		break;															   //Нас почтил своим визитом.
+		//--------------------	
+		default:	break;
+		//--------------------	
+	}
+}
+     4de:	ff 91       	pop	r31
+     4e0:	ef 91       	pop	r30
+     4e2:	bf 91       	pop	r27
+     4e4:	af 91       	pop	r26
+     4e6:	9f 91       	pop	r25
+     4e8:	8f 91       	pop	r24
+     4ea:	7f 91       	pop	r23
+     4ec:	6f 91       	pop	r22
+     4ee:	5f 91       	pop	r21
+     4f0:	4f 91       	pop	r20
+     4f2:	3f 91       	pop	r19
+     4f4:	2f 91       	pop	r18
+     4f6:	0f 90       	pop	r0
+     4f8:	0f be       	out	0x3f, r0	; 63
+     4fa:	0f 90       	pop	r0
+     4fc:	1f 90       	pop	r1
+     4fe:	18 95       	reti
+
+00000500 <I2C_StartWrite>:
+#define HI(X) (X>>8)
+#define LO(X) (X & 0xFF)
+
+uint8_t I2C_StartWrite(uint8_t slaveAddr,uint8_t regAddr, uint8_t *buf, uint8_t bufSize){
+
+	if(i2c_Do & I2C_BUSY) return 0;
+     500:	90 91 ef 00 	lds	r25, 0x00EF	; 0x8000ef <i2c_Do>
+     504:	96 fd       	sbrc	r25, 6
+     506:	18 c0       	rjmp	.+48     	; 0x538 <I2C_StartWrite+0x38>
+	//--------------------
+	i2c_Index        = 0;
+     508:	10 92 de 00 	sts	0x00DE, r1	; 0x8000de <i2c_Index>
+	i2c_BufPtr       = buf;
+     50c:	50 93 e9 00 	sts	0x00E9, r21	; 0x8000e9 <i2c_BufPtr+0x1>
+     510:	40 93 e8 00 	sts	0x00E8, r20	; 0x8000e8 <i2c_BufPtr>
+	i2c_SlaveAddress = slaveAddr;
+     514:	80 93 df 00 	sts	0x00DF, r24	; 0x8000df <i2c_SlaveAddress>
+	i2c_SlaveRegAddr = regAddr;
+     518:	60 93 e7 00 	sts	0x00E7, r22	; 0x8000e7 <i2c_SlaveRegAddr>
+	i2c_ByteCount    = bufSize;
+     51c:	20 93 ea 00 	sts	0x00EA, r18	; 0x8000ea <i2c_ByteCount>
+	//i2c_Buffer[0] = HI(regAddr);
+	//i2c_Buffer[1] = LO(regAddr);
+	//i2c_Buffer[2] = Byte;
+
+	//Это режим простой записи. В том числе и запись с адресом страницы. 
+	i2c_Do = I2C_MODE_SAWP;//Start-Addr_W-Write-Stop
+     520:	84 e0       	ldi	r24, 0x04	; 4
+     522:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+
+//	MasterOutFunc = WhatDo;
+//	ErrorOutFunc = WhatDo;
+	//--------------------
+	//Включение TWI и запуск передачи.
+	TWCR =	1 << TWSTA | //TWI START Condition Bit
+     526:	85 ea       	ldi	r24, 0xA5	; 165
+     528:	86 bf       	out	0x36, r24	; 54
+			
+			0 << TWEA  | //TWI Enable Acknowledge Bit.
+			1 << TWIE  | //TWI Interrupt Enable
+			1 << TWEN;   //TWI Enable Bit
+
+	i2c_Do |= I2C_BUSY;
+     52a:	80 91 ef 00 	lds	r24, 0x00EF	; 0x8000ef <i2c_Do>
+     52e:	80 64       	ori	r24, 0x40	; 64
+     530:	80 93 ef 00 	sts	0x00EF, r24	; 0x8000ef <i2c_Do>
+	//--------------------
+	return 1;
+     534:	81 e0       	ldi	r24, 0x01	; 1
+     536:	08 95       	ret
+#define HI(X) (X>>8)
+#define LO(X) (X & 0xFF)
+
+uint8_t I2C_StartWrite(uint8_t slaveAddr,uint8_t regAddr, uint8_t *buf, uint8_t bufSize){
+
+	if(i2c_Do & I2C_BUSY) return 0;
+     538:	80 e0       	ldi	r24, 0x00	; 0
+			1 << TWEN;   //TWI Enable Bit
+
+	i2c_Do |= I2C_BUSY;
+	//--------------------
+	return 1;
+}
+     53a:	08 95       	ret
+
+0000053c <lcd_send_tetrad>:
+
+//************************************************************************************************************
+//************************************************************************************************************
+static void lcd_send_tetrad(uint8_t byte, uint8_t type){
+  
+	uint8_t temp = byte & 0xF0;
+     53c:	80 7f       	andi	r24, 0xF0	; 240
+	//-------------------------
+	//СѓРїСЂР°РІР»РµРЅРёРµ РЅРѕР¶РєРѕР№ RS.
+	if(type) temp |=  LCD_RS;
+     53e:	61 11       	cpse	r22, r1
+     540:	81 60       	ori	r24, 0x01	; 1
+//
+	//I2C_Stop(LCD_I2C);
+
+	static uint8_t txBuf[3] = {0,};
+
+	txBuf[0] = temp;
+     542:	80 93 6f 00 	sts	0x006F, r24	; 0x80006f <txBuf.2214>
+
+	//РЁР»РµРј СЃС‚СЂРѕР± E РІ РґРёСЃРїР»РµР№.
+	temp |= LCD_E;
+	txBuf[1] = temp;
+     546:	98 2f       	mov	r25, r24
+     548:	94 60       	ori	r25, 0x04	; 4
+     54a:	90 93 70 00 	sts	0x0070, r25	; 0x800070 <txBuf.2214+0x1>
+
+	temp &= ~(LCD_E);
+	txBuf[2] = temp;
+     54e:	80 93 71 00 	sts	0x0071, r24	; 0x800071 <txBuf.2214+0x2>
+
+	I2C_StartWrite(LCD_I2C_ADDRESS, 0, txBuf, 3);
+     552:	23 e0       	ldi	r18, 0x03	; 3
+     554:	4f e6       	ldi	r20, 0x6F	; 111
+     556:	50 e0       	ldi	r21, 0x00	; 0
+     558:	60 e0       	ldi	r22, 0x00	; 0
+     55a:	80 e7       	ldi	r24, 0x70	; 112
+     55c:	0c 94 80 02 	jmp	0x500	; 0x500 <I2C_StartWrite>
+
+00000560 <lcd_send>:
+}
+//***************************************************************
+static void lcd_send(uint8_t byte, uint8_t type){
+     560:	cf 93       	push	r28
+     562:	df 93       	push	r29
+     564:	c8 2f       	mov	r28, r24
+     566:	d6 2f       	mov	r29, r22
+  
+	lcd_send_tetrad(byte, type);       //РџРµСЂРµРґР°РµРј СЃС‚Р°СЂС€СѓСЋ С‚РµС‚СЂР°РґСѓ.
+     568:	0e 94 9e 02 	call	0x53c	; 0x53c <lcd_send_tetrad>
+	lcd_send_tetrad((byte << 4), type);//РџРµСЂРµРґР°РµРј РјР»Р°РґС€СѓСЋ С‚РµС‚СЂР°РґСѓ.
+     56c:	6d 2f       	mov	r22, r29
+     56e:	8c 2f       	mov	r24, r28
+     570:	82 95       	swap	r24
+     572:	80 7f       	andi	r24, 0xF0	; 240
+}
+     574:	df 91       	pop	r29
+     576:	cf 91       	pop	r28
+}
+//***************************************************************
+static void lcd_send(uint8_t byte, uint8_t type){
+  
+	lcd_send_tetrad(byte, type);       //РџРµСЂРµРґР°РµРј СЃС‚Р°СЂС€СѓСЋ С‚РµС‚СЂР°РґСѓ.
+	lcd_send_tetrad((byte << 4), type);//РџРµСЂРµРґР°РµРј РјР»Р°РґС€СѓСЋ С‚РµС‚СЂР°РґСѓ.
+     578:	0c 94 9e 02 	jmp	0x53c	; 0x53c <lcd_send_tetrad>
+
+0000057c <lcd_clear>:
+	lcd_clear();
+}
+//***************************************************************
+void lcd_clear(void){
+  
+	 lcd_send(LCD_CLEARDISPLAY, LCD_CMD);
+     57c:	60 e0       	ldi	r22, 0x00	; 0
+     57e:	81 e0       	ldi	r24, 0x01	; 1
+     580:	0e 94 b0 02 	call	0x560	; 0x560 <lcd_send>
+	 msDelay(4);
+     584:	84 e0       	ldi	r24, 0x04	; 4
+     586:	90 e0       	ldi	r25, 0x00	; 0
+     588:	0c 94 7b 05 	jmp	0xaf6	; 0xaf6 <msDelay>
+
+0000058c <lcd_init>:
+//************************************************************************************************************
+//************************************************************************************************************
+//РџРџ РёРЅРёС†РёР°Р»Р°С†РёРё LCD.
+void lcd_init(void){
+
+	msDelay(250);
+     58c:	8a ef       	ldi	r24, 0xFA	; 250
+     58e:	90 e0       	ldi	r25, 0x00	; 0
+     590:	0e 94 7b 05 	call	0xaf6	; 0xaf6 <msDelay>
+	//we start in 8bit mode, try to set 4 bit mode
+	lcd_send(0x03, LCD_CMD);
+     594:	60 e0       	ldi	r22, 0x00	; 0
+     596:	83 e0       	ldi	r24, 0x03	; 3
+     598:	0e 94 b0 02 	call	0x560	; 0x560 <lcd_send>
+	msDelay(5);
+     59c:	85 e0       	ldi	r24, 0x05	; 5
+     59e:	90 e0       	ldi	r25, 0x00	; 0
+     5a0:	0e 94 7b 05 	call	0xaf6	; 0xaf6 <msDelay>
+	//second try
+	lcd_send(0x03, LCD_CMD);
+     5a4:	60 e0       	ldi	r22, 0x00	; 0
+     5a6:	83 e0       	ldi	r24, 0x03	; 3
+     5a8:	0e 94 b0 02 	call	0x560	; 0x560 <lcd_send>
+	msDelay(5);
+     5ac:	85 e0       	ldi	r24, 0x05	; 5
+     5ae:	90 e0       	ldi	r25, 0x00	; 0
+     5b0:	0e 94 7b 05 	call	0xaf6	; 0xaf6 <msDelay>
+	//third go!
+	lcd_send(0x03, LCD_CMD);
+     5b4:	60 e0       	ldi	r22, 0x00	; 0
+     5b6:	83 e0       	ldi	r24, 0x03	; 3
+     5b8:	0e 94 b0 02 	call	0x560	; 0x560 <lcd_send>
+	msDelay(1);
+     5bc:	81 e0       	ldi	r24, 0x01	; 1
+     5be:	90 e0       	ldi	r25, 0x00	; 0
+     5c0:	0e 94 7b 05 	call	0xaf6	; 0xaf6 <msDelay>
+	//finally, set to 4-bit interface
+	lcd_send(0x02, LCD_CMD);
+     5c4:	60 e0       	ldi	r22, 0x00	; 0
+     5c6:	82 e0       	ldi	r24, 0x02	; 2
+     5c8:	0e 94 b0 02 	call	0x560	; 0x560 <lcd_send>
+	// set # lines, font size, etc.
+	lcd_send((LCD_FUNCTIONSET | LCD_2LINE | LCD_5x8DOTS), LCD_CMD);
+     5cc:	60 e0       	ldi	r22, 0x00	; 0
+     5ce:	88 e2       	ldi	r24, 0x28	; 40
+     5d0:	0e 94 b0 02 	call	0x560	; 0x560 <lcd_send>
+	// turn the display on with no cursor or blinking default
+	lcd_send((LCD_DISPLAYCONTROL | LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF), LCD_CMD);
+     5d4:	60 e0       	ldi	r22, 0x00	; 0
+     5d6:	8c e0       	ldi	r24, 0x0C	; 12
+     5d8:	0e 94 b0 02 	call	0x560	; 0x560 <lcd_send>
+	// clear it off
+	lcd_clear();
+     5dc:	0c 94 be 02 	jmp	0x57c	; 0x57c <lcd_clear>
+
+000005e0 <get_blocked_speaker_line>:
+	//-------------------------------
+	//КЗ.
+	if (StateLineStr.STR.LineShort & line)
+		{
+			StateLineStr.STR.Indicate = 0xA4;
+			sei(); //Разрешение прерываний.
+     5e0:	80 91 f4 00 	lds	r24, 0x00F4	; 0x8000f4 <StateLineStr+0x4>
+     5e4:	80 95       	com	r24
+     5e6:	08 95       	ret
+
+000005e8 <resistence_all_line_indicate>:
+	//-------------------------------
+	//sei(); //Разрешение прерываний.
+}
+//-----------------------------------------------------------------------------
+//Индикация состояний линий громкоговорителей.
+void resistence_all_line_indicate(void){
+     5e8:	cf 93       	push	r28
+	
+	uint8_t not_the_norm = 0;
+	uint8_t norm = 0;
+	//------------------------------
+	//Если идет измерение то ничего не индицируем.
+	if ((LineChackerFlagReg & LineChecker_MeasResistFlag) == 0)
+     5ea:	80 91 72 00 	lds	r24, 0x0072	; 0x800072 <LineChackerFlagReg>
+     5ee:	80 fd       	sbrc	r24, 0
+     5f0:	46 c0       	rjmp	.+140    	; 0x67e <resistence_all_line_indicate+0x96>
+		{
+			//Это для быстрой индикации при измерении LC.
+			Timer1FastBlinkReg = 0;
+     5f2:	10 92 85 00 	sts	0x0085, r1	; 0x800085 <Timer1FastBlinkReg>
+			//------------------------------
+			//Короткая индикация. 3 сек.
+			if (Timer0FlagReg & Timer1_ShortIndicationFlag)
+     5f6:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     5fa:	83 ff       	sbrs	r24, 3
+     5fc:	22 c0       	rjmp	.+68     	; 0x642 <resistence_all_line_indicate+0x5a>
+				{
+					//-----------------------------------------------	
+					//При индикации КЗ на дисплей ничего не выводим.
+					if (StateLineStr.STR.Indicate != 0xA4)
+     5fe:	80 91 f7 00 	lds	r24, 0x00F7	; 0x8000f7 <StateLineStr+0x7>
+     602:	84 3a       	cpi	r24, 0xA4	; 164
+     604:	51 f0       	breq	.+20     	; 0x61a <resistence_all_line_indicate+0x32>
+						{
+							if (Timer1BlinkReg)
+     606:	90 91 86 00 	lds	r25, 0x0086	; 0x800086 <Timer1BlinkReg>
+     60a:	99 23       	and	r25, r25
+     60c:	21 f0       	breq	.+8      	; 0x616 <resistence_all_line_indicate+0x2e>
+								{
+									display_set(StateLineStr.STR.Indicate);
+     60e:	90 e0       	ldi	r25, 0x00	; 0
+     610:	0e 94 ca 03 	call	0x794	; 0x794 <display_set>
+     614:	02 c0       	rjmp	.+4      	; 0x61a <resistence_all_line_indicate+0x32>
+								}
+							else
+								{
+									display_off();
+     616:	0e 94 fc 03 	call	0x7f8	; 0x7f8 <display_off>
+								}
+						}
+					//-----------------------------------------------				
+					not_the_norm = ( StateLineStr.STR.Line & (StateLineStr.STR.LineBreak | StateLineStr.STR.LineBelow |
+     61a:	80 91 86 00 	lds	r24, 0x0086	; 0x800086 <Timer1BlinkReg>
+     61e:	90 91 f0 00 	lds	r25, 0x00F0	; 0x8000f0 <StateLineStr>
+     622:	20 91 f3 00 	lds	r18, 0x00F3	; 0x8000f3 <StateLineStr+0x3>
+     626:	29 2b       	or	r18, r25
+     628:	30 91 f1 00 	lds	r19, 0x00F1	; 0x8000f1 <StateLineStr+0x1>
+     62c:	23 2b       	or	r18, r19
+     62e:	90 91 f4 00 	lds	r25, 0x00F4	; 0x8000f4 <StateLineStr+0x4>
+     632:	98 23       	and	r25, r24
+     634:	82 2f       	mov	r24, r18
+     636:	89 2b       	or	r24, r25
+     638:	c0 91 f6 00 	lds	r28, 0x00F6	; 0x8000f6 <StateLineStr+0x6>
+     63c:	c8 23       	and	r28, r24
+									 StateLineStr.STR.LineAbove | (StateLineStr.STR.LineShort & Timer1BlinkReg)) );
+					
+					set_line_checker_led_red  (not_the_norm);
+     63e:	8c 2f       	mov	r24, r28
+     640:	1a c0       	rjmp	.+52     	; 0x676 <resistence_all_line_indicate+0x8e>
+}
+//-----------------------------------------------------------------------------
+//Получение маски линий на контроле.
+uint8_t get_lines_to_control(void){
+	
+	return StateLineStr.STR.LinesOnTheControl;
+     642:	c0 91 f5 00 	lds	r28, 0x00F5	; 0x8000f5 <StateLineStr+0x5>
+					set_line_checker_led_red  (not_the_norm);
+					set_line_checker_led_green(not_the_norm);
+					return;
+				}
+			//------------------------------
+			not_the_norm = ( ((StateLineStr.STR.LineBreak | StateLineStr.STR.LineBelow | StateLineStr.STR.LineAbove) & get_lines_to_control()) ^ ((StateLineStr.STR.LineShort & get_lines_to_control()) & Timer1BlinkReg) );
+     646:	90 91 f0 00 	lds	r25, 0x00F0	; 0x8000f0 <StateLineStr>
+     64a:	80 91 f3 00 	lds	r24, 0x00F3	; 0x8000f3 <StateLineStr+0x3>
+     64e:	98 2b       	or	r25, r24
+     650:	20 91 f1 00 	lds	r18, 0x00F1	; 0x8000f1 <StateLineStr+0x1>
+     654:	92 2b       	or	r25, r18
+     656:	9c 23       	and	r25, r28
+     658:	80 91 f4 00 	lds	r24, 0x00F4	; 0x8000f4 <StateLineStr+0x4>
+     65c:	8c 23       	and	r24, r28
+     65e:	40 91 86 00 	lds	r20, 0x0086	; 0x800086 <Timer1BlinkReg>
+			norm =		   ( ((StateLineStr.STR.LineNorm & get_lines_to_control()) | ((StateLineStr.STR.LineBreak | StateLineStr.STR.LineBelow | StateLineStr.STR.LineAbove) & get_lines_to_control())) ^ ((StateLineStr.STR.LineShort & get_lines_to_control()) & Timer1BlinkReg)  );
+     662:	20 91 86 00 	lds	r18, 0x0086	; 0x800086 <Timer1BlinkReg>
+     666:	30 91 f2 00 	lds	r19, 0x00F2	; 0x8000f2 <StateLineStr+0x2>
+     66a:	c3 23       	and	r28, r19
+     66c:	c9 2b       	or	r28, r25
+     66e:	28 23       	and	r18, r24
+     670:	c2 27       	eor	r28, r18
+			
+			set_line_checker_led_red(not_the_norm);
+     672:	84 23       	and	r24, r20
+     674:	89 27       	eor	r24, r25
+     676:	0e 94 50 04 	call	0x8a0	; 0x8a0 <set_line_checker_led_red>
+			set_line_checker_led_green(norm);
+     67a:	8c 2f       	mov	r24, r28
+     67c:	05 c0       	rjmp	.+10     	; 0x688 <resistence_all_line_indicate+0xa0>
+		}
+	//------------------------------
+	//Мигающая индикация светодиодов LC при измерении.
+	else
+		{
+			set_line_checker_led_green(get_relay_state(LINE_CHECKER_RELAY & Timer1FastBlinkReg));
+     67e:	80 91 85 00 	lds	r24, 0x0085	; 0x800085 <Timer1FastBlinkReg>
+     682:	82 70       	andi	r24, 0x02	; 2
+     684:	0e 94 47 03 	call	0x68e	; 0x68e <get_relay_state>
+		}
+	//------------------------------
+}
+     688:	cf 91       	pop	r28
+		}
+	//------------------------------
+	//Мигающая индикация светодиодов LC при измерении.
+	else
+		{
+			set_line_checker_led_green(get_relay_state(LINE_CHECKER_RELAY & Timer1FastBlinkReg));
+     68a:	0c 94 05 04 	jmp	0x80a	; 0x80a <set_line_checker_led_green>
+
+0000068e <get_relay_state>:
+//-----------------------------------------------------------------------------
+uint8_t get_relay_state(uint8_t sp_or_lc){
+	
+	//cli(); //Запрет прерываний.	
+		
+	if (sp_or_lc == SPEAKER_RELAY)
+     68e:	81 30       	cpi	r24, 0x01	; 1
+     690:	19 f4       	brne	.+6      	; 0x698 <get_relay_state+0xa>
+		{
+			return SpeakerRelaySost;
+     692:	80 91 74 00 	lds	r24, 0x0074	; 0x800074 <SpeakerRelaySost>
+     696:	08 95       	ret
+		}
+	if (sp_or_lc == LINE_CHECKER_RELAY)
+     698:	82 30       	cpi	r24, 0x02	; 2
+     69a:	19 f4       	brne	.+6      	; 0x6a2 <get_relay_state+0x14>
+		{
+			return LineCheckerRelaySost;
+     69c:	80 91 73 00 	lds	r24, 0x0073	; 0x800073 <LineCheckerRelaySost>
+     6a0:	08 95       	ret
+		}
+		
+	//sei(); //Разрешение прерываний.
+	
+	return 0;
+     6a2:	80 e0       	ldi	r24, 0x00	; 0
+}
+     6a4:	08 95       	ret
+
+000006a6 <write_byte_to_pt6964>:
+			{
+				IndicatorsFacePanelStr.bit.SP8_RED_LED = 1;
+			}
+		else
+			{
+				IndicatorsFacePanelStr.bit.SP8_RED_LED = 0;
+     6a6:	20 e0       	ldi	r18, 0x00	; 0
+     6a8:	30 e0       	ldi	r19, 0x00	; 0
+     6aa:	90 e0       	ldi	r25, 0x00	; 0
+     6ac:	d9 98       	cbi	0x1b, 1	; 27
+     6ae:	ac 01       	movw	r20, r24
+     6b0:	02 2e       	mov	r0, r18
+     6b2:	02 c0       	rjmp	.+4      	; 0x6b8 <write_byte_to_pt6964+0x12>
+     6b4:	55 95       	asr	r21
+     6b6:	47 95       	ror	r20
+     6b8:	0a 94       	dec	r0
+     6ba:	e2 f7       	brpl	.-8      	; 0x6b4 <write_byte_to_pt6964+0xe>
+     6bc:	40 ff       	sbrs	r20, 0
+     6be:	02 c0       	rjmp	.+4      	; 0x6c4 <write_byte_to_pt6964+0x1e>
+     6c0:	da 9a       	sbi	0x1b, 2	; 27
+     6c2:	01 c0       	rjmp	.+2      	; 0x6c6 <write_byte_to_pt6964+0x20>
+     6c4:	da 98       	cbi	0x1b, 2	; 27
+     6c6:	d9 9a       	sbi	0x1b, 1	; 27
+     6c8:	2f 5f       	subi	r18, 0xFF	; 255
+     6ca:	3f 4f       	sbci	r19, 0xFF	; 255
+     6cc:	28 30       	cpi	r18, 0x08	; 8
+     6ce:	31 05       	cpc	r19, r1
+     6d0:	69 f7       	brne	.-38     	; 0x6ac <write_byte_to_pt6964+0x6>
+     6d2:	08 95       	ret
+
+000006d4 <write_command_to_pt6964>:
+     6d4:	d8 98       	cbi	0x1b, 0	; 27
+     6d6:	0e 94 53 03 	call	0x6a6	; 0x6a6 <write_byte_to_pt6964>
+     6da:	da 98       	cbi	0x1b, 2	; 27
+     6dc:	d8 9a       	sbi	0x1b, 0	; 27
+     6de:	08 95       	ret
+
+000006e0 <sorting_button_bit.constprop.1>:
+     6e0:	e8 2f       	mov	r30, r24
+     6e2:	60 e0       	ldi	r22, 0x00	; 0
+     6e4:	70 e0       	ldi	r23, 0x00	; 0
+     6e6:	80 e0       	ldi	r24, 0x00	; 0
+     6e8:	db 01       	movw	r26, r22
+     6ea:	a8 5e       	subi	r26, 0xE8	; 232
+     6ec:	be 4f       	sbci	r27, 0xFE	; 254
+     6ee:	9c 91       	ld	r25, X
+     6f0:	2c 91       	ld	r18, X
+     6f2:	30 e0       	ldi	r19, 0x00	; 0
+     6f4:	0e 2e       	mov	r0, r30
+     6f6:	02 c0       	rjmp	.+4      	; 0x6fc <sorting_button_bit.constprop.1+0x1c>
+     6f8:	35 95       	asr	r19
+     6fa:	27 95       	ror	r18
+     6fc:	0a 94       	dec	r0
+     6fe:	e2 f7       	brpl	.-8      	; 0x6f8 <sorting_button_bit.constprop.1+0x18>
+     700:	28 70       	andi	r18, 0x08	; 8
+     702:	33 27       	eor	r19, r19
+     704:	a9 01       	movw	r20, r18
+     706:	55 95       	asr	r21
+     708:	47 95       	ror	r20
+     70a:	55 95       	asr	r21
+     70c:	47 95       	ror	r20
+     70e:	29 2f       	mov	r18, r25
+     710:	30 e0       	ldi	r19, 0x00	; 0
+     712:	0e 2e       	mov	r0, r30
+     714:	02 c0       	rjmp	.+4      	; 0x71a <sorting_button_bit.constprop.1+0x3a>
+     716:	35 95       	asr	r19
+     718:	27 95       	ror	r18
+     71a:	0a 94       	dec	r0
+     71c:	e2 f7       	brpl	.-8      	; 0x716 <sorting_button_bit.constprop.1+0x36>
+     71e:	21 70       	andi	r18, 0x01	; 1
+     720:	33 27       	eor	r19, r19
+     722:	24 2b       	or	r18, r20
+     724:	35 2b       	or	r19, r21
+     726:	ab 01       	movw	r20, r22
+     728:	44 0f       	add	r20, r20
+     72a:	55 1f       	adc	r21, r21
+     72c:	01 c0       	rjmp	.+2      	; 0x730 <sorting_button_bit.constprop.1+0x50>
+     72e:	22 0f       	add	r18, r18
+     730:	4a 95       	dec	r20
+     732:	ea f7       	brpl	.-6      	; 0x72e <sorting_button_bit.constprop.1+0x4e>
+     734:	82 2b       	or	r24, r18
+     736:	6f 5f       	subi	r22, 0xFF	; 255
+     738:	7f 4f       	sbci	r23, 0xFF	; 255
+     73a:	64 30       	cpi	r22, 0x04	; 4
+     73c:	71 05       	cpc	r23, r1
+     73e:	a1 f6       	brne	.-88     	; 0x6e8 <sorting_button_bit.constprop.1+0x8>
+     740:	08 95       	ret
+
+00000742 <write_data_to_face_penel>:
+     742:	cf 93       	push	r28
+     744:	df 93       	push	r29
+     746:	1f 92       	push	r1
+     748:	cd b7       	in	r28, 0x3d	; 61
+     74a:	de b7       	in	r29, 0x3e	; 62
+     74c:	19 82       	std	Y+1, r1	; 0x01
+     74e:	80 e4       	ldi	r24, 0x40	; 64
+     750:	0e 94 6a 03 	call	0x6d4	; 0x6d4 <write_command_to_pt6964>
+     754:	d8 98       	cbi	0x1b, 0	; 27
+     756:	80 ec       	ldi	r24, 0xC0	; 192
+     758:	0e 94 53 03 	call	0x6a6	; 0x6a6 <write_byte_to_pt6964>
+     75c:	19 82       	std	Y+1, r1	; 0x01
+     75e:	89 81       	ldd	r24, Y+1	; 0x01
+     760:	8b 30       	cpi	r24, 0x0B	; 11
+     762:	58 f4       	brcc	.+22     	; 0x77a <write_data_to_face_penel+0x38>
+     764:	e9 81       	ldd	r30, Y+1	; 0x01
+     766:	f0 e0       	ldi	r31, 0x00	; 0
+     768:	ed 5d       	subi	r30, 0xDD	; 221
+     76a:	fe 4f       	sbci	r31, 0xFE	; 254
+     76c:	80 81       	ld	r24, Z
+     76e:	0e 94 53 03 	call	0x6a6	; 0x6a6 <write_byte_to_pt6964>
+     772:	89 81       	ldd	r24, Y+1	; 0x01
+     774:	8f 5f       	subi	r24, 0xFF	; 255
+     776:	89 83       	std	Y+1, r24	; 0x01
+     778:	f2 cf       	rjmp	.-28     	; 0x75e <write_data_to_face_penel+0x1c>
+     77a:	d8 9a       	sbi	0x1b, 0	; 27
+     77c:	83 e0       	ldi	r24, 0x03	; 3
+     77e:	0e 94 6a 03 	call	0x6d4	; 0x6d4 <write_command_to_pt6964>
+     782:	80 91 67 00 	lds	r24, 0x0067	; 0x800067 <DisplayBright>
+     786:	88 68       	ori	r24, 0x88	; 136
+     788:	0e 94 6a 03 	call	0x6d4	; 0x6d4 <write_command_to_pt6964>
+     78c:	0f 90       	pop	r0
+     78e:	df 91       	pop	r29
+     790:	cf 91       	pop	r28
+     792:	08 95       	ret
+
+00000794 <display_set>:
+     794:	f8 94       	cli
+     796:	20 91 2b 01 	lds	r18, 0x012B	; 0x80012b <IndicatorsFacePanelStr+0x8>
+     79a:	30 91 29 01 	lds	r19, 0x0129	; 0x800129 <IndicatorsFacePanelStr+0x6>
+     79e:	20 78       	andi	r18, 0x80	; 128
+     7a0:	fc 01       	movw	r30, r24
+     7a2:	8f 3f       	cpi	r24, 0xFF	; 255
+     7a4:	91 05       	cpc	r25, r1
+     7a6:	09 f0       	breq	.+2      	; 0x7aa <display_set+0x16>
+     7a8:	90 f4       	brcc	.+36     	; 0x7ce <display_set+0x3a>
+     7aa:	ef 70       	andi	r30, 0x0F	; 15
+     7ac:	ff 27       	eor	r31, r31
+     7ae:	ec 5a       	subi	r30, 0xAC	; 172
+     7b0:	ff 4f       	sbci	r31, 0xFF	; 255
+     7b2:	e4 91       	lpm	r30, Z
+     7b4:	2e 2b       	or	r18, r30
+     7b6:	20 93 2b 01 	sts	0x012B, r18	; 0x80012b <IndicatorsFacePanelStr+0x8>
+     7ba:	30 78       	andi	r19, 0x80	; 128
+     7bc:	fc 01       	movw	r30, r24
+     7be:	e0 7f       	andi	r30, 0xF0	; 240
+     7c0:	ff 27       	eor	r31, r31
+     7c2:	94 e0       	ldi	r25, 0x04	; 4
+     7c4:	f6 95       	lsr	r31
+     7c6:	e7 95       	ror	r30
+     7c8:	9a 95       	dec	r25
+     7ca:	e1 f7       	brne	.-8      	; 0x7c4 <display_set+0x30>
+     7cc:	0d c0       	rjmp	.+26     	; 0x7e8 <display_set+0x54>
+     7ce:	ff 27       	eor	r31, r31
+     7d0:	ec 5a       	subi	r30, 0xAC	; 172
+     7d2:	ff 4f       	sbci	r31, 0xFF	; 255
+     7d4:	e4 91       	lpm	r30, Z
+     7d6:	2e 2b       	or	r18, r30
+     7d8:	20 93 2b 01 	sts	0x012B, r18	; 0x80012b <IndicatorsFacePanelStr+0x8>
+     7dc:	30 78       	andi	r19, 0x80	; 128
+     7de:	fc 01       	movw	r30, r24
+     7e0:	ee 27       	eor	r30, r30
+     7e2:	ff 77       	andi	r31, 0x7F	; 127
+     7e4:	ef 2f       	mov	r30, r31
+     7e6:	ff 27       	eor	r31, r31
+     7e8:	ec 5a       	subi	r30, 0xAC	; 172
+     7ea:	ff 4f       	sbci	r31, 0xFF	; 255
+     7ec:	e4 91       	lpm	r30, Z
+     7ee:	e3 2b       	or	r30, r19
+     7f0:	e0 93 29 01 	sts	0x0129, r30	; 0x800129 <IndicatorsFacePanelStr+0x6>
+     7f4:	78 94       	sei
+     7f6:	08 95       	ret
+
+000007f8 <display_off>:
+     7f8:	e3 e2       	ldi	r30, 0x23	; 35
+     7fa:	f1 e0       	ldi	r31, 0x01	; 1
+     7fc:	80 85       	ldd	r24, Z+8	; 0x08
+     7fe:	80 78       	andi	r24, 0x80	; 128
+     800:	80 87       	std	Z+8, r24	; 0x08
+     802:	86 81       	ldd	r24, Z+6	; 0x06
+     804:	80 78       	andi	r24, 0x80	; 128
+     806:	86 83       	std	Z+6, r24	; 0x06
+     808:	08 95       	ret
+
+0000080a <set_line_checker_led_green>:
+     80a:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     80e:	80 ff       	sbrs	r24, 0
+     810:	02 c0       	rjmp	.+4      	; 0x816 <set_line_checker_led_green+0xc>
+     812:	91 60       	ori	r25, 0x01	; 1
+     814:	01 c0       	rjmp	.+2      	; 0x818 <set_line_checker_led_green+0xe>
+     816:	9e 7f       	andi	r25, 0xFE	; 254
+     818:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     81c:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     820:	81 ff       	sbrs	r24, 1
+     822:	02 c0       	rjmp	.+4      	; 0x828 <set_line_checker_led_green+0x1e>
+     824:	94 60       	ori	r25, 0x04	; 4
+     826:	01 c0       	rjmp	.+2      	; 0x82a <set_line_checker_led_green+0x20>
+     828:	9b 7f       	andi	r25, 0xFB	; 251
+     82a:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     82e:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     832:	82 ff       	sbrs	r24, 2
+     834:	02 c0       	rjmp	.+4      	; 0x83a <set_line_checker_led_green+0x30>
+     836:	90 61       	ori	r25, 0x10	; 16
+     838:	01 c0       	rjmp	.+2      	; 0x83c <set_line_checker_led_green+0x32>
+     83a:	9f 7e       	andi	r25, 0xEF	; 239
+     83c:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     840:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     844:	83 ff       	sbrs	r24, 3
+     846:	02 c0       	rjmp	.+4      	; 0x84c <set_line_checker_led_green+0x42>
+     848:	90 64       	ori	r25, 0x40	; 64
+     84a:	01 c0       	rjmp	.+2      	; 0x84e <set_line_checker_led_green+0x44>
+     84c:	9f 7b       	andi	r25, 0xBF	; 191
+     84e:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     852:	90 91 24 01 	lds	r25, 0x0124	; 0x800124 <IndicatorsFacePanelStr+0x1>
+     856:	84 ff       	sbrs	r24, 4
+     858:	02 c0       	rjmp	.+4      	; 0x85e <set_line_checker_led_green+0x54>
+     85a:	91 60       	ori	r25, 0x01	; 1
+     85c:	01 c0       	rjmp	.+2      	; 0x860 <__stack+0x1>
+     85e:	9e 7f       	andi	r25, 0xFE	; 254
+     860:	90 93 24 01 	sts	0x0124, r25	; 0x800124 <IndicatorsFacePanelStr+0x1>
+     864:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     868:	85 ff       	sbrs	r24, 5
+     86a:	02 c0       	rjmp	.+4      	; 0x870 <__stack+0x11>
+     86c:	91 60       	ori	r25, 0x01	; 1
+     86e:	01 c0       	rjmp	.+2      	; 0x872 <__stack+0x13>
+     870:	9e 7f       	andi	r25, 0xFE	; 254
+     872:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     876:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     87a:	86 ff       	sbrs	r24, 6
+     87c:	02 c0       	rjmp	.+4      	; 0x882 <__stack+0x23>
+     87e:	94 60       	ori	r25, 0x04	; 4
+     880:	01 c0       	rjmp	.+2      	; 0x884 <__stack+0x25>
+     882:	9b 7f       	andi	r25, 0xFB	; 251
+     884:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     888:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     88c:	87 ff       	sbrs	r24, 7
+     88e:	03 c0       	rjmp	.+6      	; 0x896 <__stack+0x37>
+     890:	89 2f       	mov	r24, r25
+     892:	80 61       	ori	r24, 0x10	; 16
+     894:	02 c0       	rjmp	.+4      	; 0x89a <__stack+0x3b>
+     896:	89 2f       	mov	r24, r25
+     898:	8f 7e       	andi	r24, 0xEF	; 239
+     89a:	80 93 25 01 	sts	0x0125, r24	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     89e:	08 95       	ret
+
+000008a0 <set_line_checker_led_red>:
+     8a0:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     8a4:	80 ff       	sbrs	r24, 0
+     8a6:	02 c0       	rjmp	.+4      	; 0x8ac <set_line_checker_led_red+0xc>
+     8a8:	92 60       	ori	r25, 0x02	; 2
+     8aa:	01 c0       	rjmp	.+2      	; 0x8ae <set_line_checker_led_red+0xe>
+     8ac:	9d 7f       	andi	r25, 0xFD	; 253
+     8ae:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     8b2:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     8b6:	81 ff       	sbrs	r24, 1
+     8b8:	02 c0       	rjmp	.+4      	; 0x8be <set_line_checker_led_red+0x1e>
+     8ba:	98 60       	ori	r25, 0x08	; 8
+     8bc:	01 c0       	rjmp	.+2      	; 0x8c0 <set_line_checker_led_red+0x20>
+     8be:	97 7f       	andi	r25, 0xF7	; 247
+     8c0:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     8c4:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     8c8:	82 ff       	sbrs	r24, 2
+     8ca:	02 c0       	rjmp	.+4      	; 0x8d0 <set_line_checker_led_red+0x30>
+     8cc:	90 62       	ori	r25, 0x20	; 32
+     8ce:	01 c0       	rjmp	.+2      	; 0x8d2 <set_line_checker_led_red+0x32>
+     8d0:	9f 7d       	andi	r25, 0xDF	; 223
+     8d2:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     8d6:	90 91 23 01 	lds	r25, 0x0123	; 0x800123 <IndicatorsFacePanelStr>
+     8da:	83 ff       	sbrs	r24, 3
+     8dc:	02 c0       	rjmp	.+4      	; 0x8e2 <set_line_checker_led_red+0x42>
+     8de:	90 68       	ori	r25, 0x80	; 128
+     8e0:	01 c0       	rjmp	.+2      	; 0x8e4 <set_line_checker_led_red+0x44>
+     8e2:	9f 77       	andi	r25, 0x7F	; 127
+     8e4:	90 93 23 01 	sts	0x0123, r25	; 0x800123 <IndicatorsFacePanelStr>
+     8e8:	90 91 24 01 	lds	r25, 0x0124	; 0x800124 <IndicatorsFacePanelStr+0x1>
+     8ec:	84 ff       	sbrs	r24, 4
+     8ee:	02 c0       	rjmp	.+4      	; 0x8f4 <set_line_checker_led_red+0x54>
+     8f0:	92 60       	ori	r25, 0x02	; 2
+     8f2:	01 c0       	rjmp	.+2      	; 0x8f6 <set_line_checker_led_red+0x56>
+     8f4:	9d 7f       	andi	r25, 0xFD	; 253
+     8f6:	90 93 24 01 	sts	0x0124, r25	; 0x800124 <IndicatorsFacePanelStr+0x1>
+     8fa:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     8fe:	85 ff       	sbrs	r24, 5
+     900:	02 c0       	rjmp	.+4      	; 0x906 <set_line_checker_led_red+0x66>
+     902:	92 60       	ori	r25, 0x02	; 2
+     904:	01 c0       	rjmp	.+2      	; 0x908 <set_line_checker_led_red+0x68>
+     906:	9d 7f       	andi	r25, 0xFD	; 253
+     908:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     90c:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     910:	86 ff       	sbrs	r24, 6
+     912:	02 c0       	rjmp	.+4      	; 0x918 <set_line_checker_led_red+0x78>
+     914:	98 60       	ori	r25, 0x08	; 8
+     916:	01 c0       	rjmp	.+2      	; 0x91a <set_line_checker_led_red+0x7a>
+     918:	97 7f       	andi	r25, 0xF7	; 247
+     91a:	90 93 25 01 	sts	0x0125, r25	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     91e:	90 91 25 01 	lds	r25, 0x0125	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     922:	87 ff       	sbrs	r24, 7
+     924:	03 c0       	rjmp	.+6      	; 0x92c <set_line_checker_led_red+0x8c>
+     926:	89 2f       	mov	r24, r25
+     928:	80 62       	ori	r24, 0x20	; 32
+     92a:	02 c0       	rjmp	.+4      	; 0x930 <set_line_checker_led_red+0x90>
+     92c:	89 2f       	mov	r24, r25
+     92e:	8f 7d       	andi	r24, 0xDF	; 223
+     930:	80 93 25 01 	sts	0x0125, r24	; 0x800125 <IndicatorsFacePanelStr+0x2>
+     934:	08 95       	ret
+
+00000936 <read_button_from_face_penel>:
+	LOW(CLKPORT, CLKPIN);
+}
+//-----------------------------------------------------------------------------
+//Считываение состояния кнопок и мажоритарное определение состояния кнопок.
+//Вызывается в прерывании по таймеру1 каждые 10 мСек. 
+void read_button_from_face_penel(void){
+     936:	cf 93       	push	r28
+     938:	df 93       	push	r29
+ 
+ 	uint8_t i = 0;
+ 	static uint8_t cycle = 0;
+ 	static __ButtonFacePanel_TypeDef SostBut[3];
+ 	//-------------------------------
+ 	if (cycle < 3)
+     93a:	c0 91 84 00 	lds	r28, 0x0084	; 0x800084 <cycle.2262>
+     93e:	c3 30       	cpi	r28, 0x03	; 3
+     940:	08 f0       	brcs	.+2      	; 0x944 <read_button_from_face_penel+0xe>
+     942:	61 c0       	rjmp	.+194    	; 0xa06 <read_button_from_face_penel+0xd0>
+ 		{
+ 			read_all_keys_from_pt6964(&SostBut[cycle]);//Считываение состояния кнопок
+     944:	d0 e0       	ldi	r29, 0x00	; 0
+static void read_all_keys_from_pt6964(__ButtonFacePanel_TypeDef *sostBut){
+
+	uint8_t i = 0;
+	//-------------------------------
+	//Считывание сотояния кнопок из PT6964.
+	LOW(STBPORT, STBPIN);
+     946:	d8 98       	cbi	0x1b, 0	; 27
+	//_delay_us(CLKSPEED);
+	write_byte_to_pt6964(COMMAND2_READ);
+     948:	82 e4       	ldi	r24, 0x42	; 66
+     94a:	0e 94 53 03 	call	0x6a6	; 0x6a6 <write_byte_to_pt6964>
+	//_delay_us(CLKSPEED);
+	DIODDR &= ~(1<<DIOPIN);//Ножку на вход.
+     94e:	d2 98       	cbi	0x1a, 2	; 26
+     950:	40 e0       	ldi	r20, 0x00	; 0
+     952:	50 e0       	ldi	r21, 0x00	; 0
+					byte |= (1<<i);
+					__asm__ volatile ("nop");
+				}
+			else
+				{
+					byte &= ~(1<<i);
+     954:	a1 e0       	ldi	r26, 0x01	; 1
+     956:	b0 e0       	ldi	r27, 0x00	; 0
+	DIODDR &= ~(1<<DIOPIN);//Ножку на вход.
+	//_delay_us(CLKSPEED);
+
+	for (i = 0; i < QUANTITY_READ_BYTE; i++)
+		{
+			sostBut->BLK[i] = read_byte_from_pt6964();
+     958:	85 e0       	ldi	r24, 0x05	; 5
+     95a:	8c 9f       	mul	r24, r28
+     95c:	b0 01       	movw	r22, r0
+     95e:	8d 9f       	mul	r24, r29
+     960:	70 0d       	add	r23, r0
+     962:	11 24       	eor	r1, r1
+     964:	6b 58       	subi	r22, 0x8B	; 139
+     966:	7f 4f       	sbci	r23, 0xFF	; 255
+     968:	20 e0       	ldi	r18, 0x00	; 0
+     96a:	30 e0       	ldi	r19, 0x00	; 0
+//---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+static uint8_t read_byte_from_pt6964(void){
+	
+	uint8_t i = 0;
+	uint8_t byte = 0;
+     96c:	80 e0       	ldi	r24, 0x00	; 0
+	//------------------------------
+	for (i = 0; i < 8; i++)
+		{
+			__asm__ volatile ("nop");
+     96e:	00 00       	nop
+			LOW(CLKPORT, CLKPIN);
+     970:	d9 98       	cbi	0x1b, 1	; 27
+	...
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			//-------------------------------
+			if (DIOPININ & (1<<DIOPIN))
+				{
+					byte |= (1<<i);
+     97a:	fd 01       	movw	r30, r26
+     97c:	02 2e       	mov	r0, r18
+     97e:	01 c0       	rjmp	.+2      	; 0x982 <read_button_from_face_penel+0x4c>
+     980:	ee 0f       	add	r30, r30
+     982:	0a 94       	dec	r0
+     984:	ea f7       	brpl	.-6      	; 0x980 <read_button_from_face_penel+0x4a>
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			//-------------------------------
+			if (DIOPININ & (1<<DIOPIN))
+     986:	ca 9b       	sbis	0x19, 2	; 25
+     988:	03 c0       	rjmp	.+6      	; 0x990 <read_button_from_face_penel+0x5a>
+				{
+					byte |= (1<<i);
+     98a:	8e 2b       	or	r24, r30
+					__asm__ volatile ("nop");
+     98c:	00 00       	nop
+     98e:	02 c0       	rjmp	.+4      	; 0x994 <read_button_from_face_penel+0x5e>
+				}
+			else
+				{
+					byte &= ~(1<<i);
+     990:	e0 95       	com	r30
+     992:	8e 23       	and	r24, r30
+				}
+			//-------------------------------
+			__asm__ volatile ("nop");
+     994:	00 00       	nop
+			HIGH(CLKPORT, CLKPIN);
+     996:	d9 9a       	sbi	0x1b, 1	; 27
+	...
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+			__asm__ volatile ("nop");
+     9a4:	00 00       	nop
+     9a6:	2f 5f       	subi	r18, 0xFF	; 255
+     9a8:	3f 4f       	sbci	r19, 0xFF	; 255
+static uint8_t read_byte_from_pt6964(void){
+	
+	uint8_t i = 0;
+	uint8_t byte = 0;
+	//------------------------------
+	for (i = 0; i < 8; i++)
+     9aa:	28 30       	cpi	r18, 0x08	; 8
+     9ac:	31 05       	cpc	r19, r1
+     9ae:	f9 f6       	brne	.-66     	; 0x96e <read_button_from_face_penel+0x38>
+	DIODDR &= ~(1<<DIOPIN);//Ножку на вход.
+	//_delay_us(CLKSPEED);
+
+	for (i = 0; i < QUANTITY_READ_BYTE; i++)
+		{
+			sostBut->BLK[i] = read_byte_from_pt6964();
+     9b0:	fb 01       	movw	r30, r22
+     9b2:	e4 0f       	add	r30, r20
+     9b4:	f5 1f       	adc	r31, r21
+     9b6:	80 83       	st	Z, r24
+     9b8:	4f 5f       	subi	r20, 0xFF	; 255
+     9ba:	5f 4f       	sbci	r21, 0xFF	; 255
+	write_byte_to_pt6964(COMMAND2_READ);
+	//_delay_us(CLKSPEED);
+	DIODDR &= ~(1<<DIOPIN);//Ножку на вход.
+	//_delay_us(CLKSPEED);
+
+	for (i = 0; i < QUANTITY_READ_BYTE; i++)
+     9bc:	45 30       	cpi	r20, 0x05	; 5
+     9be:	51 05       	cpc	r21, r1
+     9c0:	99 f6       	brne	.-90     	; 0x968 <read_button_from_face_penel+0x32>
+		{
+			sostBut->BLK[i] = read_byte_from_pt6964();
+		}
+
+	LOW(DIOPORT, DIOPIN);
+     9c2:	da 98       	cbi	0x1b, 2	; 27
+	DIODDR |= (1<<DIOPIN);//Ножку на выход.
+     9c4:	d2 9a       	sbi	0x1a, 2	; 26
+	HIGH(STBPORT, STBPIN);
+     9c6:	d8 9a       	sbi	0x1b, 0	; 27
+	LOW(CLKPORT, CLKPIN);
+     9c8:	d9 98       	cbi	0x1b, 1	; 27
+ 	if (cycle < 3)
+ 		{
+ 			read_all_keys_from_pt6964(&SostBut[cycle]);//Считываение состояния кнопок
+			//Обработка проверочных бит. 
+			//Если один из проверочных бит будет равен 1 значит некорректно вычитаны данные из pt6964.
+			if ((SostBut[cycle].BLK[0] & (CHECKBIT1 | CHECKBIT2)) ||
+     9ca:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <cycle.2262>
+     9ce:	95 e0       	ldi	r25, 0x05	; 5
+     9d0:	89 9f       	mul	r24, r25
+     9d2:	f0 01       	movw	r30, r0
+     9d4:	11 24       	eor	r1, r1
+     9d6:	eb 58       	subi	r30, 0x8B	; 139
+     9d8:	ff 4f       	sbci	r31, 0xFF	; 255
+     9da:	90 81       	ld	r25, Z
+     9dc:	94 72       	andi	r25, 0x24	; 36
+     9de:	61 f4       	brne	.+24     	; 0x9f8 <read_button_from_face_penel+0xc2>
+				(SostBut[cycle].BLK[1] & (CHECKBIT1 | CHECKBIT2)) ||
+     9e0:	91 81       	ldd	r25, Z+1	; 0x01
+ 	if (cycle < 3)
+ 		{
+ 			read_all_keys_from_pt6964(&SostBut[cycle]);//Считываение состояния кнопок
+			//Обработка проверочных бит. 
+			//Если один из проверочных бит будет равен 1 значит некорректно вычитаны данные из pt6964.
+			if ((SostBut[cycle].BLK[0] & (CHECKBIT1 | CHECKBIT2)) ||
+     9e2:	94 72       	andi	r25, 0x24	; 36
+     9e4:	49 f4       	brne	.+18     	; 0x9f8 <read_button_from_face_penel+0xc2>
+				(SostBut[cycle].BLK[1] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[2] & (CHECKBIT1 | CHECKBIT2)) ||
+     9e6:	92 81       	ldd	r25, Z+2	; 0x02
+ 		{
+ 			read_all_keys_from_pt6964(&SostBut[cycle]);//Считываение состояния кнопок
+			//Обработка проверочных бит. 
+			//Если один из проверочных бит будет равен 1 значит некорректно вычитаны данные из pt6964.
+			if ((SostBut[cycle].BLK[0] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[1] & (CHECKBIT1 | CHECKBIT2)) ||
+     9e8:	94 72       	andi	r25, 0x24	; 36
+     9ea:	31 f4       	brne	.+12     	; 0x9f8 <read_button_from_face_penel+0xc2>
+				(SostBut[cycle].BLK[2] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[3] & (CHECKBIT1 | CHECKBIT2)) ||
+     9ec:	93 81       	ldd	r25, Z+3	; 0x03
+ 			read_all_keys_from_pt6964(&SostBut[cycle]);//Считываение состояния кнопок
+			//Обработка проверочных бит. 
+			//Если один из проверочных бит будет равен 1 значит некорректно вычитаны данные из pt6964.
+			if ((SostBut[cycle].BLK[0] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[1] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[2] & (CHECKBIT1 | CHECKBIT2)) ||
+     9ee:	94 72       	andi	r25, 0x24	; 36
+     9f0:	19 f4       	brne	.+6      	; 0x9f8 <read_button_from_face_penel+0xc2>
+				(SostBut[cycle].BLK[3] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[4] & (CHECKBIT1 | CHECKBIT2)))
+     9f2:	94 81       	ldd	r25, Z+4	; 0x04
+			//Обработка проверочных бит. 
+			//Если один из проверочных бит будет равен 1 значит некорректно вычитаны данные из pt6964.
+			if ((SostBut[cycle].BLK[0] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[1] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[2] & (CHECKBIT1 | CHECKBIT2)) ||
+				(SostBut[cycle].BLK[3] & (CHECKBIT1 | CHECKBIT2)) ||
+     9f4:	94 72       	andi	r25, 0x24	; 36
+     9f6:	19 f0       	breq	.+6      	; 0x9fe <read_button_from_face_penel+0xc8>
+				(SostBut[cycle].BLK[4] & (CHECKBIT1 | CHECKBIT2)))
+				{
+					cycle = 0; 
+     9f8:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <cycle.2262>
+     9fc:	1f c0       	rjmp	.+62     	; 0xa3c <read_button_from_face_penel+0x106>
+				}
+			else
+				{
+					cycle++;	
+     9fe:	8f 5f       	subi	r24, 0xFF	; 255
+     a00:	80 93 84 00 	sts	0x0084, r24	; 0x800084 <cycle.2262>
+     a04:	1b c0       	rjmp	.+54     	; 0xa3c <read_button_from_face_penel+0x106>
+ 			return;
+ 		} 
+ 	//-------------------------------
+ 	else
+ 		{
+ 			cycle = 0;
+     a06:	10 92 84 00 	sts	0x0084, r1	; 0x800084 <cycle.2262>
+     a0a:	80 e0       	ldi	r24, 0x00	; 0
+     a0c:	90 e0       	ldi	r25, 0x00	; 0
+ 			//Мажоритарное определение состояния кнопок.
+  			for (i = 0; i < 5; i++)
+  				{
+  					ButtonFacePanelStr.BLK[i] = ((SostBut[0].BLK[i] & SostBut[1].BLK[i]) |
+     a0e:	fc 01       	movw	r30, r24
+     a10:	eb 58       	subi	r30, 0x8B	; 139
+     a12:	ff 4f       	sbci	r31, 0xFF	; 255
+     a14:	70 81       	ld	r23, Z
+     a16:	65 81       	ldd	r22, Z+5	; 0x05
+  												 (SostBut[1].BLK[i] & SostBut[2].BLK[i]) |
+     a18:	45 81       	ldd	r20, Z+5	; 0x05
+     a1a:	52 85       	ldd	r21, Z+10	; 0x0a
+  												 (SostBut[0].BLK[i] & SostBut[2].BLK[i]));
+     a1c:	20 81       	ld	r18, Z
+     a1e:	32 85       	ldd	r19, Z+10	; 0x0a
+ 		{
+ 			cycle = 0;
+ 			//Мажоритарное определение состояния кнопок.
+  			for (i = 0; i < 5; i++)
+  				{
+  					ButtonFacePanelStr.BLK[i] = ((SostBut[0].BLK[i] & SostBut[1].BLK[i]) |
+     a20:	67 23       	and	r22, r23
+     a22:	45 23       	and	r20, r21
+     a24:	46 2b       	or	r20, r22
+     a26:	32 23       	and	r19, r18
+     a28:	24 2f       	mov	r18, r20
+     a2a:	23 2b       	or	r18, r19
+     a2c:	fc 01       	movw	r30, r24
+     a2e:	e8 5e       	subi	r30, 0xE8	; 232
+     a30:	fe 4f       	sbci	r31, 0xFE	; 254
+     a32:	20 83       	st	Z, r18
+     a34:	01 96       	adiw	r24, 0x01	; 1
+ 	//-------------------------------
+ 	else
+ 		{
+ 			cycle = 0;
+ 			//Мажоритарное определение состояния кнопок.
+  			for (i = 0; i < 5; i++)
+     a36:	85 30       	cpi	r24, 0x05	; 5
+     a38:	91 05       	cpc	r25, r1
+     a3a:	49 f7       	brne	.-46     	; 0xa0e <read_button_from_face_penel+0xd8>
+  												 (SostBut[1].BLK[i] & SostBut[2].BLK[i]) |
+  												 (SostBut[0].BLK[i] & SostBut[2].BLK[i]));
+  				}
+ 		}
+ 	//-------------------------------
+ }
+     a3c:	df 91       	pop	r29
+     a3e:	cf 91       	pop	r28
+     a40:	08 95       	ret
+
+00000a42 <get_button>:
+uint8_t get_button (uint8_t buttons){
+		
+	uint8_t temp = 0;
+	//-------------------------------
+	//Сортировка принятых байты.
+	switch(buttons)
+     a42:	84 30       	cpi	r24, 0x04	; 4
+     a44:	31 f0       	breq	.+12     	; 0xa52 <get_button+0x10>
+     a46:	86 30       	cpi	r24, 0x06	; 6
+     a48:	39 f0       	breq	.+14     	; 0xa58 <get_button+0x16>
+     a4a:	82 30       	cpi	r24, 0x02	; 2
+     a4c:	49 f4       	brne	.+18     	; 0xa60 <get_button+0x1e>
+		{	
+			//-------------------------------
+			case LINE_CHECKER_BUTTON:
+				temp = sorting_button_bit(&ButtonFacePanelStr, LINE_CHECKER_BUTTON_BIT_MASK);
+     a4e:	80 e0       	ldi	r24, 0x00	; 0
+     a50:	01 c0       	rjmp	.+2      	; 0xa54 <get_button+0x12>
+			break;
+			//-------------------------------
+			case SPEAKER_BUTTON:		
+				temp = sorting_button_bit(&ButtonFacePanelStr, SPEAKER_BUTTON_BIT_MASK);	
+     a52:	81 e0       	ldi	r24, 0x01	; 1
+     a54:	0c 94 70 03 	jmp	0x6e0	; 0x6e0 <sorting_button_bit.constprop.1>
+			break;
+			//-------------------------------
+			case ALL_EM_BUTTON:
+				temp = (ButtonFacePanelStr.BLK[4] & (ALL_BUTTON | EM_BUTTON));	
+     a58:	80 91 1c 01 	lds	r24, 0x011C	; 0x80011c <ButtonFacePanelStr+0x4>
+     a5c:	82 71       	andi	r24, 0x12	; 18
+			break;
+     a5e:	08 95       	ret
+//-----------------------------------------------------------------------------
+//Получение мгновенного состояния кнопки.
+//Состояние кнопок считываются в прерывании по таймеру1 каждые 10 мСек.
+uint8_t get_button (uint8_t buttons){
+		
+	uint8_t temp = 0;
+     a60:	80 e0       	ldi	r24, 0x00	; 0
+			break;
+			//-------------------------------
+		}
+	//-------------------------------------
+	return temp;
+}
+     a62:	08 95       	ret
+
+00000a64 <toggle_button>:
+//-----------------------------------------------------------------------------
+uint8_t toggle_button(uint8_t button){
+     a64:	ff 92       	push	r15
+     a66:	0f 93       	push	r16
+     a68:	1f 93       	push	r17
+     a6a:	cf 93       	push	r28
+     a6c:	df 93       	push	r29
+     a6e:	f8 2e       	mov	r15, r24
+	
+	uint8_t	temp = 0;
+	//-------------------------------------------------------------
+	//Анализ состояния кнопок.
+	temp = get_button(button);	
+     a70:	0e 94 21 05 	call	0xa42	; 0xa42 <get_button>
+     a74:	cf 2d       	mov	r28, r15
+     a76:	d0 e0       	ldi	r29, 0x00	; 0
+	switch (temp)
+		{
+			//-------------------------------
+			case 0:
+				ButtonSostStr.BLK[button-2] = 0;
+     a78:	fe 01       	movw	r30, r28
+     a7a:	e5 5e       	subi	r30, 0xE5	; 229
+     a7c:	fe 4f       	sbci	r31, 0xFE	; 254
+	
+	uint8_t	temp = 0;
+	//-------------------------------------------------------------
+	//Анализ состояния кнопок.
+	temp = get_button(button);	
+	switch (temp)
+     a7e:	81 11       	cpse	r24, r1
+     a80:	0a c0       	rjmp	.+20     	; 0xa96 <toggle_button+0x32>
+		{
+			//-------------------------------
+			case 0:
+				ButtonSostStr.BLK[button-2] = 0;
+     a82:	10 82       	st	Z, r1
+				//--------------------------
+				//Блокировка выбора зон.
+				if (button == SPEAKER_BUTTON)
+     a84:	84 e0       	ldi	r24, 0x04	; 4
+     a86:	f8 12       	cpse	r15, r24
+     a88:	1a c0       	rjmp	.+52     	; 0xabe <toggle_button+0x5a>
+					{
+						ButtonSostStr.BLK[button-1] &= get_blocked_speaker_line();
+     a8a:	0e 94 f0 02 	call	0x5e0	; 0x5e0 <get_blocked_speaker_line>
+     a8e:	fe 01       	movw	r30, r28
+     a90:	e4 5e       	subi	r30, 0xE4	; 228
+     a92:	fe 4f       	sbci	r31, 0xFE	; 254
+     a94:	11 c0       	rjmp	.+34     	; 0xab8 <toggle_button+0x54>
+					}
+				//--------------------------
+			break;
+			//-------------------------------
+			default:		
+				if(ButtonSostStr.BLK[button-2] != temp)
+     a96:	90 81       	ld	r25, Z
+     a98:	89 17       	cp	r24, r25
+     a9a:	89 f0       	breq	.+34     	; 0xabe <toggle_button+0x5a>
+					{
+						ButtonSostStr.BLK[button-2]  = temp;
+     a9c:	80 83       	st	Z, r24
+						ButtonSostStr.BLK[button-1] ^= temp;
+     a9e:	8e 01       	movw	r16, r28
+     aa0:	04 5e       	subi	r16, 0xE4	; 228
+     aa2:	1e 4f       	sbci	r17, 0xFE	; 254
+     aa4:	f8 01       	movw	r30, r16
+     aa6:	90 81       	ld	r25, Z
+     aa8:	89 27       	eor	r24, r25
+     aaa:	80 83       	st	Z, r24
+						//--------------------------
+						//Блокировка выбора зон.
+						if (button == SPEAKER_BUTTON)
+     aac:	f4 e0       	ldi	r31, 0x04	; 4
+     aae:	ff 12       	cpse	r15, r31
+     ab0:	06 c0       	rjmp	.+12     	; 0xabe <toggle_button+0x5a>
+							{
+								ButtonSostStr.BLK[button-1] &= get_blocked_speaker_line();
+     ab2:	0e 94 f0 02 	call	0x5e0	; 0x5e0 <get_blocked_speaker_line>
+     ab6:	f8 01       	movw	r30, r16
+     ab8:	90 81       	ld	r25, Z
+     aba:	89 23       	and	r24, r25
+     abc:	80 83       	st	Z, r24
+					}	
+			break;
+			//-------------------------------
+		}
+	//-------------------------------------------------------------
+	return ButtonSostStr.BLK[button-1];
+     abe:	c4 5e       	subi	r28, 0xE4	; 228
+     ac0:	de 4f       	sbci	r29, 0xFE	; 254
+}
+     ac2:	88 81       	ld	r24, Y
+     ac4:	df 91       	pop	r29
+     ac6:	cf 91       	pop	r28
+     ac8:	1f 91       	pop	r17
+     aca:	0f 91       	pop	r16
+     acc:	ff 90       	pop	r15
+     ace:	08 95       	ret
+
+00000ad0 <Timers_Init>:
+//-----------------------------------------------------------------------------
+void clear_charge_hour_counter(void){
+	
+	cli(); //Запрет прерываний.	
+	Timer0CountersStr.Timer0ChargeSecondCounter = 0;
+	sei(); //Разрешение прерываний.
+     ad0:	84 e6       	ldi	r24, 0x64	; 100
+     ad2:	80 93 36 01 	sts	0x0136, r24	; 0x800136 <Timer0CountersStr+0x8>
+     ad6:	86 ef       	ldi	r24, 0xF6	; 246
+     ad8:	8d bd       	out	0x2d, r24	; 45
+     ada:	8b e3       	ldi	r24, 0x3B	; 59
+     adc:	8c bd       	out	0x2c, r24	; 44
+     ade:	8e b5       	in	r24, 0x2e	; 46
+     ae0:	83 60       	ori	r24, 0x03	; 3
+     ae2:	8e bd       	out	0x2e, r24	; 46
+     ae4:	86 e0       	ldi	r24, 0x06	; 6
+     ae6:	82 bf       	out	0x32, r24	; 50
+     ae8:	83 b7       	in	r24, 0x33	; 51
+     aea:	83 60       	ori	r24, 0x03	; 3
+     aec:	83 bf       	out	0x33, r24	; 51
+     aee:	89 b7       	in	r24, 0x39	; 57
+     af0:	85 60       	ori	r24, 0x05	; 5
+     af2:	89 bf       	out	0x39, r24	; 57
+     af4:	08 95       	ret
+
+00000af6 <msDelay>:
+}
+//-----------------------------------------------------------------------------
+void msDelay(volatile uint16_t delay){
+     af6:	cf 93       	push	r28
+     af8:	df 93       	push	r29
+     afa:	00 d0       	rcall	.+0      	; 0xafc <msDelay+0x6>
+     afc:	cd b7       	in	r28, 0x3d	; 61
+     afe:	de b7       	in	r29, 0x3e	; 62
+     b00:	9a 83       	std	Y+2, r25	; 0x02
+     b02:	89 83       	std	Y+1, r24	; 0x01
+	
+	if(delay == 0) return;
+     b04:	89 81       	ldd	r24, Y+1	; 0x01
+     b06:	9a 81       	ldd	r25, Y+2	; 0x02
+     b08:	89 2b       	or	r24, r25
+     b0a:	79 f0       	breq	.+30     	; 0xb2a <msDelay+0x34>
+	
+	cli(); //Запрет прерываний.		
+     b0c:	f8 94       	cli
+	Timer0CountersStr.Timer0Delay = 0;
+     b0e:	10 92 3d 01 	sts	0x013D, r1	; 0x80013d <Timer0CountersStr+0xf>
+     b12:	10 92 3c 01 	sts	0x013C, r1	; 0x80013c <Timer0CountersStr+0xe>
+	sei(); //Разрешение прерываний.
+     b16:	78 94       	sei
+	
+	while(Timer0CountersStr.Timer0Delay != delay){} //Ожиданиае паузы.
+     b18:	20 91 3c 01 	lds	r18, 0x013C	; 0x80013c <Timer0CountersStr+0xe>
+     b1c:	30 91 3d 01 	lds	r19, 0x013D	; 0x80013d <Timer0CountersStr+0xf>
+     b20:	89 81       	ldd	r24, Y+1	; 0x01
+     b22:	9a 81       	ldd	r25, Y+2	; 0x02
+     b24:	28 17       	cp	r18, r24
+     b26:	39 07       	cpc	r19, r25
+     b28:	b9 f7       	brne	.-18     	; 0xb18 <msDelay+0x22>
+}
+     b2a:	0f 90       	pop	r0
+     b2c:	0f 90       	pop	r0
+     b2e:	df 91       	pop	r29
+     b30:	cf 91       	pop	r28
+     b32:	08 95       	ret
+
+00000b34 <__vector_9>:
+//-----------------------------------------------------------------------------
+//Прерывание каждяе 10 мСек.
+ISR(TIMER1_OVF_vect){
+     b34:	1f 92       	push	r1
+     b36:	0f 92       	push	r0
+     b38:	0f b6       	in	r0, 0x3f	; 63
+     b3a:	0f 92       	push	r0
+     b3c:	11 24       	eor	r1, r1
+     b3e:	2f 93       	push	r18
+     b40:	3f 93       	push	r19
+     b42:	4f 93       	push	r20
+     b44:	5f 93       	push	r21
+     b46:	6f 93       	push	r22
+     b48:	7f 93       	push	r23
+     b4a:	8f 93       	push	r24
+     b4c:	9f 93       	push	r25
+     b4e:	af 93       	push	r26
+     b50:	bf 93       	push	r27
+     b52:	ef 93       	push	r30
+     b54:	ff 93       	push	r31
+	
+	//----------------------------------------------------
+	//Начальное значение таймера. 63035 = 0xF63b для прерывания каждые 10 мСек.
+	TCNT1H = 0xF6;
+     b56:	86 ef       	ldi	r24, 0xF6	; 246
+     b58:	8d bd       	out	0x2d, r24	; 45
+	TCNT1L = 0x3B;
+     b5a:	8b e3       	ldi	r24, 0x3B	; 59
+     b5c:	8c bd       	out	0x2c, r24	; 44
+	//----------------------------------------------------
+	//сброс сторожевого таймера
+	//wdt_reset(); 
+	//----------------------------------------------------
+	//Быстрое мигание при измерении LC.
+	if (++Timer0CountersStr.Timer0FastBlink_ms_Counter >= 12)
+     b5e:	80 91 39 01 	lds	r24, 0x0139	; 0x800139 <Timer0CountersStr+0xb>
+     b62:	8f 5f       	subi	r24, 0xFF	; 255
+     b64:	80 93 39 01 	sts	0x0139, r24	; 0x800139 <Timer0CountersStr+0xb>
+     b68:	8c 30       	cpi	r24, 0x0C	; 12
+     b6a:	38 f0       	brcs	.+14     	; 0xb7a <__vector_9+0x46>
+		{
+			Timer0CountersStr.Timer0FastBlink_ms_Counter = 0;
+     b6c:	10 92 39 01 	sts	0x0139, r1	; 0x800139 <Timer0CountersStr+0xb>
+			Timer1FastBlinkReg ^= 0xFF;
+     b70:	80 91 85 00 	lds	r24, 0x0085	; 0x800085 <Timer1FastBlinkReg>
+     b74:	80 95       	com	r24
+     b76:	80 93 85 00 	sts	0x0085, r24	; 0x800085 <Timer1FastBlinkReg>
+		}
+	//----------------------------------------------------
+	//Счетчик 500 мСек.
+	if (++Timer0CountersStr.Timer0Blink_ms_Counter >= 50)
+     b7a:	80 91 38 01 	lds	r24, 0x0138	; 0x800138 <Timer0CountersStr+0xa>
+     b7e:	8f 5f       	subi	r24, 0xFF	; 255
+     b80:	80 93 38 01 	sts	0x0138, r24	; 0x800138 <Timer0CountersStr+0xa>
+     b84:	82 33       	cpi	r24, 0x32	; 50
+     b86:	08 f4       	brcc	.+2      	; 0xb8a <__vector_9+0x56>
+     b88:	67 c0       	rjmp	.+206    	; 0xc58 <__vector_9+0x124>
+		{
+			Timer0CountersStr.Timer0Blink_ms_Counter = 0;
+     b8a:	10 92 38 01 	sts	0x0138, r1	; 0x800138 <Timer0CountersStr+0xa>
+			Timer1BlinkReg ^= 0xFF;
+     b8e:	80 91 86 00 	lds	r24, 0x0086	; 0x800086 <Timer1BlinkReg>
+     b92:	80 95       	com	r24
+     b94:	80 93 86 00 	sts	0x0086, r24	; 0x800086 <Timer1BlinkReg>
+			//----------------------------------
+			//Часы для отсчета таймаута автоматического контроля линий.
+			if (++Timer0CountersStr.Timer0Clock_ms_Counter >= TIMER1_15s_CONST)
+     b98:	80 91 2e 01 	lds	r24, 0x012E	; 0x80012e <Timer0CountersStr>
+     b9c:	8f 5f       	subi	r24, 0xFF	; 255
+     b9e:	80 93 2e 01 	sts	0x012E, r24	; 0x80012e <Timer0CountersStr>
+     ba2:	8e 31       	cpi	r24, 0x1E	; 30
+     ba4:	78 f1       	brcs	.+94     	; 0xc04 <__vector_9+0xd0>
+				{
+					Timer0CountersStr.Timer0Clock_ms_Counter = 0;
+     ba6:	10 92 2e 01 	sts	0x012E, r1	; 0x80012e <Timer0CountersStr>
+					Timer0FlagReg |= Timer1_15secFlag;
+     baa:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     bae:	81 60       	ori	r24, 0x01	; 1
+     bb0:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+					Timer0FlagReg &= ~Timer1_Charge15secFlag;
+     bb4:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     bb8:	8f 7d       	andi	r24, 0xDF	; 223
+     bba:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+					//-------------------------		
+					//Счетчики часов для автоматической проверки линий.
+					if (++Timer0CountersStr.Timer0SecondCounter >= TIMER1_1h_CONST)
+     bbe:	80 91 2f 01 	lds	r24, 0x012F	; 0x80012f <Timer0CountersStr+0x1>
+     bc2:	8f 5f       	subi	r24, 0xFF	; 255
+     bc4:	80 93 2f 01 	sts	0x012F, r24	; 0x80012f <Timer0CountersStr+0x1>
+     bc8:	80 3f       	cpi	r24, 0xF0	; 240
+     bca:	70 f0       	brcs	.+28     	; 0xbe8 <__vector_9+0xb4>
+						{
+							Timer0CountersStr.Timer0SecondCounter = 0;
+     bcc:	10 92 2f 01 	sts	0x012F, r1	; 0x80012f <Timer0CountersStr+0x1>
+							Timer0CountersStr.Timer0HourCounter++;
+     bd0:	80 91 31 01 	lds	r24, 0x0131	; 0x800131 <Timer0CountersStr+0x3>
+     bd4:	8f 5f       	subi	r24, 0xFF	; 255
+     bd6:	80 93 31 01 	sts	0x0131, r24	; 0x800131 <Timer0CountersStr+0x3>
+							//Проверка на максимум.
+							if (Timer0CountersStr.Timer0HourCounter > 24)
+     bda:	80 91 31 01 	lds	r24, 0x0131	; 0x800131 <Timer0CountersStr+0x3>
+     bde:	89 31       	cpi	r24, 0x19	; 25
+     be0:	18 f0       	brcs	.+6      	; 0xbe8 <__vector_9+0xb4>
+								{
+									Timer0CountersStr.Timer0HourCounter = 24;
+     be2:	88 e1       	ldi	r24, 0x18	; 24
+     be4:	80 93 31 01 	sts	0x0131, r24	; 0x800131 <Timer0CountersStr+0x3>
+								}
+						}
+					//----------------------------------
+					//Часы для отсчета таймаута проверки сотояния АКБ.
+					if (++Timer0CountersStr.Timer0ChargeSecondCounter >= TIMER1_CHARGE_CHEK_CONST)
+     be8:	80 91 30 01 	lds	r24, 0x0130	; 0x800130 <Timer0CountersStr+0x2>
+     bec:	8f 5f       	subi	r24, 0xFF	; 255
+     bee:	80 93 30 01 	sts	0x0130, r24	; 0x800130 <Timer0CountersStr+0x2>
+     bf2:	8a 30       	cpi	r24, 0x0A	; 10
+     bf4:	38 f0       	brcs	.+14     	; 0xc04 <__vector_9+0xd0>
+						{
+							Timer0CountersStr.Timer0ChargeSecondCounter = 0;
+     bf6:	10 92 30 01 	sts	0x0130, r1	; 0x800130 <Timer0CountersStr+0x2>
+							Timer0FlagReg &= ~Timer1_ChargeChekrFlag;
+     bfa:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     bfe:	8f 7b       	andi	r24, 0xBF	; 191
+     c00:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+						}
+					//----------------------------------
+				}
+			//-------------------------------------
+			//Индикация в течении 3 секунд.
+			if (Timer0FlagReg & Timer1_ShortIndicationFlag)
+     c04:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     c08:	83 ff       	sbrs	r24, 3
+     c0a:	0e c0       	rjmp	.+28     	; 0xc28 <__vector_9+0xf4>
+				{
+					if (++Timer0CountersStr.Timer03secIndicatCounter >= 6)
+     c0c:	80 91 32 01 	lds	r24, 0x0132	; 0x800132 <Timer0CountersStr+0x4>
+     c10:	8f 5f       	subi	r24, 0xFF	; 255
+     c12:	80 93 32 01 	sts	0x0132, r24	; 0x800132 <Timer0CountersStr+0x4>
+     c16:	86 30       	cpi	r24, 0x06	; 6
+     c18:	38 f0       	brcs	.+14     	; 0xc28 <__vector_9+0xf4>
+						{
+							Timer0CountersStr.Timer03secIndicatCounter = 0;
+     c1a:	10 92 32 01 	sts	0x0132, r1	; 0x800132 <Timer0CountersStr+0x4>
+							Timer0FlagReg &= ~Timer1_ShortIndicationFlag;
+     c1e:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     c22:	87 7f       	andi	r24, 0xF7	; 247
+     c24:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+						}
+				}
+			//-------------------------------------
+			//Индикация в дежурном режиме. Мигающий зеленый светодтод POWER.
+			if (Timer0FlagReg & Timer1_StendbyFlag)
+     c28:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     c2c:	84 ff       	sbrs	r24, 4
+     c2e:	14 c0       	rjmp	.+40     	; 0xc58 <__vector_9+0x124>
+				{
+					IndicatorsFacePanelStr.bit.STBAY_LED = Timer1BlinkReg;
+     c30:	90 91 86 00 	lds	r25, 0x0086	; 0x800086 <Timer1BlinkReg>
+     c34:	80 91 2c 01 	lds	r24, 0x012C	; 0x80012c <IndicatorsFacePanelStr+0x9>
+     c38:	90 fb       	bst	r25, 0
+     c3a:	80 f9       	bld	r24, 0
+     c3c:	80 93 2c 01 	sts	0x012C, r24	; 0x80012c <IndicatorsFacePanelStr+0x9>
+					if (get_charge_indication()) 
+     c40:	0e 94 c4 00 	call	0x188	; 0x188 <get_charge_indication>
+     c44:	88 23       	and	r24, r24
+     c46:	41 f0       	breq	.+16     	; 0xc58 <__vector_9+0x124>
+						{
+							IndicatorsFacePanelStr.bit.POWER_LED = Timer1BlinkReg;
+     c48:	90 91 86 00 	lds	r25, 0x0086	; 0x800086 <Timer1BlinkReg>
+     c4c:	80 91 2c 01 	lds	r24, 0x012C	; 0x80012c <IndicatorsFacePanelStr+0x9>
+     c50:	90 fb       	bst	r25, 0
+     c52:	81 f9       	bld	r24, 1
+     c54:	80 93 2c 01 	sts	0x012C, r24	; 0x80012c <IndicatorsFacePanelStr+0x9>
+				}
+			//-------------------------------------
+		}
+	//----------------------------------------------------
+ 	//Если в режиме конфигурации то индикация состояний LINE CHECKERa запрешена.
+ 	if((Timer0FlagReg & Timer1_ConfigModeFlag) == 0)
+     c58:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     c5c:	81 fd       	sbrc	r24, 1
+     c5e:	11 c0       	rjmp	.+34     	; 0xc82 <__vector_9+0x14e>
+ 		{
+ 			//-------------------------
+ 			//Индикация LINE CHACKERа
+ 			resistence_all_line_indicate();
+     c60:	0e 94 f4 02 	call	0x5e8	; 0x5e8 <resistence_all_line_indicate>
+ 			//-------------------------
+ 			//Мигающая индикация при неисправности зарядного устройства. Во время определения состояния линии коротким нажатием
+			//на дисплее отображается код состоянии линии. 
+ 			if  ( (Timer1BlinkReg & get_charge_indication()) && !(Timer0FlagReg & Timer1_ShortIndicationFlag) )
+     c64:	0e 94 c4 00 	call	0x188	; 0x188 <get_charge_indication>
+     c68:	90 91 86 00 	lds	r25, 0x0086	; 0x800086 <Timer1BlinkReg>
+     c6c:	89 23       	and	r24, r25
+     c6e:	49 f0       	breq	.+18     	; 0xc82 <__vector_9+0x14e>
+     c70:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     c74:	83 fd       	sbrc	r24, 3
+     c76:	05 c0       	rjmp	.+10     	; 0xc82 <__vector_9+0x14e>
+ 				{
+					 //Мигающая индикация при неисправности блока ЗУ или неиспарвности питания 220.
+ 					display_set(get_charge_indication());
+     c78:	0e 94 c4 00 	call	0x188	; 0x188 <get_charge_indication>
+     c7c:	90 e0       	ldi	r25, 0x00	; 0
+     c7e:	0e 94 ca 03 	call	0x794	; 0x794 <display_set>
+ 				}
+ 			//-------------------------
+ 		}
+ 	//------------------------- 
+	sei(); //Разрешение прерываний необходимо, т.к. может происходить прием байтов протокола во время работы с лицевой панелью. 
+     c82:	78 94       	sei
+	//Запись данных в лицевую панель. Длится 65 uS.
+ 	write_data_to_face_penel();
+     c84:	0e 94 a1 03 	call	0x742	; 0x742 <write_data_to_face_penel>
+	//----------------------------------------------------
+	//Считали состояние кнопок. Длится 120 uS.
+	read_button_from_face_penel();
+     c88:	0e 94 9b 04 	call	0x936	; 0x936 <read_button_from_face_penel>
+	cli(); //Запрет прерываний.	
+     c8c:	f8 94       	cli
+	//-------------------------
+	//Обработка длительного нажатия (не менее 3 сек). 
+ 	if ( ButtonFacePanelStr.bit.EM_BUT || get_button(LINE_CHECKER_BUTTON))
+     c8e:	80 91 1c 01 	lds	r24, 0x011C	; 0x80011c <ButtonFacePanelStr+0x4>
+     c92:	84 ff       	sbrs	r24, 4
+     c94:	0d c0       	rjmp	.+26     	; 0xcb0 <__vector_9+0x17c>
+  		{
+  			if (++Timer0CountersStr.Timer0LongPressCounter >= 300)//Если досчитали до 300 значит прошло 3 секунды.
+     c96:	80 91 33 01 	lds	r24, 0x0133	; 0x800133 <Timer0CountersStr+0x5>
+     c9a:	90 91 34 01 	lds	r25, 0x0134	; 0x800134 <Timer0CountersStr+0x6>
+     c9e:	01 96       	adiw	r24, 0x01	; 1
+     ca0:	90 93 34 01 	sts	0x0134, r25	; 0x800134 <Timer0CountersStr+0x6>
+     ca4:	80 93 33 01 	sts	0x0133, r24	; 0x800133 <Timer0CountersStr+0x5>
+     ca8:	8c 32       	cpi	r24, 0x2C	; 44
+     caa:	91 40       	sbci	r25, 0x01	; 1
+     cac:	58 f4       	brcc	.+22     	; 0xcc4 <__vector_9+0x190>
+     cae:	32 c0       	rjmp	.+100    	; 0xd14 <__vector_9+0x1e0>
+	//Считали состояние кнопок. Длится 120 uS.
+	read_button_from_face_penel();
+	cli(); //Запрет прерываний.	
+	//-------------------------
+	//Обработка длительного нажатия (не менее 3 сек). 
+ 	if ( ButtonFacePanelStr.bit.EM_BUT || get_button(LINE_CHECKER_BUTTON))
+     cb0:	82 e0       	ldi	r24, 0x02	; 2
+     cb2:	0e 94 21 05 	call	0xa42	; 0xa42 <get_button>
+     cb6:	81 11       	cpse	r24, r1
+     cb8:	ee cf       	rjmp	.-36     	; 0xc96 <__vector_9+0x162>
+  					//-------------------------
+  				}
+  		}
+  	else
+  		{
+  			Timer0CountersStr.Timer0LongPressCounter = 0;
+     cba:	10 92 34 01 	sts	0x0134, r1	; 0x800134 <Timer0CountersStr+0x6>
+     cbe:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <Timer0CountersStr+0x5>
+     cc2:	28 c0       	rjmp	.+80     	; 0xd14 <__vector_9+0x1e0>
+  			if (++Timer0CountersStr.Timer0LongPressCounter >= 300)//Если досчитали до 300 значит прошло 3 секунды.
+  				{
+  					//Timer0CountersStr.Timer0LongPressCounter = 0;
+  					//-------------------------
+  					//Длительно нажата кнопок EM. Более 5 секунд.
+  					if (ButtonFacePanelStr.bit.EM_BUT)
+     cc4:	80 91 1c 01 	lds	r24, 0x011C	; 0x80011c <ButtonFacePanelStr+0x4>
+     cc8:	84 ff       	sbrs	r24, 4
+     cca:	12 c0       	rjmp	.+36     	; 0xcf0 <__vector_9+0x1bc>
+  						{
+							if (Timer0CountersStr.Timer0LongPressCounter >= 500)
+     ccc:	80 91 33 01 	lds	r24, 0x0133	; 0x800133 <Timer0CountersStr+0x5>
+     cd0:	90 91 34 01 	lds	r25, 0x0134	; 0x800134 <Timer0CountersStr+0x6>
+     cd4:	84 3f       	cpi	r24, 0xF4	; 244
+     cd6:	91 40       	sbci	r25, 0x01	; 1
+     cd8:	e8 f0       	brcs	.+58     	; 0xd14 <__vector_9+0x1e0>
+								{
+									Timer0CountersStr.Timer0LongPressCounter = 0;
+     cda:	10 92 34 01 	sts	0x0134, r1	; 0x800134 <Timer0CountersStr+0x6>
+     cde:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <Timer0CountersStr+0x5>
+									Timer0FlagReg ^= Timer1_ConfigModeFlag; //Установка флага долгово нажатия на кнопку EM - переход в режим конфигурирования.
+     ce2:	90 91 88 00 	lds	r25, 0x0088	; 0x800088 <Timer0FlagReg>
+     ce6:	82 e0       	ldi	r24, 0x02	; 2
+     ce8:	89 27       	eor	r24, r25
+     cea:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+     cee:	12 c0       	rjmp	.+36     	; 0xd14 <__vector_9+0x1e0>
+  						}
+  					//-------------------------
+  					//Длительно нажата одна из кнопок LC.
+  					else
+  						{
+							Timer0CountersStr.Timer0LongPressCounter = 0;
+     cf0:	10 92 34 01 	sts	0x0134, r1	; 0x800134 <Timer0CountersStr+0x6>
+     cf4:	10 92 33 01 	sts	0x0133, r1	; 0x800133 <Timer0CountersStr+0x5>
+  							Timer0FlagReg |= Timer1_LCLongPressFlag;	 //Установка флага длительного нажатия на кнопку LC.
+     cf8:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     cfc:	84 60       	ori	r24, 0x04	; 4
+     cfe:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+  							Timer0FlagReg &= ~(Timer1_15secFlag);		 //Сброс флага 15 сек.
+     d02:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     d06:	8e 7f       	andi	r24, 0xFE	; 254
+     d08:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+  							Timer0CountersStr.Timer0Clock_ms_Counter = 0;//Сброс счетчика 15 сек.
+     d0c:	10 92 2e 01 	sts	0x012E, r1	; 0x80012e <Timer0CountersStr>
+  							Timer0CountersStr.Timer0SecondCounter = 0;	 //Сброс счетчика отсчета часов.
+     d10:	10 92 2f 01 	sts	0x012F, r1	; 0x80012f <Timer0CountersStr+0x1>
+  		{
+  			Timer0CountersStr.Timer0LongPressCounter = 0;
+  		}
+	//----------------------------------------------------
+	//Длительное нажатие кнопок SP при активном МИК.
+	if(toggle_button(ALL_EM_BUTTON) & EM_BUTTON)
+     d14:	86 e0       	ldi	r24, 0x06	; 6
+     d16:	0e 94 32 05 	call	0xa64	; 0xa64 <toggle_button>
+     d1a:	84 ff       	sbrs	r24, 4
+     d1c:	1b c0       	rjmp	.+54     	; 0xd54 <__vector_9+0x220>
+		{
+			//-------------------------
+			if (get_button(SPEAKER_BUTTON))
+     d1e:	84 e0       	ldi	r24, 0x04	; 4
+     d20:	0e 94 21 05 	call	0xa42	; 0xa42 <get_button>
+     d24:	88 23       	and	r24, r24
+     d26:	a1 f0       	breq	.+40     	; 0xd50 <__vector_9+0x21c>
+				{
+					Timer0CountersStr.Timer0LongPressSPButtomEMSPCounter++;
+     d28:	80 91 37 01 	lds	r24, 0x0137	; 0x800137 <Timer0CountersStr+0x9>
+     d2c:	8f 5f       	subi	r24, 0xFF	; 255
+     d2e:	80 93 37 01 	sts	0x0137, r24	; 0x800137 <Timer0CountersStr+0x9>
+					if (Timer0CountersStr.Timer0LongPressSPButtomEMSPCounter >= 100)
+     d32:	80 91 37 01 	lds	r24, 0x0137	; 0x800137 <Timer0CountersStr+0x9>
+     d36:	84 36       	cpi	r24, 0x64	; 100
+     d38:	68 f0       	brcs	.+26     	; 0xd54 <__vector_9+0x220>
+						{
+							Timer0CountersStr.Timer0LongPressSPButtomEMSPCounter = 0;
+     d3a:	10 92 37 01 	sts	0x0137, r1	; 0x800137 <Timer0CountersStr+0x9>
+							Timer1EMSelectZone ^= get_button(SPEAKER_BUTTON);
+     d3e:	84 e0       	ldi	r24, 0x04	; 4
+     d40:	0e 94 21 05 	call	0xa42	; 0xa42 <get_button>
+     d44:	90 91 68 00 	lds	r25, 0x0068	; 0x800068 <Timer1EMSelectZone>
+     d48:	89 27       	eor	r24, r25
+     d4a:	80 93 68 00 	sts	0x0068, r24	; 0x800068 <Timer1EMSelectZone>
+     d4e:	02 c0       	rjmp	.+4      	; 0xd54 <__vector_9+0x220>
+						}
+				}
+			//-------------------------
+			else
+				{
+					Timer0CountersStr.Timer0LongPressSPButtomEMSPCounter = 0;
+     d50:	10 92 37 01 	sts	0x0137, r1	; 0x800137 <Timer0CountersStr+0x9>
+				}
+			//-------------------------
+		}
+	//----------------------------------------------------
+	//Длительное нажатие кнопок при настройке блока.
+	if(Timer0FlagReg & Timer1_ConfigModeFlag)
+     d54:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     d58:	81 ff       	sbrs	r24, 1
+     d5a:	3d c0       	rjmp	.+122    	; 0xdd6 <__vector_9+0x2a2>
+		{
+			//-------------------------
+			//Длительное нажатие кнопок SP1 или SP2 при настройке блока.
+			if (get_button(SPEAKER_BUTTON) || ButtonFacePanelStr.bit.ALL_BUT)
+     d5c:	84 e0       	ldi	r24, 0x04	; 4
+     d5e:	0e 94 21 05 	call	0xa42	; 0xa42 <get_button>
+     d62:	81 11       	cpse	r24, r1
+     d64:	04 c0       	rjmp	.+8      	; 0xd6e <__vector_9+0x23a>
+     d66:	80 91 1c 01 	lds	r24, 0x011C	; 0x80011c <ButtonFacePanelStr+0x4>
+     d6a:	81 ff       	sbrs	r24, 1
+     d6c:	2f c0       	rjmp	.+94     	; 0xdcc <__vector_9+0x298>
+				{
+					Timer0CountersStr.Timer0LongPressSPButtomCounter++;
+     d6e:	80 91 35 01 	lds	r24, 0x0135	; 0x800135 <Timer0CountersStr+0x7>
+     d72:	8f 5f       	subi	r24, 0xFF	; 255
+     d74:	80 93 35 01 	sts	0x0135, r24	; 0x800135 <Timer0CountersStr+0x7>
+					//Длительное нажатие кнопок SP1 или SP2 при настройке блока.
+					if ( (Timer0CountersStr.Timer0LongPressSPButtomCounter >= Timer0CountersStr.Timer0LongPressSPButtomTimeout) && (get_button(SPEAKER_BUTTON)) )
+     d78:	90 91 35 01 	lds	r25, 0x0135	; 0x800135 <Timer0CountersStr+0x7>
+     d7c:	80 91 36 01 	lds	r24, 0x0136	; 0x800136 <Timer0CountersStr+0x8>
+     d80:	98 17       	cp	r25, r24
+     d82:	78 f0       	brcs	.+30     	; 0xda2 <__vector_9+0x26e>
+     d84:	84 e0       	ldi	r24, 0x04	; 4
+     d86:	0e 94 21 05 	call	0xa42	; 0xa42 <get_button>
+     d8a:	88 23       	and	r24, r24
+     d8c:	51 f0       	breq	.+20     	; 0xda2 <__vector_9+0x26e>
+						{
+							Timer0CountersStr.Timer0LongPressSPButtomCounter = 0;
+     d8e:	10 92 35 01 	sts	0x0135, r1	; 0x800135 <Timer0CountersStr+0x7>
+							Timer0CountersStr.Timer0LongPressSPButtomTimeout = 9;
+     d92:	89 e0       	ldi	r24, 0x09	; 9
+     d94:	80 93 36 01 	sts	0x0136, r24	; 0x800136 <Timer0CountersStr+0x8>
+							Timer0FlagReg |= Timer1_LongPressSPButtomFlag;
+     d98:	80 91 88 00 	lds	r24, 0x0088	; 0x800088 <Timer0FlagReg>
+     d9c:	80 68       	ori	r24, 0x80	; 128
+     d9e:	80 93 88 00 	sts	0x0088, r24	; 0x800088 <Timer0FlagReg>
+						}
+					//Длительное нажание на кнопку ALL при настроке блока - переход в режим тестирования индикации (световой и звуковой).
+					if ( (Timer0CountersStr.Timer0LongPressSPButtomCounter >= 255) && (ButtonFacePanelStr.bit.ALL_BUT & !ButtonFacePanelStr.bit.EM_BUT) )
+     da2:	80 91 35 01 	lds	r24, 0x0135	; 0x800135 <Timer0CountersStr+0x7>
+     da6:	8f 3f       	cpi	r24, 0xFF	; 255
+     da8:	b1 f4       	brne	.+44     	; 0xdd6 <__vector_9+0x2a2>
+     daa:	90 91 1c 01 	lds	r25, 0x011C	; 0x80011c <ButtonFacePanelStr+0x4>
+     dae:	96 95       	lsr	r25
+     db0:	91 70       	andi	r25, 0x01	; 1
+     db2:	80 91 1c 01 	lds	r24, 0x011C	; 0x80011c <ButtonFacePanelStr+0x4>
+     db6:	82 95       	swap	r24
+     db8:	81 70       	andi	r24, 0x01	; 1
+     dba:	89 17       	cp	r24, r25
+     dbc:	60 f4       	brcc	.+24     	; 0xdd6 <__vector_9+0x2a2>
+						{
+							Timer0FlagReg2 ^= Timer0_StartTestAllIndicatorsFlag;
+     dbe:	90 91 87 00 	lds	r25, 0x0087	; 0x800087 <Timer0FlagReg2>
+     dc2:	88 e0       	ldi	r24, 0x08	; 8
+     dc4:	89 27       	eor	r24, r25
+     dc6:	80 93 87 00 	sts	0x0087, r24	; 0x800087 <Timer0FlagReg2>
+     dca:	05 c0       	rjmp	.+10     	; 0xdd6 <__vector_9+0x2a2>
+						}
+					//-------------------------
+				}
+			else
+				{
+					Timer0CountersStr.Timer0LongPressSPButtomCounter = 0;
+     dcc:	10 92 35 01 	sts	0x0135, r1	; 0x800135 <Timer0CountersStr+0x7>
+					Timer0CountersStr.Timer0LongPressSPButtomTimeout = 100;
+     dd0:	84 e6       	ldi	r24, 0x64	; 100
+     dd2:	80 93 36 01 	sts	0x0136, r24	; 0x800136 <Timer0CountersStr+0x8>
+     dd6:	80 91 2d 01 	lds	r24, 0x012D	; 0x80012d <IndicatorsFacePanelStr+0xa>
+				}
+		}
+	//----------------------------------------------------
+	//Индикация защиты УМ "PROT".
+	if (PROT_PIN & PROT_LEG)
+     dda:	cb 9b       	sbis	0x19, 3	; 25
+     ddc:	02 c0       	rjmp	.+4      	; 0xde2 <__vector_9+0x2ae>
+		{
+			IndicatorsFacePanelStr.bit.PROT_LED = 0;
+     dde:	8e 7f       	andi	r24, 0xFE	; 254
+     de0:	01 c0       	rjmp	.+2      	; 0xde4 <__vector_9+0x2b0>
+		}
+	else
+		{
+			IndicatorsFacePanelStr.bit.PROT_LED = 1;
+     de2:	81 60       	ori	r24, 0x01	; 1
+     de4:	80 93 2d 01 	sts	0x012D, r24	; 0x80012d <IndicatorsFacePanelStr+0xa>
+		}
+	//----------------------------------------------------
+	//Обмен по протоколу когда адресс 2.
+	if (Timer0FlagReg2 & Timer0_StartPtotocolForRA2Flag)
+     de8:	80 91 87 00 	lds	r24, 0x0087	; 0x800087 <Timer0FlagReg2>
+		{
+			//usart_cycle_count_modify();
+		}	
+	//----------------------------------------------------
+	//Обмен по протоколу когда адресс 1.
+	if (Timer0FlagReg2 & Timer0_StartPtotocolForRA1Flag)
+     dec:	80 91 87 00 	lds	r24, 0x0087	; 0x800087 <Timer0FlagReg2>
+		{
+			//rs485_protocol();
+		}
+	//----------------------------------------------------
+}
+     df0:	ff 91       	pop	r31
+     df2:	ef 91       	pop	r30
+     df4:	bf 91       	pop	r27
+     df6:	af 91       	pop	r26
+     df8:	9f 91       	pop	r25
+     dfa:	8f 91       	pop	r24
+     dfc:	7f 91       	pop	r23
+     dfe:	6f 91       	pop	r22
+     e00:	5f 91       	pop	r21
+     e02:	4f 91       	pop	r20
+     e04:	3f 91       	pop	r19
+     e06:	2f 91       	pop	r18
+     e08:	0f 90       	pop	r0
+     e0a:	0f be       	out	0x3f, r0	; 63
+     e0c:	0f 90       	pop	r0
+     e0e:	1f 90       	pop	r1
+     e10:	18 95       	reti
+
+00000e12 <__vector_11>:
+//-----------------------------------------------------------------------------
+//Обработчик прерывания такмера0. Каждую 1 мСек.
+ISR(TIMER0_OVF_vect){
+     e12:	1f 92       	push	r1
+     e14:	0f 92       	push	r0
+     e16:	0f b6       	in	r0, 0x3f	; 63
+     e18:	0f 92       	push	r0
+     e1a:	11 24       	eor	r1, r1
+     e1c:	8f 93       	push	r24
+     e1e:	9f 93       	push	r25
+	
+	//----------------------------------------------------
+	//Начальное значение таймера.
+	TCNT0 = TIMER0_1ms_CONST;
+     e20:	86 e0       	ldi	r24, 0x06	; 6
+     e22:	82 bf       	out	0x32, r24	; 50
+	//----------------------------------------------------
+	//Формаирование задержки.
+	Timer0CountersStr.Timer0Delay++;
+     e24:	80 91 3c 01 	lds	r24, 0x013C	; 0x80013c <Timer0CountersStr+0xe>
+     e28:	90 91 3d 01 	lds	r25, 0x013D	; 0x80013d <Timer0CountersStr+0xf>
+     e2c:	01 96       	adiw	r24, 0x01	; 1
+     e2e:	90 93 3d 01 	sts	0x013D, r25	; 0x80013d <Timer0CountersStr+0xf>
+     e32:	80 93 3c 01 	sts	0x013C, r24	; 0x80013c <Timer0CountersStr+0xe>
+// 				{
+// 					usart_start_recive();
+// 				}
+// 		}
+	//----------------------------------------------------
+	if(++Timer0CountersStr.Timer0_RX_LED_Counter == TIMER0_TX_RX_LED_CONST)
+     e36:	80 91 3a 01 	lds	r24, 0x013A	; 0x80013a <Timer0CountersStr+0xc>
+     e3a:	8f 5f       	subi	r24, 0xFF	; 255
+     e3c:	80 93 3a 01 	sts	0x013A, r24	; 0x80013a <Timer0CountersStr+0xc>
+     e40:	8a 3f       	cpi	r24, 0xFA	; 250
+     e42:	31 f4       	brne	.+12     	; 0xe50 <__vector_11+0x3e>
+	{
+		RX_LED_PORT ^= RX_LED;
+     e44:	92 b3       	in	r25, 0x12	; 18
+     e46:	80 e4       	ldi	r24, 0x40	; 64
+     e48:	89 27       	eor	r24, r25
+     e4a:	82 bb       	out	0x12, r24	; 18
+		Timer0CountersStr.Timer0_RX_LED_Counter = 0;
+     e4c:	10 92 3a 01 	sts	0x013A, r1	; 0x80013a <Timer0CountersStr+0xc>
+	}
+	//----------------------------------------------------
+	if(++Timer0CountersStr.Timer0_TX_LED_Counter == TIMER0_TX_RX_LED_CONST)
+     e50:	80 91 3b 01 	lds	r24, 0x013B	; 0x80013b <Timer0CountersStr+0xd>
+     e54:	8f 5f       	subi	r24, 0xFF	; 255
+     e56:	80 93 3b 01 	sts	0x013B, r24	; 0x80013b <Timer0CountersStr+0xd>
+     e5a:	8a 3f       	cpi	r24, 0xFA	; 250
+     e5c:	31 f4       	brne	.+12     	; 0xe6a <__vector_11+0x58>
+	{
+		TX_LED_PORT ^= TX_LED;
+     e5e:	92 b3       	in	r25, 0x12	; 18
+     e60:	80 e2       	ldi	r24, 0x20	; 32
+     e62:	89 27       	eor	r24, r25
+     e64:	82 bb       	out	0x12, r24	; 18
+		Timer0CountersStr.Timer0_TX_LED_Counter = 0;
+     e66:	10 92 3b 01 	sts	0x013B, r1	; 0x80013b <Timer0CountersStr+0xd>
+	}
+	//----------------------------------------------------
+}
+     e6a:	9f 91       	pop	r25
+     e6c:	8f 91       	pop	r24
+     e6e:	0f 90       	pop	r0
+     e70:	0f be       	out	0x3f, r0	; 63
+     e72:	0f 90       	pop	r0
+     e74:	1f 90       	pop	r1
+     e76:	18 95       	reti
+
+00000e78 <crc8_calculation>:
+	UsartWorkReg.TxBufPtr	   = txBuf;
+	//----------------
+	//Запус передачи ответа на запрос.
+	//DE_RE_PORT |= DE_RE;		//перевод микросхемы RS485 на передачу.
+	UDR    = *(txBuf+0); //Отправляем первый байт.
+	UCSRB |= (1<<TXCIE); //Включение прерывания по передаче байта.
+     e78:	fc 01       	movw	r30, r24
+     e7a:	9f ef       	ldi	r25, 0xFF	; 255
+     e7c:	81 e3       	ldi	r24, 0x31	; 49
+     e7e:	61 50       	subi	r22, 0x01	; 1
+     e80:	60 f0       	brcs	.+24     	; 0xe9a <crc8_calculation+0x22>
+     e82:	21 91       	ld	r18, Z+
+     e84:	92 27       	eor	r25, r18
+     e86:	28 e0       	ldi	r18, 0x08	; 8
+     e88:	97 ff       	sbrs	r25, 7
+     e8a:	03 c0       	rjmp	.+6      	; 0xe92 <crc8_calculation+0x1a>
+     e8c:	99 0f       	add	r25, r25
+     e8e:	98 27       	eor	r25, r24
+     e90:	01 c0       	rjmp	.+2      	; 0xe94 <crc8_calculation+0x1c>
+     e92:	99 0f       	add	r25, r25
+     e94:	21 50       	subi	r18, 0x01	; 1
+     e96:	c1 f7       	brne	.-16     	; 0xe88 <crc8_calculation+0x10>
+     e98:	f2 cf       	rjmp	.-28     	; 0xe7e <crc8_calculation+0x6>
+     e9a:	89 2f       	mov	r24, r25
+     e9c:	8f 77       	andi	r24, 0x7F	; 127
+     e9e:	08 95       	ret
+
+00000ea0 <USART_Init>:
+     ea0:	81 b3       	in	r24, 0x11	; 17
+     ea2:	84 66       	ori	r24, 0x64	; 100
+     ea4:	81 bb       	out	0x11, r24	; 17
+     ea6:	82 b3       	in	r24, 0x12	; 18
+     ea8:	8b 79       	andi	r24, 0x9B	; 155
+     eaa:	82 bb       	out	0x12, r24	; 18
+     eac:	83 e0       	ldi	r24, 0x03	; 3
+     eae:	89 b9       	out	0x09, r24	; 9
+     eb0:	10 bc       	out	0x20, r1	; 32
+     eb2:	1b b8       	out	0x0b, r1	; 11
+     eb4:	88 e0       	ldi	r24, 0x08	; 8
+     eb6:	8a b9       	out	0x0a, r24	; 10
+     eb8:	86 e8       	ldi	r24, 0x86	; 134
+     eba:	80 bd       	out	0x20, r24	; 32
+     ebc:	08 95       	ret
+
+00000ebe <__vector_13>:
+	//-------------------------
+}
+//*******************************************************************************************
+//*******************************************************************************************
+//Прерывание по приему байта.
+ISR (USART_RXC_vect){
+     ebe:	1f 92       	push	r1
+     ec0:	0f 92       	push	r0
+     ec2:	0f b6       	in	r0, 0x3f	; 63
+     ec4:	0f 92       	push	r0
+     ec6:	11 24       	eor	r1, r1
+     ec8:	2f 93       	push	r18
+     eca:	3f 93       	push	r19
+     ecc:	4f 93       	push	r20
+     ece:	5f 93       	push	r21
+     ed0:	6f 93       	push	r22
+     ed2:	7f 93       	push	r23
+     ed4:	8f 93       	push	r24
+     ed6:	9f 93       	push	r25
+     ed8:	af 93       	push	r26
+     eda:	bf 93       	push	r27
+     edc:	cf 93       	push	r28
+     ede:	ef 93       	push	r30
+     ee0:	ff 93       	push	r31
+	
+	//Именно в такой последовательности вычитывать байт из UDR
+	uint8_t UCSRA_temp = UCSRA;
+     ee2:	8b b1       	in	r24, 0x0b	; 11
+	uint8_t data       = UDR;
+     ee4:	cc b1       	in	r28, 0x0c	; 12
+	//-------------------------
+	//Если байт не битый то обрабатыаем его. Если битый то пропуcкаем.
+	if((UCSRA_temp & ((1 << FE) | (1 << DOR) | (1 << UPE))) == 0)
+     ee6:	8c 71       	andi	r24, 0x1C	; 28
+     ee8:	09 f0       	breq	.+2      	; 0xeec <__vector_13+0x2e>
+     eea:	60 c0       	rjmp	.+192    	; 0xfac <__vector_13+0xee>
+	{
+		WorkRegStr.ReciveCounterByte++;
+     eec:	80 91 4b 01 	lds	r24, 0x014B	; 0x80014b <WorkRegStr+0x1>
+     ef0:	8f 5f       	subi	r24, 0xFF	; 255
+     ef2:	80 93 4b 01 	sts	0x014B, r24	; 0x80014b <WorkRegStr+0x1>
+//-----------------------------------------------------------------------------
+//Обработка принятых байт когда блок имеет адрес 2 и более.
+static void usart_recive_for_RA2(volatile uint8_t byte){
+	
+	//-------------------------
+	if ( (RxBuffer1[0] == GetStat) || (RxBuffer1[0] == RetStat_RM_D) )//Если ранее был принят первый байт запроса
+     ef6:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <RxBuffer1>
+     efa:	81 38       	cpi	r24, 0x81	; 129
+     efc:	29 f0       	breq	.+10     	; 0xf08 <__vector_13+0x4a>
+     efe:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <RxBuffer1>
+     f02:	88 38       	cpi	r24, 0x88	; 136
+     f04:	09 f0       	breq	.+2      	; 0xf08 <__vector_13+0x4a>
+     f06:	49 c0       	rjmp	.+146    	; 0xf9a <__vector_13+0xdc>
+		{
+			//-------------------------
+			//Запрос статуса блока.
+			if (RxBuffer1[0] == GetStat)
+     f08:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <RxBuffer1>
+     f0c:	81 38       	cpi	r24, 0x81	; 129
+     f0e:	e1 f5       	brne	.+120    	; 0xf88 <__vector_13+0xca>
+				{
+					//-------------------------
+					if (RxBuffer1[1] == RA_ConfigStr.STR.Address)//Если ранее был принят байт адреса.
+     f10:	90 91 8a 00 	lds	r25, 0x008A	; 0x80008a <RxBuffer1+0x1>
+     f14:	80 91 3e 01 	lds	r24, 0x013E	; 0x80013e <RA_ConfigStr>
+     f18:	98 13       	cpse	r25, r24
+     f1a:	29 c0       	rjmp	.+82     	; 0xf6e <__vector_13+0xb0>
+						{
+							//-------------------------
+							//Проверка CRC принятого запроса.
+							if (byte == crc8_calculation(&RxBuffer1[0], 2))
+     f1c:	62 e0       	ldi	r22, 0x02	; 2
+     f1e:	89 e8       	ldi	r24, 0x89	; 137
+     f20:	90 e0       	ldi	r25, 0x00	; 0
+     f22:	0e 94 3c 07 	call	0xe78	; 0xe78 <crc8_calculation>
+								{
+									//-------------------------
+									WorkRegStr.ReciveCounterByte = 0;
+     f26:	10 92 4b 01 	sts	0x014B, r1	; 0x80014b <WorkRegStr+0x1>
+									RxBuffer1[0] = 0;
+     f2a:	10 92 89 00 	sts	0x0089, r1	; 0x800089 <RxBuffer1>
+									RxBuffer1[1] = 0;
+     f2e:	10 92 8a 00 	sts	0x008A, r1	; 0x80008a <RxBuffer1+0x1>
+					//-------------------------
+					if (RxBuffer1[1] == RA_ConfigStr.STR.Address)//Если ранее был принят байт адреса.
+						{
+							//-------------------------
+							//Проверка CRC принятого запроса.
+							if (byte == crc8_calculation(&RxBuffer1[0], 2))
+     f32:	8c 13       	cpse	r24, r28
+     f34:	3b c0       	rjmp	.+118    	; 0xfac <__vector_13+0xee>
+									//??????????????????????????????????????????????????????????????????????????????
+									//UCSRB &= ~(1<<RXEN | 1<<RXCIE);///////////////////////
+									//-------------------------
+									//Если наивысший приоритет перестал вдруг отвечать когда управление было у него (например пропало питаниа или пропала связь)
+									//то через RequestQuantity запросов управление передастся другому приоритету.
+ 									if ( ++RequestCount >= RequestQuantity )
+     f36:	80 91 db 00 	lds	r24, 0x00DB	; 0x8000db <RequestCount>
+     f3a:	8f 5f       	subi	r24, 0xFF	; 255
+     f3c:	80 93 db 00 	sts	0x00DB, r24	; 0x8000db <RequestCount>
+     f40:	85 30       	cpi	r24, 0x05	; 5
+     f42:	30 f0       	brcs	.+12     	; 0xf50 <__vector_13+0x92>
+ 										{
+ 									 		RequestCount = 0;
+     f44:	10 92 db 00 	sts	0x00DB, r1	; 0x8000db <RequestCount>
+ 									 		ConsolAddress = 0;//Здесь нужно сбрасывать этот регистр по любому.
+     f48:	10 92 da 00 	sts	0x00DA, r1	; 0x8000da <ConsolAddress>
+											//ConsolAudoiChannel = 0;//////////////////
+ 									 		AdressPointer = 0;
+     f4c:	10 92 d9 00 	sts	0x00D9, r1	; 0x8000d9 <AdressPointer>
+ 										}
+									//-------------------------
+									//AdressPointer = 0;//Тут не нужно сбрасывать этот регистр.
+									CycleCount = 0;
+     f50:	10 92 dd 00 	sts	0x00DD, r1	; 0x8000dd <CycleCount+0x1>
+     f54:	10 92 dc 00 	sts	0x00DC, r1	; 0x8000dc <CycleCount>
+									IndicatorsFacePanelStr.bit.RS485_LED = 0;
+     f58:	80 91 2b 01 	lds	r24, 0x012B	; 0x80012b <IndicatorsFacePanelStr+0x8>
+     f5c:	8f 77       	andi	r24, 0x7F	; 127
+     f5e:	80 93 2b 01 	sts	0x012B, r24	; 0x80012b <IndicatorsFacePanelStr+0x8>
+									//-------------------------
+									//Запуск передачи ответа на запрос.
+									//send_request_from_RA2();
+									Timer0FlagReg2 |= Timer0_StartRequestFlag;
+     f62:	80 91 87 00 	lds	r24, 0x0087	; 0x800087 <Timer0FlagReg2>
+     f66:	84 60       	ori	r24, 0x04	; 4
+     f68:	80 93 87 00 	sts	0x0087, r24	; 0x800087 <Timer0FlagReg2>
+     f6c:	1f c0       	rjmp	.+62     	; 0xfac <__vector_13+0xee>
+						}
+					//-------------------------
+					//Адреса раньше не было.
+					else
+						{
+							if (byte == RA_ConfigStr.STR.Address)//Сохраним адрес если совпадает.
+     f6e:	8c 13       	cpse	r24, r28
+     f70:	03 c0       	rjmp	.+6      	; 0xf78 <__vector_13+0xba>
+								{
+									RxBuffer1[1] = byte;
+     f72:	c0 93 8a 00 	sts	0x008A, r28	; 0x80008a <RxBuffer1+0x1>
+     f76:	1a c0       	rjmp	.+52     	; 0xfac <__vector_13+0xee>
+								}
+							else
+								{
+									WorkRegStr.ReciveCounterByte = 0;
+     f78:	10 92 4b 01 	sts	0x014B, r1	; 0x80014b <WorkRegStr+0x1>
+									RxBuffer1[0] = 0;
+     f7c:	10 92 89 00 	sts	0x0089, r1	; 0x800089 <RxBuffer1>
+									RxBuffer1[1] = 1;
+     f80:	81 e0       	ldi	r24, 0x01	; 1
+     f82:	80 93 8a 00 	sts	0x008A, r24	; 0x80008a <RxBuffer1+0x1>
+     f86:	12 c0       	rjmp	.+36     	; 0xfac <__vector_13+0xee>
+			//-------------------------
+			else
+				{
+					//-------------------------
+					//Прием управляющей команды от консоли.
+					if (RxBuffer1[0] == RetStat_RM_D)
+     f88:	80 91 89 00 	lds	r24, 0x0089	; 0x800089 <RxBuffer1>
+     f8c:	88 38       	cpi	r24, 0x88	; 136
+     f8e:	71 f0       	breq	.+28     	; 0xfac <__vector_13+0xee>
+							//usart_recive_RetStat_RM_D(byte);
+						}
+					//-------------------------
+					else
+						{
+							WorkRegStr.ReciveCounterByte = 0;
+     f90:	10 92 4b 01 	sts	0x014B, r1	; 0x80014b <WorkRegStr+0x1>
+							RxBuffer1[0] = 0;
+     f94:	10 92 89 00 	sts	0x0089, r1	; 0x800089 <RxBuffer1>
+     f98:	09 c0       	rjmp	.+18     	; 0xfac <__vector_13+0xee>
+	//Ранее не было принято первого байта запроса.
+	else
+		{
+			//-------------------------
+			//Сохранение первого байта запроса.
+			if ( (byte == GetStat) || (byte == RetStat_RM_D) )
+     f9a:	c1 38       	cpi	r28, 0x81	; 129
+     f9c:	11 f0       	breq	.+4      	; 0xfa2 <__vector_13+0xe4>
+     f9e:	c8 38       	cpi	r28, 0x88	; 136
+     fa0:	19 f4       	brne	.+6      	; 0xfa8 <__vector_13+0xea>
+				{
+					RxBuffer1[0] = byte;
+     fa2:	c0 93 89 00 	sts	0x0089, r28	; 0x800089 <RxBuffer1>
+     fa6:	02 c0       	rjmp	.+4      	; 0xfac <__vector_13+0xee>
+				} 
+			//-------------------------
+			//сброс счетчика принятых байт.
+			else
+				{
+					WorkRegStr.ReciveCounterByte = 0;
+     fa8:	10 92 4b 01 	sts	0x014B, r1	; 0x80014b <WorkRegStr+0x1>
+	// 			WorkRegStr.ReciveCounterByte = 0;
+	// 			RxBuffer1[0] = 0;
+	// 			RxBuffer1[1] = 0;
+	// 		}
+	//-------------------------	
+}
+     fac:	ff 91       	pop	r31
+     fae:	ef 91       	pop	r30
+     fb0:	cf 91       	pop	r28
+     fb2:	bf 91       	pop	r27
+     fb4:	af 91       	pop	r26
+     fb6:	9f 91       	pop	r25
+     fb8:	8f 91       	pop	r24
+     fba:	7f 91       	pop	r23
+     fbc:	6f 91       	pop	r22
+     fbe:	5f 91       	pop	r21
+     fc0:	4f 91       	pop	r20
+     fc2:	3f 91       	pop	r19
+     fc4:	2f 91       	pop	r18
+     fc6:	0f 90       	pop	r0
+     fc8:	0f be       	out	0x3f, r0	; 63
+     fca:	0f 90       	pop	r0
+     fcc:	1f 90       	pop	r1
+     fce:	18 95       	reti
+
+00000fd0 <__vector_15>:
+//*******************************************************************************************
+//*******************************************************************************************
+//Прерывание по завершению передачи буфера.
+ISR (USART_TXC_vect){
+     fd0:	1f 92       	push	r1
+     fd2:	0f 92       	push	r0
+     fd4:	0f b6       	in	r0, 0x3f	; 63
+     fd6:	0f 92       	push	r0
+     fd8:	11 24       	eor	r1, r1
+     fda:	8f 93       	push	r24
+     fdc:	9f 93       	push	r25
+     fde:	ef 93       	push	r30
+     fe0:	ff 93       	push	r31
+	//uint8_t  txCounter = UsartWorkReg.TxCounterByte;//Счетчик переданных байт.
+	//uint8_t  txSize    = UsartWorkReg.TxBufSize;    //Количество передаваемых байт.
+	//uint8_t *TxBufPtr;     //Указатель на передающий буфер.	
+	//-------------------------
+	//Передан весь буффер?
+	if(++UsartWorkReg.TxCounterByte >= UsartWorkReg.TxBufSize)
+     fe2:	80 91 46 01 	lds	r24, 0x0146	; 0x800146 <UsartWorkReg>
+     fe6:	8f 5f       	subi	r24, 0xFF	; 255
+     fe8:	80 93 46 01 	sts	0x0146, r24	; 0x800146 <UsartWorkReg>
+     fec:	90 91 47 01 	lds	r25, 0x0147	; 0x800147 <UsartWorkReg+0x1>
+     ff0:	89 17       	cp	r24, r25
+     ff2:	10 f0       	brcs	.+4      	; 0xff8 <__vector_15+0x28>
+	{
+		UCSRB &= ~(1<<TXCIE); //Запрет прерывание по завершению передачи байта.
+     ff4:	56 98       	cbi	0x0a, 6	; 10
+     ff6:	0a c0       	rjmp	.+20     	; 0x100c <__vector_15+0x3c>
+	}
+	//-------------------------
+	//Передача байта из буфера.
+	else UDR = *(UsartWorkReg.TxBufPtr + UsartWorkReg.TxCounterByte);
+     ff8:	80 91 46 01 	lds	r24, 0x0146	; 0x800146 <UsartWorkReg>
+     ffc:	e0 91 48 01 	lds	r30, 0x0148	; 0x800148 <UsartWorkReg+0x2>
+    1000:	f0 91 49 01 	lds	r31, 0x0149	; 0x800149 <UsartWorkReg+0x3>
+    1004:	e8 0f       	add	r30, r24
+    1006:	f1 1d       	adc	r31, r1
+    1008:	80 81       	ld	r24, Z
+    100a:	8c b9       	out	0x0c, r24	; 12
+	//}
+	//-------------------------
+	//Передача байта из буфера.
+	//else UDR = TxBuffer[WorkRegStr.TransmitCounterByte];
+	//-------------------------
+}
+    100c:	ff 91       	pop	r31
+    100e:	ef 91       	pop	r30
+    1010:	9f 91       	pop	r25
+    1012:	8f 91       	pop	r24
+    1014:	0f 90       	pop	r0
+    1016:	0f be       	out	0x3f, r0	; 63
+    1018:	0f 90       	pop	r0
+    101a:	1f 90       	pop	r1
+    101c:	18 95       	reti
+
+0000101e <_exit>:
+    101e:	f8 94       	cli
+
+00001020 <__stop_program>:
+    1020:	ff cf       	rjmp	.-2      	; 0x1020 <__stop_program>

@@ -24,7 +24,7 @@
 #define I2C_SDA		(1<<PINC1)
 
 //**********************************************************
-#define I2C_MASTER_ADDR				0x32 //Адрес на который будем отзываться
+#define I2C_SLAVE_ADDR				0x32 //Адрес на который будем отзываться
 #define I2C_I_AM_SLAVE				0    //Если мы еще и слейвом работаем то 1. 
 										 //Если только мастером то 0.
 
@@ -64,27 +64,9 @@
 
 typedef void (*IIC_F)(void);//Тип указателя на функцию
 
-extern IIC_F MasterOutFunc;									// Подрбрости в сишнике. 
+extern IIC_F MasterOutFunc; // Подрбрости в сишнике. 
 extern IIC_F SlaveOutFunc;
 extern IIC_F ErrorOutFunc;
-
-
-//extern uint8_t i2c_Do;											
-//extern uint8_t i2c_InBuff[I2C_MASTER_BYTE_RX];
-//extern uint8_t i2c_OutBuff[I2C_MASTER_BYTE_TX];
-//
-//extern uint8_t i2c_SlaveIndex;
-//
-////extern uint8_t i2c_Buffer[I2C_MAX_BUF_SIZE];
-//extern uint8_t i2c_Index;
-//extern uint8_t i2c_ByteCount;
-//
-//extern uint8_t i2c_SlaveAddress;
-//extern uint8_t i2c_PageAddress[I2C_MAX_PAGE_ADDR_LENGTH];
-//
-//extern uint8_t i2c_PageAddrIndex;
-//extern uint8_t i2c_PageAddrCount;
-
 //*******************************************************************************************
 //*******************************************************************************************
 void I2C_Init(void);

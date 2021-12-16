@@ -27,18 +27,13 @@ static void lcd_send_tetrad(uint8_t byte, uint8_t type){
 //
 	//I2C_Stop(LCD_I2C);
 
-	static uint8_t txBuf[3] = {0,};
+	static volatile uint8_t txBuf[2] = {0,};
 
-	txBuf[0] = temp;
-
-	//Шлем строб E в дисплей.
-	temp |= LCD_E;
+	txBuf[0] = temp | LCD_E;//Шлем строб E в дисплей.
 	txBuf[1] = temp;
 
-	temp &= ~(LCD_E);
-	txBuf[2] = temp;
-
-	I2C_StartWrite(LCD_I2C_ADDRESS, 0, txBuf, 3);
+	I2C_StartWrite(LCD_I2C_ADDRESS, 0, txBuf, 2);
+	while(I2C_GetState() & I2C_BUSY){};
 }
 //***************************************************************
 static void lcd_send(uint8_t byte, uint8_t type){
