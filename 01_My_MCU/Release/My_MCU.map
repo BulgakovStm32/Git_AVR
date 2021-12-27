@@ -496,7 +496,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x10b4
+.text           0x00000000     0x10c0
  *(.vectors)
  .vectors       0x00000000       0x54 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
                 0x00000000                __vector_default
@@ -512,38 +512,42 @@ END GROUP
  *libprintf_flt.a:*(.progmem.data)
  *libc.a:*(.progmem.data)
  *(.progmem*)
+ .progmem.data.string1
+                0x00000054        0x5 main.o
+                0x00000054                string1
  .progmem.data.sumbolTable
-                0x00000054       0x12 my_lib/pt6964.o
-                0x00000054                sumbolTable
-                0x00000066                . = ALIGN (0x2)
+                0x00000059       0x12 my_lib/pt6964.o
+                0x00000059                sumbolTable
+                0x0000006c                . = ALIGN (0x2)
+ *fill*         0x0000006b        0x1 
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x00000066                __ctors_start = .
+                0x0000006c                __ctors_start = .
  *(.ctors)
-                0x00000066                __ctors_end = .
-                0x00000066                __dtors_start = .
+                0x0000006c                __ctors_end = .
+                0x0000006c                __dtors_start = .
  *(.dtors)
-                0x00000066                __dtors_end = .
+                0x0000006c                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000066        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
-                0x00000066                __init
+ .init0         0x0000006c        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
+                0x0000006c                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000066        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
+ .init2         0x0000006c        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x00000072       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
-                0x00000072                __do_copy_data
- .init4         0x00000088       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
-                0x00000088                __do_clear_bss
+ .init4         0x00000078       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_copy_data.o)
+                0x00000078                __do_copy_data
+ .init4         0x0000008e       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_clear_bss.o)
+                0x0000008e                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -554,138 +558,138 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x00000098        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
+ .init9         0x0000009e        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
  *(.init9)
  *(.text)
- .text          0x000000a0        0x4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
-                0x000000a0                __vector_12
-                0x000000a0                __bad_interrupt
-                0x000000a0                __vector_6
-                0x000000a0                __vector_3
-                0x000000a0                __vector_17
-                0x000000a0                __vector_7
-                0x000000a0                __vector_5
-                0x000000a0                __vector_4
-                0x000000a0                __vector_2
-                0x000000a0                __vector_8
-                0x000000a0                __vector_14
-                0x000000a0                __vector_10
-                0x000000a0                __vector_18
-                0x000000a0                __vector_20
-                0x000000a4                . = ALIGN (0x2)
+ .text          0x000000a6        0x4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.6.364/gcc/dev/atmega32a/avr5/crtatmega32a.o
+                0x000000a6                __vector_12
+                0x000000a6                __bad_interrupt
+                0x000000a6                __vector_6
+                0x000000a6                __vector_3
+                0x000000a6                __vector_17
+                0x000000a6                __vector_7
+                0x000000a6                __vector_5
+                0x000000a6                __vector_4
+                0x000000a6                __vector_2
+                0x000000a6                __vector_8
+                0x000000a6                __vector_14
+                0x000000a6                __vector_10
+                0x000000a6                __vector_18
+                0x000000a6                __vector_20
+                0x000000aa                . = ALIGN (0x2)
  *(.text.*)
  .text.startup.main
-                0x000000a4       0x42 main.o
-                0x000000a4                main
+                0x000000aa       0x48 main.o
+                0x000000aa                main
  .text.__vector_1
-                0x000000e6       0x1a main.o
-                0x000000e6                __vector_1
+                0x000000f2       0x1a main.o
+                0x000000f2                __vector_1
  .text.__vector_16
-                0x00000100       0x6a my_lib/adc.o
-                0x00000100                __vector_16
+                0x0000010c       0x6a my_lib/adc.o
+                0x0000010c                __vector_16
  .text.get_charge_indication
-                0x0000016a       0x1c my_lib/charge.o
-                0x0000016a                get_charge_indication
+                0x00000176       0x1c my_lib/charge.o
+                0x00000176                get_charge_indication
  .text.DoNothing
-                0x00000186        0x6 my_lib/i2c.o
-                0x00000186                DoNothing
+                0x00000192        0x6 my_lib/i2c.o
+                0x00000192                DoNothing
  .text.I2C_Init
-                0x0000018c       0x14 my_lib/i2c.o
-                0x0000018c                I2C_Init
+                0x00000198       0x14 my_lib/i2c.o
+                0x00000198                I2C_Init
  .text.I2C_GetState
-                0x000001a0        0x6 my_lib/i2c.o
-                0x000001a0                I2C_GetState
+                0x000001ac        0x6 my_lib/i2c.o
+                0x000001ac                I2C_GetState
  .text.__vector_19
-                0x000001a6      0x346 my_lib/i2c.o
-                0x000001a6                __vector_19
+                0x000001b2      0x346 my_lib/i2c.o
+                0x000001b2                __vector_19
  .text.I2C_StartWrite
-                0x000004ec       0x3c my_lib/i2c.o
-                0x000004ec                I2C_StartWrite
+                0x000004f8       0x3c my_lib/i2c.o
+                0x000004f8                I2C_StartWrite
  .text.lcd_send_tetrad
-                0x00000528       0x2a my_lib/Lcd_i2c_1602.o
+                0x00000534       0x2a my_lib/Lcd_i2c_1602.o
  .text.lcd_send
-                0x00000552       0x1c my_lib/Lcd_i2c_1602.o
+                0x0000055e       0x1c my_lib/Lcd_i2c_1602.o
  .text.lcd_clear
-                0x0000056e       0x10 my_lib/Lcd_i2c_1602.o
-                0x0000056e                lcd_clear
+                0x0000057a       0x10 my_lib/Lcd_i2c_1602.o
+                0x0000057a                lcd_clear
  .text.lcd_init
-                0x0000057e       0x54 my_lib/Lcd_i2c_1602.o
-                0x0000057e                lcd_init
+                0x0000058a       0x54 my_lib/Lcd_i2c_1602.o
+                0x0000058a                lcd_init
  .text.lcd_set_cursor
-                0x000005d2        0xc my_lib/Lcd_i2c_1602.o
-                0x000005d2                lcd_set_cursor
+                0x000005de        0xc my_lib/Lcd_i2c_1602.o
+                0x000005de                lcd_set_cursor
  .text.lcd_BinToDec
-                0x000005de       0x7c my_lib/Lcd_i2c_1602.o
-                0x000005de                lcd_BinToDec
+                0x000005ea       0x7c my_lib/Lcd_i2c_1602.o
+                0x000005ea                lcd_BinToDec
  .text.get_blocked_speaker_line
-                0x0000065a        0x8 my_lib/line_chacker.o
-                0x0000065a                get_blocked_speaker_line
+                0x00000666        0x8 my_lib/line_chacker.o
+                0x00000666                get_blocked_speaker_line
  .text.resistence_all_line_indicate
-                0x00000662       0xa6 my_lib/line_chacker.o
-                0x00000662                resistence_all_line_indicate
+                0x0000066e       0xa6 my_lib/line_chacker.o
+                0x0000066e                resistence_all_line_indicate
  .text.get_relay_state
-                0x00000708       0x18 my_lib/relay.o
-                0x00000708                get_relay_state
+                0x00000714       0x18 my_lib/relay.o
+                0x00000714                get_relay_state
  .text.write_byte_to_pt6964
-                0x00000720       0x2e my_lib/pt6964.o
+                0x0000072c       0x2e my_lib/pt6964.o
  .text.write_command_to_pt6964
-                0x0000074e        0xc my_lib/pt6964.o
+                0x0000075a        0xc my_lib/pt6964.o
  .text.sorting_button_bit.constprop.1
-                0x0000075a       0x62 my_lib/pt6964.o
+                0x00000766       0x62 my_lib/pt6964.o
  .text.write_data_to_face_penel
-                0x000007bc       0x52 my_lib/pt6964.o
-                0x000007bc                write_data_to_face_penel
+                0x000007c8       0x52 my_lib/pt6964.o
+                0x000007c8                write_data_to_face_penel
  .text.display_set
-                0x0000080e       0x64 my_lib/pt6964.o
-                0x0000080e                display_set
+                0x0000081a       0x64 my_lib/pt6964.o
+                0x0000081a                display_set
  .text.display_off
-                0x00000872       0x12 my_lib/pt6964.o
-                0x00000872                display_off
+                0x0000087e       0x12 my_lib/pt6964.o
+                0x0000087e                display_off
  .text.set_line_checker_led_green
-                0x00000884       0x96 my_lib/pt6964.o
-                0x00000884                set_line_checker_led_green
+                0x00000890       0x96 my_lib/pt6964.o
+                0x00000890                set_line_checker_led_green
  .text.set_line_checker_led_red
-                0x0000091a       0x96 my_lib/pt6964.o
-                0x0000091a                set_line_checker_led_red
+                0x00000926       0x96 my_lib/pt6964.o
+                0x00000926                set_line_checker_led_red
  .text.read_button_from_face_penel
-                0x000009b0      0x10c my_lib/pt6964.o
-                0x000009b0                read_button_from_face_penel
+                0x000009bc      0x10c my_lib/pt6964.o
+                0x000009bc                read_button_from_face_penel
  .text.get_button
-                0x00000abc       0x22 my_lib/pt6964.o
-                0x00000abc                get_button
+                0x00000ac8       0x22 my_lib/pt6964.o
+                0x00000ac8                get_button
  .text.toggle_button
-                0x00000ade       0x6c my_lib/pt6964.o
-                0x00000ade                toggle_button
+                0x00000aea       0x6c my_lib/pt6964.o
+                0x00000aea                toggle_button
  .text.Timers_Init
-                0x00000b4a       0x26 my_lib/timers.o
-                0x00000b4a                Timers_Init
- .text.msDelay  0x00000b70       0x3e my_lib/timers.o
-                0x00000b70                msDelay
+                0x00000b56       0x26 my_lib/timers.o
+                0x00000b56                Timers_Init
+ .text.msDelay  0x00000b7c       0x3e my_lib/timers.o
+                0x00000b7c                msDelay
  .text.__vector_9
-                0x00000bae      0x2de my_lib/timers.o
-                0x00000bae                __vector_9
+                0x00000bba      0x2de my_lib/timers.o
+                0x00000bba                __vector_9
  .text.__vector_11
-                0x00000e8c       0x56 my_lib/timers.o
-                0x00000e8c                __vector_11
+                0x00000e98       0x56 my_lib/timers.o
+                0x00000e98                __vector_11
  .text.crc8_calculation
-                0x00000ee2       0x28 my_lib/usart.o
+                0x00000eee       0x28 my_lib/usart.o
  .text.USART_Init
-                0x00000f0a       0x1e my_lib/usart.o
-                0x00000f0a                USART_Init
+                0x00000f16       0x1e my_lib/usart.o
+                0x00000f16                USART_Init
  .text.__vector_13
-                0x00000f28      0x112 my_lib/usart.o
-                0x00000f28                __vector_13
+                0x00000f34      0x112 my_lib/usart.o
+                0x00000f34                __vector_13
  .text.__vector_15
-                0x0000103a       0x4e my_lib/usart.o
-                0x0000103a                __vector_15
+                0x00001046       0x4e my_lib/usart.o
+                0x00001046                __vector_15
  .text.libgcc.div
-                0x00001088       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x00001088                __udivmodhi4
-                0x000010b0                . = ALIGN (0x2)
+                0x00001094       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x00001094                __udivmodhi4
+                0x000010bc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000010b0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000010b0                _exit
-                0x000010b0                exit
+ .fini9         0x000010bc        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x000010bc                _exit
+                0x000010bc                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -704,11 +708,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000010b0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x000010bc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000010b4                _etext = .
+                0x000010c0                _etext = .
 
-.data           0x00800060        0xa load address 0x000010b4
+.data           0x00800060        0xa load address 0x000010c0
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -753,8 +757,7 @@ END GROUP
                 0x0080006e        0x1 my_lib/charge.o
  .bss.i2c_State
                 0x0080006f        0x1 my_lib/i2c.o
- .bss.txBuf.2214
-                0x00800070        0x2 my_lib/Lcd_i2c_1602.o
+ .bss.txBuf     0x00800070        0x2 my_lib/Lcd_i2c_1602.o
  .bss.LineChackerFlagReg
                 0x00800072        0x1 my_lib/line_chacker.o
  .bss.LineCheckerRelaySost
@@ -815,8 +818,8 @@ END GROUP
                 0x00800145                UsartWorkReg
                 0x00800149                WorkRegStr
                 0x00800150                PROVIDE (__bss_end, .)
-                0x000010b4                __data_load_start = LOADADDR (.data)
-                0x000010be                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000010c0                __data_load_start = LOADADDR (.data)
+                0x000010ca                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800150        0x0
                 [!provide]                PROVIDE (__noinit_start, .)

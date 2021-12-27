@@ -30,7 +30,6 @@
 //#include "my_lib/charge.h"
 
 #include "my_lib/i2c.h"
-
 #include "my_lib/Lcd_i2c_1602.h"
 //-----------------------------------------------------------------------------
 #define PRIORITY_5	5
